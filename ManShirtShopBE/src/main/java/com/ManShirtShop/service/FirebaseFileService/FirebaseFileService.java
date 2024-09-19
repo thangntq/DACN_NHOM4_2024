@@ -31,17 +31,17 @@ public class FirebaseFileService {
 
     private Storage storage;
 
-    @EventListener
-    public void init(ApplicationReadyEvent event) {
-        try {
-            ClassPathResource serviceAccount = new ClassPathResource("firebase-service-account-key.json");
-            storage = StorageOptions.newBuilder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount.getInputStream()))
-                    .setProjectId("newmenstore-dbb2f").build().getService();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+//    @EventListener
+//    public void init(ApplicationReadyEvent event) {
+//        try {
+////            ClassPathResource serviceAccount = new ClassPathResource("firebase-service-account-key.json");
+//            storage = StorageOptions.newBuilder()
+//                    .setCredentials(GoogleCredentials.fromStream(serviceAccount.getInputStream()))
+//                    .setProjectId("newmenstore-dbb2f").build().getService();
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//    }
 
     public String saveTest(MultipartFile file) throws IOException {
         String imageName = UUID.randomUUID().toString();
@@ -60,25 +60,25 @@ public class FirebaseFileService {
         return url.toString();
     }
 
-    public String deleteFile(String url) {
-        try {
-            String fileName = 
-            url.replace("https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/", "").replace("?alt=media", "");    
-            ClassPathResource serviceAccount = new ClassPathResource("firebase-service-account-key.json");
-            String projectId = "newmenstore-dbb2f";
-            Storage storage = StorageOptions.newBuilder()
-                    .setProjectId(projectId)
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount.getInputStream()))
-                    .build()
-                    .getService();
-            String bucketName = "newmenstore-dbb2f.appspot.com";
-            Bucket bucket = storage.get(bucketName);
-            bucket.get(fileName).delete();
-            System.out.println("File deleted successfully." + fileName);
-            return "Xoá thành công";
-        } catch (Exception e) {
-            return "Xoá không thành công";
-        }
-        
-    }
+//    public String deleteFile(String url) {
+//        try {
+//            String fileName =
+//            url.replace("https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/", "").replace("?alt=media", "");
+//            ClassPathResource serviceAccount = new ClassPathResource("firebase-service-account-key.json");
+//            String projectId = "newmenstore-dbb2f";
+//            Storage storage = StorageOptions.newBuilder()
+//                    .setProjectId(projectId)
+//                    .setCredentials(GoogleCredentials.fromStream(serviceAccount.getInputStream()))
+//                    .build()
+//                    .getService();
+//            String bucketName = "newmenstore-dbb2f.appspot.com";
+//            Bucket bucket = storage.get(bucketName);
+//            bucket.get(fileName).delete();
+//            System.out.println("File deleted successfully." + fileName);
+//            return "Xoá thành công";
+//        } catch (Exception e) {
+//            return "Xoá không thành công";
+//        }
+//
+//    }
 }
