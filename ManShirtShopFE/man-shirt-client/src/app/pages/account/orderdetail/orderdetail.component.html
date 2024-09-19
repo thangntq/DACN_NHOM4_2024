@@ -1,0 +1,747 @@
+<app-breadcrumb
+  [title]="'Tài khoản'"
+  [breadcrumb]="'Tài khoản'"
+></app-breadcrumb>
+<!-- section start -->
+<section class="section-b-space">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="account-sidebar" (click)="ToggleDashboard()">
+          <a style="color: white" hre="javascript:void(0)" class="popup-btn">
+            my account
+          </a>
+        </div>
+        <div class="dashboard-left" [class.open]="openDashboard">
+          <div class="collection-mobile-back" (click)="ToggleDashboard()">
+            <span class="filter-back">
+              <i class="fa fa-angle-left" aria-hidden="true"></i> back
+            </span>
+          </div>
+          <div class="block-content">
+            <div class="info info-1">
+              <img
+                style="margin-bottom: 15px"
+                src="https://cdn-icons-png.flaticon.com/128/149/149071.png"
+                alt="15th of August"
+              />
+              <p>{{ userInfo?.fullname }}</p>
+            </div>
+            <ul>
+              <li>
+                <a routerLink="/account" class="title-info"
+                  >Thông tin tài khoản</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/orders" class="title-info active"
+                  >Đơn hàng của tôi</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/address" class="title-info"
+                  >Địa chỉ của tôi</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/history" class="title-info"
+                  >Đã xem gần đây</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="dashboard-right">
+          <div class="dashboard">
+            <!-- <div class="page-title">
+                            <h2>My Dashboard</h2>
+                        </div>
+                        <div class="welcome-msg">
+                            <p>Hello, MARK JECNO !</p>
+                            <p>From your My Account Dashboard you have the ability to view a snapshot of your recent
+                                account activity and update your account information. Select a link below to view or
+                                edit information.</p>
+                        </div> -->
+            <div *ngIf="bill" class="box-account box-info">
+              <div class="row mb-2">
+                <div class="col-sm-12">
+                  <div class="box">
+                    <div class="box-title">
+                      <h3
+                        style="
+                          font-size: 18px;
+                          font-weight: 700;
+                          padding-left: 32px;
+                          position: relative;
+                        "
+                      >
+                        <a class="back" routerLink="/account/orders"></a>Chi
+                        tiết đơn hàng #{{ bill.code }}
+                      </h3>
+                      <a href="javascript:void(0)"
+                        ><span class="note order_date"
+                          >Ngày tạo:
+                          {{
+                            bill.createTime | date : "HH:mm dd/MM/yyyy"
+                          }}</span
+                        ></a
+                      >
+                    </div>
+                    <div class="box-content">
+                      <div class="payment_status">
+                        <span class="note">Trạng thái thanh toán:</span>
+                        <span class="status_pending">
+                          <span
+                            class="span_pending"
+                            *ngIf="bill.statusPay === DA_THANH_TOAN"
+                          >
+                            Đã thanh toán
+                          </span>
+                          <span
+                            class="span_pending"
+                            *ngIf="bill.statusPay === CHUA_THANH_TOAN"
+                          >
+                            Chưa thanh toán
+                          </span>
+                        </span>
+                      </div>
+                      <div class="shipping_status">
+                        <span class="note">Trạng thái vận chuyển:</span>
+                        <span
+                          class="span_pending"
+                          *ngIf="bill.status === UNCONFIRMED"
+                        >
+                          Chưa xác nhận
+                        </span>
+                        <span
+                          class="span_pending"
+                          *ngIf="bill.status === CONFIRMED"
+                        >
+                          Đã xác nhận
+                        </span>
+                        <span
+                          class="span_pending"
+                          *ngIf="bill.status === IN_PROGRESS"
+                        >
+                          Đang giao đến bạn
+                        </span>
+                        <span class="span_" *ngIf="bill.status === COMPLETED">
+                          Hoàn thành
+                        </span>
+                        <span class="span_" *ngIf="bill.status === CANCELLED">
+                          Đã hủy
+                        </span>
+                        <span class="span_" *ngIf="bill.status === FAILED">
+                          Thất bại
+                        </span>
+                      </div>
+                      <div class="code_order">
+                        <span class="note">Mã vận đơn: {{ bill.codeGhn }}</span>
+                        <a
+                          style="
+                            color: #2196f3;
+                            font-weight: bold;
+                            text-transform: uppercase;
+                          "
+                          href=""
+                        ></a>
+                      </div>
+                      <div *ngIf="leadtime" class="shipping_status">
+                        <span class="note">Thời gian dự kiến :</span>
+                        <span class="span_pending">
+                          {{ leadtime }}
+                        </span>
+                      </div>
+                      <div *ngIf="bill.codeReturn" class="code_order">
+                        <span class="note">Đơn hàng trả :</span>
+                        <span
+                          routerLink="/account/return/{{ bill.codeReturn }}"
+                          class="span_pending"
+                          style="
+                            margin-left: 3px;
+                            cursor: pointer;
+                            color: #357ebd;
+                          "
+                        >
+                          <u>#{{ bill.codeReturn }}</u>
+                        </span>
+                      </div>
+                      <div class="row">
+                        <div
+                          class="col-xs-12 col-sm-12 col-md-12 col-lg-6 body_order"
+                        >
+                          <div class="box-address">
+                            <h2 class="title-head">Địa chỉ giao hàng</h2>
+                            <div class="address box-des">
+                              <p>
+                                <strong>{{ bill.shipName }}</strong>
+                              </p>
+                              <p>
+                                Địa chỉ: {{ bill.address }},
+                                {{ bill.wardName }}, {{ bill.districtName }},
+                                {{ bill.cityName }}
+                              </p>
+                              <p>Số điện thoại: {{ bill.shipPhone }}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="col-xs-12 col-sm-12 col-md-6 col-lg-3 body_order"
+                        >
+                          <div class="box-address">
+                            <h2 class="title-head">Thanh toán</h2>
+                            <div class="box-des">
+                              <p *ngIf="bill.paymentType == 'VNPAY'">
+                                Thanh toán qua thẻ thanh toán, ứng dụng ngân
+                                hàng VNPAY
+                              </p>
+                              <p *ngIf="bill.paymentType == 'COD'">
+                                Thanh toán khi nhận hàng
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="col-xs-12 col-sm-12 col-md-6 col-lg-3 body_order"
+                        >
+                          <div class="box-address">
+                            <h2 class="title-head">Ghi chú</h2>
+                            <div class="box-des">
+                              <p>
+                                {{ bill.note ? bill.note : "Không có ghi chú" }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                          <div class="table-order">
+                            <div class="table-responsive-block table_mobile">
+                              <table
+                                id="order_details"
+                                class="table table-cart"
+                              >
+                                <thead class="thead-default theborder">
+                                  <tr>
+                                    <th>Sản phẩm</th>
+                                    <th>Đơn giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Tổng</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr
+                                    *ngFor="
+                                      let productDetail of bill.orderDetail
+                                    "
+                                  >
+                                    <td class="link" data-title="Tên">
+                                      <div class="image_order">
+                                        <a
+                                          [routerLink]="[
+                                            '/shop/product/',
+                                            productDetail?.productDetailId?.product.name.replace(
+                                              ' ',
+                                              '-'
+                                            )
+                                          ]"
+                                          title="Áo Polo Nam Pique Mắt Chim Basic Co Giãn Thoáng Khí"
+                                          ><img
+                                            [src]="
+                                              getImageProductDetail(
+                                                productDetail?.productDetailId
+                                                  ?.product,
+                                                productDetail?.productDetailId
+                                              )[0].urlImage
+                                            "
+                                            alt=""
+                                        /></a>
+                                      </div>
+                                      <div class="content_right">
+                                        <a
+                                          [routerLink]="[
+                                            '/shop/product/',
+                                            productDetail?.productDetailId?.product.name.replace(
+                                              ' ',
+                                              '-'
+                                            )
+                                          ]"
+                                          class="title_order"
+                                          title="Áo Polo Nam Pique Mắt Chim Basic Co Giãn Thoáng Khí"
+                                        >
+                                          {{
+                                            productDetail?.productDetailId
+                                              ?.product?.name
+                                          }}</a
+                                        >
+                                        <p
+                                          style="
+                                            color: #828282;
+                                            font-size: 12px;
+                                          "
+                                        >
+                                          {{
+                                            productDetail?.productDetailId
+                                              ?.color?.name
+                                          }}
+                                          /
+                                          {{
+                                            productDetail?.productDetailId?.size
+                                              ?.code
+                                          }}
+                                        </p>
+                                        <p class="sku_order">
+                                          Mã sản phẩm:
+                                          {{
+                                            productDetail?.productDetailId
+                                              ?.product?.code
+                                          }}
+                                        </p>
+                                        <button
+                                          *ngIf="
+                                            bill.status === 3 &&
+                                            !productDetail.checkRating
+                                          "
+                                          type="button"
+                                          class="btn-new-review"
+                                          (click)="rating(productDetail)"
+                                        >
+                                          Đánh giá
+                                        </button>
+                                        <div class="bottom_mb">
+                                          <div class="sum_mb">
+                                            {{
+                                              (
+                                                productDetail?.unitprice -
+                                                (productDetail?.unitprice *
+                                                  productDetail?.discount) /
+                                                  100
+                                              ).toLocaleString("vi-VN") + "đ x "
+                                            }}
+                                          </div>
+                                          <div class="quantity_mb">
+                                            {{ " " + productDetail.quantity }}
+                                          </div>
+                                        </div>
+                                        <div class="bottom_mb">
+                                          <span
+                                            *ngIf="productDetail?.discount"
+                                            style="
+                                              text-decoration: line-through;
+                                              color: #a9a9a9;
+                                              display: block;
+                                            "
+                                          >
+                                            {{
+                                              productDetail?.unitprice.toLocaleString(
+                                                "vi-VN"
+                                              ) + "đ "
+                                            }}</span
+                                          >
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td data-title="Giá" class="price">
+                                      <div class="sum_mb">
+                                        {{
+                                          (
+                                            productDetail?.unitprice -
+                                            (productDetail?.unitprice *
+                                              productDetail?.discount) /
+                                              100
+                                          ).toLocaleString("vi-VN") + "đ "
+                                        }}
+                                        <span
+                                          *ngIf="productDetail?.discount"
+                                          style="
+                                            text-decoration: line-through;
+                                            color: #a9a9a9;
+                                            display: block;
+                                          "
+                                        >
+                                          {{
+                                            productDetail?.unitprice.toLocaleString(
+                                              "vi-VN"
+                                            ) + "đ "
+                                          }}</span
+                                        >
+                                      </div>
+                                    </td>
+                                    <td data-title="Số lượng">
+                                      {{ productDetail.quantity }}
+                                    </td>
+                                    <td data-title="Tổng" class="price numeric">
+                                      <div class="sum_mb">
+                                        {{
+                                          (
+                                            (productDetail?.unitprice -
+                                              (productDetail?.unitprice *
+                                                productDetail?.discount) /
+                                                100) *
+                                            productDetail.quantity
+                                          ).toLocaleString("vi-VN") + "đ "
+                                        }}
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <table class="table totalorders">
+                              <tfoot>
+                                <tr *ngIf="bill.voucher" class="order_summary">
+                                  <td colspan="">Khuyến mãi</td>
+                                  <td class="total money right">
+                                    -{{
+                                      voucherOrder().toLocaleString("vi-VN") +
+                                        "đ "
+                                    }}
+                                  </td>
+                                </tr>
+                                <tr class="order_summary">
+                                  <td colspan="">Phí vận chuyển</td>
+                                  <td class="total money right">
+                                    {{
+                                      bill?.freight
+                                        ? bill?.freight.toLocaleString(
+                                            "vi-VN"
+                                          ) + "đ "
+                                        : "-"
+                                    }}
+                                  </td>
+                                </tr>
+                                <tr class="order_summary order_total">
+                                  <td>Tổng tiền</td>
+                                  <td class="right">
+                                    <strong
+                                      style="color: #357ebd; font-size: 16px"
+                                      >{{
+                                        bill?.total.toLocaleString("vi-VN") +
+                                          "đ "
+                                      }}</strong
+                                    >
+                                  </td>
+                                </tr>
+                                <tr class="order_summary order_total">
+                                  <td></td>
+                                  <td class="right">
+                                    <button
+                                      *ngIf="
+                                        bill.paymentType == 'VNPAY' &&
+                                        bill.statusPay == 0
+                                      "
+                                      [routerLink]="
+                                        '/checkout/' + bill.codeCheckOut
+                                      "
+                                      style="line-height: 20px"
+                                      type="button"
+                                      class="btn btn-checkout spinner"
+                                      [ngClass]="{
+                                        'spinner--active': isCheckout
+                                      }"
+                                      [disabled]="isCheckout"
+                                    >
+                                      <span class="spinner-label"
+                                        >Thanh toán lại</span
+                                      >
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="spinner-loader"
+                                      >
+                                        <use href="#spinner"></use>
+                                      </svg>
+                                    </button>
+                                    <button
+                                      *ngIf="
+                                        bill.status === 3 && !bill.codeReturn
+                                      "
+                                      (click)="openModal()"
+                                      style="line-height: 20px"
+                                      type="button"
+                                      class="btn btn-checkout spinner"
+                                    >
+                                      <span class="spinner-label"
+                                        >Trả hàng</span
+                                      >
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tfoot>
+                            </table>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              style="display: none"
+                            >
+                              <symbol id="spinner">
+                                <svg viewBox="0 0 30 30">
+                                  <circle
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-dasharray="85%"
+                                    cx="50%"
+                                    cy="50%"
+                                    r="40%"
+                                  >
+                                    <animateTransform
+                                      attributeName="transform"
+                                      type="rotate"
+                                      from="0 15 15"
+                                      to="360 15 15"
+                                      dur="0.7s"
+                                      repeatCount="indefinite"
+                                    ></animateTransform>
+                                  </circle>
+                                </svg>
+                              </symbol>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- section end -->
+<ng-template
+  class="theme-modal"
+  #returnModal
+  let-modal
+  style="background-color: rgba(0, 0, 0, 0.5)"
+>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Trả hàng</h5>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body p-3">
+      <div class="table-order mt-0">
+        <div class="table-responsive-block table_mobile">
+          <table id="order_details" class="table table-cart">
+            <thead class="thead-default theborder">
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let productDetail of billreturn.orderDetail">
+                <td
+                  class="link"
+                  [style]="
+                    productDetail.quantity === 0 ? 'filter: grayscale(1)' : ''
+                  "
+                >
+                  <div class="image_order" style="width: auto">
+                    <a style="height: 80px"
+                      ><img
+                        [src]="
+                          getImageProductDetail(
+                            productDetail?.productDetailId?.product,
+                            productDetail?.productDetailId
+                          )[0].urlImage
+                        "
+                        alt=""
+                    /></a>
+                  </div>
+                  <div class="content_right">
+                    <a class="title_order">
+                      {{ productDetail?.productDetailId?.product?.name }}</a
+                    >
+                    <p style="color: #828282; font-size: 12px">
+                      {{ productDetail?.productDetailId?.color?.name }}
+                      /
+                      {{ productDetail?.productDetailId?.size?.code }}
+                    </p>
+                    <p class="sku_order">
+                      Số lượng:
+                      {{ getQuantity(productDetail) }}
+                    </p>
+                    <div class="grid grid-qty set-quatity-return">
+                      <div class="grid__item one-half cart_select">
+                        <div class="ajaxcart__qty input-group-btn">
+                          <button
+                            (click)="increaseQuantity(productDetail)"
+                            type="button"
+                            class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count"
+                          >
+                            +
+                          </button>
+                          <input
+                            type="text"
+                            [name]="productDetail.id"
+                            class="ajaxcart__qty-num number-sidebar"
+                            disabled
+                            [(ngModel)]="productDetail.quantity"
+                          />
+                          <button
+                            (click)="decreaseQuantity(productDetail)"
+                            type="button"
+                            class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count"
+                          >
+                            -
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="grid grid-qty">
+                    <div class="grid__item one-half cart_select">
+                      <div class="ajaxcart__qty input-group-btn">
+                        <button
+                          (click)="increaseQuantity(productDetail)"
+                          type="button"
+                          class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count"
+                        >
+                          +
+                        </button>
+                        <input
+                          type="text"
+                          [name]="productDetail.id"
+                          class="ajaxcart__qty-num number-sidebar"
+                          disabled
+                          [(ngModel)]="productDetail.quantity"
+                        />
+                        <button
+                          (click)="decreaseQuantity(productDetail)"
+                          type="button"
+                          class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count"
+                        >
+                          -
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="form-group__textarea">
+          <div class="form-group mb-0">
+            <div class="bpr-form-review-body">
+              <textarea
+                maxlength="1000"
+                id="review_body"
+                name="body"
+                rows="5"
+                placeholder="Nhập lí do"
+                [(ngModel)]="content"
+              ></textarea>
+            </div>
+          </div>
+          <div id="fileAttach" class="bpr-file-attach option">
+            <label class="next-label" for="inputFileAttach">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+                <path
+                  d="M 4 5 C 2.895 5 2 5.895 2 7 L 2 23 C 2 24.105 2.895 25 4 25 L 14.230469 25 C 14.083469 24.356 14 23.688 14 23 C 14 22.662 14.021594 22.329 14.058594 22 L 5 22 L 5 15 L 7.2890625 12.710938 C 8.2340625 11.765937 9.7659375 11.765937 10.710938 12.710938 L 15.720703 17.720703 C 17.356703 15.469703 20.004 14 23 14 C 24.851 14 26.57 14.559578 28 15.517578 L 28 7 C 28 5.895 27.105 5 26 5 L 4 5 z M 23 8 C 24.105 8 25 8.895 25 10 C 25 11.105 24.105 12 23 12 C 21.895 12 21 11.105 21 10 C 21 8.895 21.895 8 23 8 z M 23 16 C 19.134 16 16 19.134 16 23 C 16 26.866 19.134 30 23 30 C 26.866 30 30 26.866 30 23 C 30 19.134 26.866 16 23 16 z M 23 19 C 23.552 19 24 19.447 24 20 L 24 22 L 26 22 C 26.552 22 27 22.447 27 23 C 27 23.553 26.552 24 26 24 L 24 24 L 24 26 C 24 26.553 23.552 27 23 27 C 22.448 27 22 26.553 22 26 L 22 24 L 20 24 C 19.448 24 19 23.553 19 23 C 19 22.447 19.448 22 20 22 L 22 22 L 22 20 C 22 19.447 22.448 19 23 19 z"
+                ></path>
+              </svg>
+              <span>Đính kèm video</span>
+            </label>
+            <div class="MultiFile-wrap">
+              <input
+                style="color: #fff; opacity: 0; cursor: pointer"
+                type="file"
+                name="file"
+                class="with-preview MultiFile-applied"
+                value=""
+                (change)="handleFileUpload($event)"
+              />
+              <div class="MultiFile-list">
+                <div
+                  *ngFor="let file of uploadedFiles; let i = index"
+                  class="MultiFile-label"
+                >
+                  <a
+                    class="MultiFile-remove"
+                    style="cursor: pointer"
+                    (click)="removeFile(i)"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 30 30"
+                      width="30px"
+                      height="30px"
+                    >
+                      <path
+                        d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M16.414,15 c0,0,3.139,3.139,3.293,3.293c0.391,0.391,0.391,1.024,0,1.414c-0.391,0.391-1.024,0.391-1.414,0C18.139,19.554,15,16.414,15,16.414 s-3.139,3.139-3.293,3.293c-0.391,0.391-1.024,0.391-1.414,0c-0.391-0.391-0.391-1.024,0-1.414C10.446,18.139,13.586,15,13.586,15 s-3.139-3.139-3.293-3.293c-0.391-0.391-0.391-1.024,0-1.414c0.391-0.391,1.024-0.391,1.414,0C11.861,10.446,15,13.586,15,13.586 s3.139-3.139,3.293-3.293c0.391-0.391,1.024-0.391,1.414,0c0.391,0.391,0.391,1.024,0,1.414C19.554,11.861,16.414,15,16.414,15z"
+                      ></path></svg
+                  ></a>
+                  <span>
+                    <video class="MultiFile-preview" [src]="file"></video>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          (click)="sendReturn()"
+          style="line-height: 20px"
+          type="button"
+          class="btn btn-checkout spinner"
+          [ngClass]="{
+            'spinner--active': isCheckout
+          }"
+          [disabled]="isCheckout"
+        >
+          <span class="spinner-label">Gửi yêu cầu</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="spinner-loader">
+            <use href="#spinner"></use>
+          </svg>
+        </button>
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+          <symbol id="spinner">
+            <svg viewBox="0 0 30 30">
+              <circle
+                stroke="currentColor"
+                stroke-width="2"
+                fill="none"
+                stroke-linecap="round"
+                stroke-dasharray="85%"
+                cx="50%"
+                cy="50%"
+                r="40%"
+              >
+                <animateTransform
+                  attributeName="transform"
+                  type="rotate"
+                  from="0 15 15"
+                  to="360 15 15"
+                  dur="0.7s"
+                  repeatCount="indefinite"
+                ></animateTransform>
+              </circle>
+            </svg>
+          </symbol>
+        </svg>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<app-rating
+  #ratingModal
+  [product]="product"
+  [order]="bill"
+  [orderDetail]="orderDetail"
+></app-rating>

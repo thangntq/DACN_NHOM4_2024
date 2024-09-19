@@ -1,0 +1,645 @@
+<app-breadcrumb
+  [title]="product?.name"
+  [breadcrumb]="'Product'"
+></app-breadcrumb>
+<!-- section start -->
+<section class="section-b-space" style="padding-top: 20px">
+  <div class="collection-wrapper">
+    <div class="container">
+      <div class="row" style="min-height: 700px">
+        <div class="col-12 d-lg-none d-sm-block main">
+          <owl-carousel-o
+            [options]="ProductDetailsMainSliderConfig"
+            #owlCar
+            class="product-slick main-image"
+          >
+            <!-- <ng-template carouselSlide>
+              <video class="img-fluid" playsinline muted autoplay loop>
+                <source src="../../../../../assets/video/APN6080.mp4" type="video/mp4" />
+              </video>
+            </ng-template> -->
+            <ng-container
+              *ngFor="
+                let image of filterImagesByColor(selectedColor, product);
+                index as i
+              "
+            >
+              <ng-template carouselSlide [id]="i">
+                <div>
+                  <img
+                    [defaultImage]="'assets/images/product/placeholder.jpg'"
+                    [lazyLoad]="image.urlImage"
+                    [alt]="image.urlImage"
+                    class="img-fluid lazy-loading"
+                    [src]="image.urlImage"
+                  />
+                </div>
+              </ng-template>
+            </ng-container>
+          </owl-carousel-o>
+          <div class="row">
+            <div class="col-12 p-0">
+              <div class="slider-nav">
+                <owl-carousel-o
+                  [options]="ProductDetailsThumbConfig"
+                  class="product-slick"
+                >
+                  <ng-container
+                    *ngFor="
+                      let image of filterImagesByColor(selectedColor, product);
+                      index as i
+                    "
+                  >
+                    <ng-template carouselSlide [id]="i">
+                      <div class="owl-thumb" [class.active]="i == activeSlide">
+                        <img
+                          [defaultImage]="
+                            'assets/images/product/placeholder.jpg'
+                          "
+                          [lazyLoad]="image.urlImage"
+                          [alt]="image.urlImage"
+                          class="img-fluid lazy-loading"
+                          [src]="image.urlImage"
+                          (click)="owlCar.to((activeSlide = i.toString()))"
+                        />
+                      </div>
+                    </ng-template>
+                  </ng-container>
+                </owl-carousel-o>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7 d-lg-block d-none">
+          <div class="row product_image_4">
+            <!-- <div class="col-6">
+              <video class="img-fluid" playsinline muted autoplay loop>
+                <source src="../../../../../assets/video/APN6080.mp4" type="video/mp4" />
+              </video>
+            </div> -->
+            <div
+              class="col-6"
+              *ngFor="
+                let image of filterImagesByColor(selectedColor, product);
+                index as i
+              "
+            >
+              <div>
+                <img
+                  [defaultImage]="'assets/images/product/placeholder.jpg'"
+                  [lazyLoad]="image.urlImage"
+                  [alt]="image.alt"
+                  class="img-fluid lazy-loading"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 rtl-text">
+          <div *ngIf="product" class="product-right">
+            <h2>{{ product?.name }}</h2>
+            <div class="product-top d-flex align-items-center mb-1">
+              <div class="sku-product">
+                <span class="variant-sku" itemprop="sku" content="">{{
+                  product?.code
+                }}</span>
+              </div>
+              <div class="divider"></div>
+              <div class="product-sold">
+                Đã bán
+                <span class="number-product-sold">{{
+                  product?.soluongdaban
+                }}</span>
+              </div>
+              <div class="divider"></div>
+              <ngb-rating
+                [rate]="product?.rating"
+                [readonly]="true"
+                [max]="5"
+                style="font-size: 15px"
+              >
+                <ng-template let-fill="fill" let-index="index">
+                  <span
+                    [class]="
+                      fill ? 'fa fa-star checked' : 'fa fa-star nochecked'
+                    "
+                    style="margin-left: 2px"
+                  ></span> </ng-template
+              ></ngb-rating>
+              <span>(10)</span>
+            </div>
+            <div class="group-power">
+              <div class="price-box clearfix d-flex align-items-center">
+                <span class="special-price">
+                  <span class="price product-price">
+                    {{
+                      (product?.price | discount : product)?.toLocaleString(
+                        "vi-VN"
+                      )
+                    }}đ</span
+                  >
+                </span>
+                <span class="old-price" style="display: block">
+                  <del
+                    *ngIf="product?.discount"
+                    class="price product-price-old"
+                    style="display: inline"
+                  >
+                    {{ (product?.price).toLocaleString("vi-VN") + "đ" }}</del
+                  >
+                </span>
+                <span *ngIf="product?.discount" class="reduce-price"
+                  >- {{ product?.discount }}%</span
+                >
+              </div>
+            </div>
+            <div class="options-title">
+              Màu sắc: <span class="var">{{ selectedColor?.name }}</span>
+            </div>
+            <ul class="color-variant" *ngIf="getAllColors(product)?.length">
+              <li
+                *ngFor="let color of getAllColors(product)"
+                [ngClass]="{
+                  selected:
+                    selectedColor?.id === color.id ||
+                    (!selectedColor && color === getAllColors(product)[0])
+                }"
+                (click)="changeColor(color)"
+              >
+                <img
+                  class="img-fluid"
+                  [src]="filterImagesMainByColor(color, product)[0]?.urlImage"
+                  alt=""
+                />
+              </li>
+            </ul>
+            <div class="product-description border-product">
+              <h6
+                class="product-title size-text"
+                *ngIf="getAllSizes(product)?.length"
+              >
+                Kích thước
+                <span>
+                  <a
+                    style="cursor: pointer; color: #357ebd"
+                    (click)="SizeChart.openModal()"
+                    >Hướng dẫn chọn size</a
+                  >
+                </span>
+              </h6>
+              <div class="size-box" *ngIf="getAllSizes(product)?.length">
+                <ul style="max-width: 400px">
+                  <li
+                    [class.active]="selectedSize == size"
+                    *ngFor="let size of getAllSizes(product)"
+                    [ngClass]="checkSize(selectedColor, size) ? 'disabled' : ''"
+                  >
+                    <a (click)="selectSize(size)">{{
+                      size.code | titlecase
+                    }}</a>
+                  </li>
+                </ul>
+              </div>
+              <h6 class="product-title">Số lượng</h6>
+              <div class="row m-0 d-flex">
+                <div class="qty-box">
+                  <div class="input-group">
+                    <span class="input-group-prepend">
+                      <button
+                        type="button"
+                        class="btn quantity-left-minus"
+                        data-type="minus"
+                        (click)="decrement()"
+                      >
+                        <i class="fa fa-minus"></i>
+                      </button>
+                    </span>
+                    <input
+                      type="text"
+                      name="quantity"
+                      class="form-control input-number"
+                      [value]="counter"
+                      disabled
+                    />
+                    <span class="input-group-prepend">
+                      <button
+                        type="button"
+                        class="btn quantity-right-plus"
+                        data-type="plus"
+                        (click)="increment()"
+                      >
+                        <i class="fa fa-plus"></i>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+                <div class="buy">
+                  <button
+                    (click)="
+                      addToCart(
+                        getProductDetail(
+                          product.productDetail,
+                          selectedColor,
+                          selectedSize
+                        )
+                      )
+                    "
+                    type=" button"
+                    class="btn-buy"
+                  >
+                    Thêm vào giỏ hàng
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="product?.end_date" class="border-product">
+              <app-countdown [date]="product?.end_date"></app-countdown>
+            </div>
+            <!-- <div class="product-buttons">
+                        <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">add to cart</a>
+                        <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="buyNow(product)">buy now</a>
+                    </div> -->
+            <div class="border-product">
+              <h6 class="product-title">Đặc điểm nổi bật</h6>
+              <table
+                class="data table additional-attributes"
+                id="product-attribute-specs-table"
+              >
+                <tbody>
+                  <tr>
+                    <th class="col label" scope="row">Form</th>
+                    <td class="col data" data-th="Form">{{ product?.form }}</td>
+                  </tr>
+                  <tr>
+                    <th class="col label" scope="row">Thiết kế</th>
+                    <td class="col data" data-th="Thiết kế">
+                      {{ product?.design }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="col label" scope="row">Chất liệu</th>
+                    <td class="col data" data-th="Thiết kế">
+                      {{ product?.material }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="col label" scope="row">Kiểu tay</th>
+                    <td class="col data" data-th="Kiểu tay">
+                      {{ product?.sleeve }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="col label" scope="row">Cổ áo</th>
+                    <td class="col data" data-th="Kiểu tay">
+                      {{ product?.collar }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="col label" scope="row">Nhóm SP</th>
+                    <td class="col data" data-th="Nhóm sản phẩm">
+                      {{ product?.category }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="border-product">
+              <div class="product-icon">
+                <form class="d-inline-block">
+                  <button class="wishlist-btn" (click)="addToWishlist(product)">
+                    <i class="fa fa-heart"></i>
+                    <span class="title-font">Add To WishList</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div class="conatiner payment-policy-wrapper" style="padding: 24px">
+              <div class="row">
+                <div
+                  class="col-6 d-flex flex-column justify-content-start align-items-start"
+                  style="margin-bottom: -12px"
+                >
+                  <div class="d-flex flex-column align-items-center">
+                    <div class="icon">
+                      <img
+                        class="lazyload loading"
+                        src="//bizweb.dktcdn.net/100/438/408/themes/904142/assets/ic_payment_freeship.svg?1687859363393"
+                        alt="freeship"
+                        data-was-processed="true"
+                      />
+                    </div>
+                    <div class="title">
+                      Miễn phí vận chuyển<br />với mọi đơn hàng từ 498k
+                    </div>
+                    <div class="icon">
+                      <img
+                        class="lazyload loading"
+                        src="//bizweb.dktcdn.net/100/438/408/themes/904142/assets/empty-wallet-tick.svg?1687859363393"
+                        alt="cod"
+                        data-was-processed="true"
+                      />
+                    </div>
+                    <div class="title">
+                      Đa dạng phương thức <br />
+                      thanh toán <br />
+                      (VNPay, Momo, COD)
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="col-6 d-flex flex-column justify-content-start align-items-end"
+                  style="margin-bottom: -12px"
+                >
+                  <div class="d-flex flex-column align-items-center">
+                    <div class="icon">
+                      <img
+                        class="lazyload loading"
+                        src="//bizweb.dktcdn.net/100/438/408/themes/904142/assets/ic_payment_freechange.svg?1687859363393"
+                        alt="freecharge"
+                        data-was-processed="true"
+                      />
+                    </div>
+                    <div class="title">
+                      Miễn phí đổi trả tại 230+ <br />
+                      cửa hàng trong 15 ngày
+                    </div>
+                    <div class="icon">
+                      <img
+                        class="lazyload loading"
+                        src="//bizweb.dktcdn.net/100/438/408/themes/904142/assets/ic_payment_fastship.svg?1687859363393"
+                        alt="fastship"
+                        data-was-processed="true"
+                      />
+                    </div>
+                    <div class="title">
+                      Vận chuyển siêu tốc<br />nhận hàng trong ngày <br />hoặc
+                      từ 1 đến 3 ngày
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section class="tab-product m-0">
+        <div class="row">
+          <div class="col-sm-12 col-lg-7">
+            <ngb-tabset [type]="'tabs'" class="nav-material">
+              <ngb-tab>
+                <ng-template ngbTabTitle>Chi tiết sản phẩm</ng-template>
+                <ng-template ngbTabContent>
+                  <p
+                    style="line-height: 1.5"
+                    class="product-description mt-3"
+                    [innerHTML]="product?.description"
+                  ></p>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab>
+                <ng-template ngbTabTitle>Đánh giá</ng-template>
+                <ng-template ngbTabContent>
+                  <div class="sapo-product-reviews-summary">
+                    <div class="summary-filter row">
+                      <div
+                        class="sapo-product-reviews-action col-lg-5 col-12 mb-5"
+                      >
+                        <div class="bpr-summary">
+                          <meta content="5" itemprop="bestRating" />
+                          <meta content="1" itemprop="worstRating" />
+                          <div class="bpr-summary-average">
+                            <span>{{ product?.rating }}</span>
+                            <span class="max-score">/5</span>
+                          </div>
+                          <div class="sapo-product-reviews-star">
+                            <ngb-rating
+                              [rate]="product?.rating"
+                              [readonly]="true"
+                              [max]="5"
+                              style="font-size: 35px"
+                            >
+                              <ng-template let-fill="fill" let-index="index">
+                                <span
+                                  [class]="
+                                    fill
+                                      ? 'fa fa-star checked'
+                                      : 'fa fa-star nochecked'
+                                  "
+                                  style="margin-left: 2px"
+                                ></span> </ng-template
+                            ></ngb-rating>
+                          </div>
+                          <p>
+                            (<span>{{ lstRating.length }}</span>
+                            <span> đánh giá</span>)
+                          </p>
+                        </div>
+                        <!-- <button
+                          type="button"
+                          class="btn-new-review"
+                          (click)="ratingModal.openModal()"
+                        >
+                          Gửi đánh giá của bạn
+                        </button> -->
+                      </div>
+                      <div class="sapo-product-reviews-filter col-lg-6 col-12">
+                        <div class="list-filter justify-content-center">
+                          <label>
+                            <input style="display: none" />
+                            <span class="checkmark"><span>Tất cả</span></span>
+                          </label>
+                          <label>
+                            <input style="display: none" />
+                            <span class="checkmark"
+                              ><span>5 Điểm</span> (<span class="count">10</span
+                              >)</span
+                            >
+                          </label>
+                          <label>
+                            <input style="display: none" />
+                            <span class="checkmark"
+                              ><span>4 Điểm</span> (<span class="count">10</span
+                              >)</span
+                            >
+                          </label>
+                          <label>
+                            <input style="display: none" />
+                            <span class="checkmark"
+                              ><span>3 Điểm</span> (<span class="count">10</span
+                              >)</span
+                            >
+                          </label>
+                          <label>
+                            <input style="display: none" />
+                            <span class="checkmark"
+                              ><span>2 Điểm</span> (<span class="count">10</span
+                              >)</span
+                            >
+                          </label>
+                          <label>
+                            <input style="display: none" />
+                            <span class="checkmark"
+                              ><span>1 Điểm</span> (<span class="count">10</span
+                              >)</span
+                            >
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="lstRating" class="user-wrapper">
+                    <div *ngFor="let rating of lstRating" class="user-block">
+                      <div class="avatar avatar-md avatar-text avatar-circle">
+                        <div class="avatar-shape">
+                          <span class="f-s-p-20 f-w-500">{{
+                            getInitials(rating.createBy)
+                          }}</span>
+                        </div>
+                        <div class="avatar-info">
+                          <div class="avatar-name">
+                            <div class="text">{{ rating.createBy }}</div>
+                            <div
+                              class="alert-rating alert-xs alert-single alert-no-fill"
+                            >
+                              <div class="label label-xs">
+                                <i
+                                  class="fa fa-check m-r-4"
+                                  style="font-size: 15px"
+                                ></i
+                                ><span class="alert-text label-text"
+                                  >Đã mua</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="avatar-rate">
+                            <ul class="list-star">
+                              <ngb-rating
+                                [rate]="rating?.rating"
+                                [readonly]="true"
+                                [max]="5"
+                                style="font-size: 14px"
+                              >
+                                <ng-template let-fill="fill" let-index="index">
+                                  <span
+                                    [class]="
+                                      fill
+                                        ? 'fa fa-star checked'
+                                        : 'fa fa-star nochecked'
+                                    "
+                                    style="margin-left: 2px"
+                                  ></span> </ng-template
+                              ></ngb-rating>
+                            </ul>
+                          </div>
+                          <div class="avatar-para">
+                            <div class="text">
+                              {{ rating.content }}
+                            </div>
+                            <div
+                              *ngIf="rating.ratingImage"
+                              class="MultiFile-wrap"
+                            >
+                              <div class="MultiFile-list">
+                                <div class="MultiFile-label ng-star-inserted">
+                                  <span
+                                    *ngFor="
+                                      let image of rating.ratingImage.slice(
+                                        0,
+                                        2
+                                      );
+                                      let i = index
+                                    "
+                                    (click)="openImage(rating.ratingImage, i)"
+                                    openImageclass="ng-star-inserted"
+                                    style="margin-right: 5px"
+                                    ><img
+                                      class="MultiFile-preview"
+                                      [src]="image.image"
+                                  /></span>
+                                  <span
+                                    *ngIf="rating?.ratingImage[2]"
+                                    (click)="openImage(rating.ratingImage, 2)"
+                                    class="ng-star-inserted"
+                                    style="position: relative"
+                                  >
+                                    <img
+                                      class="MultiFile-preview"
+                                      [src]="rating?.ratingImage[2].image"
+                                    />
+                                    <div
+                                      *ngIf="rating.ratingImage.length > 3"
+                                      class="gallery__more"
+                                    >
+                                      +{{ rating.ratingImage.length - 3 }}
+                                    </div>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="avatar-time">
+                            <div class="text text-grayscale">
+                              {{ convertTimeAgo(rating.createTime) }}
+                            </div>
+                            <i class="fa fa-circle"></i>
+                            <div class="link link-xs">Thích</div>
+                            <i class="fa fa-circle"></i>
+                            <div
+                              class="link link-xs"
+                              aria-controls="comment-reply-invalid"
+                            >
+                              Trả lời
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="user-block reply">
+                      <div class="avatar avatar-md avatar-text avatar-circle">
+                        <div class="avatar-shape">
+                          <span class="f-s-p-20 f-w-500">VL</span>
+                        </div>
+                        <div class="avatar-info">
+                          <div class="avatar-name">
+                            <div class="text">Vũ Long</div>
+                            <span class="badge badge-grayscale badge-xxs m-l-4">Quản trị viên</span>
+                          </div>
+                          <div class="avatar-rate">
+                            <ul class="list-star">
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                            </ul>
+                          </div>
+                          <div class="avatar-para">
+                            <div class="text">Cám ơn bạn</div>
+                          </div>
+                          <div class="avatar-time">
+                            <div class="text text-grayscale">1 ngày trước</div>
+                            <i class="fa fa-circle"></i>
+                            <div class="link link-xs">Thích</div>
+                            <i class="fa fa-circle"></i>
+                            <div class="link link-xs" aria-controls="comment-reply-invalid">
+                              Trả lời
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+                  </div>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <!-- <app-related-product [type]="product?.type"></app-related-product> -->
+</section>
+<app-size-modal #sizeChart [product]="product"></app-size-modal>
+<!-- Section ends -->
+<app-rating #ratingModal [product]="product"></app-rating>

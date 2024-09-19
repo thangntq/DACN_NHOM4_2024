@@ -1,0 +1,62 @@
+[
+  {
+    "id": 157,
+    "createTime": "2023-06-16T13:35:48.084+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "NEW MEN - MANAGER",
+    "status": 0,
+    "name": "Áo thun",
+    "categoryId": 6
+  },
+  {
+    "id": 158,
+    "createTime": "2023-06-16T13:35:48.084+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "NEW MEN - MANAGER",
+    "status": 0,
+    "name": "Áo khoác",
+    "categoryId": 6
+  },
+  {
+    "id": 159,
+    "createTime": "2023-06-16T13:35:48.084+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "NEW MEN - MANAGER",
+    "status": 0,
+    "name": "Áo mưa",
+    "categoryId": 5
+  },
+  {
+    "id": 160,
+    "createTime": "2023-06-16T13:35:48.084+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "NEW MEN - MANAGER",
+    "status": 0,
+    "name": "Áo polo",
+    "categoryId": 5
+  },
+  {
+    "id": 161,
+    "createTime": "2023-06-16T13:35:48.084+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "NEW MEN - MANAGER",
+    "status": 0,
+    "name": "Áo sơ mi",
+    "categoryId": 5
+  },
+  {
+    "id": 162,
+    "createTime": "2023-06-16T13:35:48.084+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "NEW MEN - MANAGER",
+    "status": 0,
+    "name": "Áo nỉ",
+    "categoryId": 5
+  }
+]

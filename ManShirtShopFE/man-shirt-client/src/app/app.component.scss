@@ -1,0 +1,78 @@
+.zalo-chat-widget {
+  position: fixed;
+  bottom: 65px !important;
+  right: 24px !important;
+  z-index: 100 !important;
+}
+.message-chat-widget {
+  position: fixed;
+  bottom: 10px !important;
+  right: 30px !important;
+  z-index: 100 !important;
+}
+.svgico {
+  animation: pulse 2s infinite;
+  background: #ff4c3b;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  cursor: pointer;
+  height: 50px;
+  position: relative;
+  text-align: center;
+  width: 50px;
+  z-index: 4;
+}
+.svgico > svg {
+  fill: #fff;
+  height: 50px;
+  transition: opacity 0.35s ease-in-out, transform 0.35s ease-in-out;
+  width: 25px;
+}
+@media (max-width: 767px) {
+  .zalo-chat-widget {
+    position: fixed;
+    bottom: 65px !important;
+    right: 24px !important;
+    z-index: 100 !important;
+  }
+  .message-chat-widget {
+    position: fixed;
+    bottom: 10px !important;
+    right: 10px !important;
+    z-index: 100 !important;
+  }
+}
+.topbar-banner {
+  position: relative;
+}
+.lazyloaded {
+  opacity: 1;
+  -webkit-filter: blur(0);
+  filter: blur(0);
+  transition: opacity 300ms, filter 400ms;
+  -webkit-transition: opacity 300ms, filter 400ms;
+}
+@media (max-width: 991px) {
+  .topbar-banner svg {
+    top: calc(50% - 7px) !important;
+    right: 10px !important;
+    width: 14px !important;
+    height: 14px !important;
+  }
+  .topbar-banner {
+    margin-top: -2px;
+    margin-bottom: -1px;
+  }
+}
+.topbar-banner svg {
+  position: absolute;
+  top: calc(50% - 13px);
+  right: 34px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+}

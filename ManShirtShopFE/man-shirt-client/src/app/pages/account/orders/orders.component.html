@@ -1,0 +1,191 @@
+<app-breadcrumb
+  [title]="'Tài khoản'"
+  [breadcrumb]="'Tài khoản'"
+></app-breadcrumb>
+<!-- section start -->
+<section class="section-b-space">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="account-sidebar" (click)="ToggleDashboard()">
+          <a style="color: white" hre="javascript:void(0)" class="popup-btn">
+            my account
+          </a>
+        </div>
+        <div class="dashboard-left" [class.open]="openDashboard">
+          <div class="collection-mobile-back" (click)="ToggleDashboard()">
+            <span class="filter-back">
+              <i class="fa fa-angle-left" aria-hidden="true"></i> back
+            </span>
+          </div>
+          <div class="block-content">
+            <div class="info info-1">
+              <img
+                style="margin-bottom: 15px"
+                src="https://cdn-icons-png.flaticon.com/128/149/149071.png"
+                alt="15th of August"
+              />
+              <p>{{ userInfo?.fullname }}</p>
+            </div>
+            <ul>
+              <li>
+                <a routerLink="/account" class="title-info"
+                  >Thông tin tài khoản</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/orders" class="title-info active"
+                  >Đơn hàng của tôi</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/address" class="title-info"
+                  >Địa chỉ của tôi</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/history" class="title-info"
+                  >Đã xem gần đây</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="orders" class="col-lg-9">
+        <div class="dashboard-right">
+          <div class="dashboard">
+            <!-- <div class="page-title">
+                            <h2>My Dashboard</h2>
+                        </div>
+                        <div class="welcome-msg">
+                            <p>Hello, MARK JECNO !</p>
+                            <p>From your My Account Dashboard you have the ability to view a snapshot of your recent
+                                account activity and update your account information. Select a link below to view or
+                                edit information.</p>
+                        </div> -->
+            <div class="box-account box-info">
+              <div class="row mb-2">
+                <div class="col-sm-12">
+                  <div class="box">
+                    <div class="box-title">
+                      <h3 style="font-size: 18px; font-weight: 700">
+                        Đơn hàng của tôi
+                      </h3>
+                      <a href="javascript:void(0)"
+                        >{{ orders.length }} đơn hàng</a
+                      >
+                    </div>
+                    <div class="box-content">
+                      <div
+                        class="table-responsive-block tab-all"
+                        style="overflow-x: auto"
+                      >
+                        <table
+                          class="table table-cart table-order"
+                          id="my-orders-table"
+                        >
+                          <thead class="thead-default">
+                            <tr>
+                              <th>Mã đơn hàng</th>
+                              <th>Ngày mua</th>
+                              <th>Địa chỉ</th>
+                              <th>Giá trị<br />đơn hàng</th>
+                              <th>Trạng thái thanh toán</th>
+                              <th>Trạng thái vận chuyển</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let order of orders">
+                              <td>
+                                <a
+                                  routerLink="/account/orders/{{ order.code }}"
+                                  title=""
+                                  ><u>#{{ order.code }}</u></a
+                                >
+                              </td>
+                              <td>
+                                {{
+                                  order.createTime | date : "HH:mm dd/MM/yyyy"
+                                }}
+                              </td>
+                              <td>
+                                {{ order.address }}, {{ order.wardName }},
+                                {{ order.districtName }},
+                                {{ order.cityName }}
+                              </td>
+                              <td>
+                                <span class="price"
+                                  >{{
+                                    order.total.toLocaleString("vi-VN")
+                                  }}đ</span
+                                >
+                              </td>
+                              <td>
+                                <span
+                                  class="span_pending"
+                                  *ngIf="order.statusPay === DA_THANH_TOAN"
+                                >
+                                  Đã thanh toán
+                                </span>
+                                <span
+                                  class="span_"
+                                  *ngIf="order.statusPay === CHUA_THANH_TOAN"
+                                >
+                                  Chưa thanh toán
+                                </span>
+                              </td>
+                              <td>
+                                <span
+                                  class="span_pending"
+                                  *ngIf="order.status === UNCONFIRMED"
+                                >
+                                  Chưa xác nhận
+                                </span>
+                                <span
+                                  class="span_pending"
+                                  *ngIf="order.status === CONFIRMED"
+                                >
+                                  Đã xác nhận
+                                </span>
+                                <span
+                                  class="span_pending"
+                                  *ngIf="order.status === IN_PROGRESS"
+                                >
+                                  Đang xử lý
+                                </span>
+                                <span
+                                  class="span_"
+                                  *ngIf="order.status === COMPLETED"
+                                >
+                                  Hoàn thành
+                                </span>
+                                <span
+                                  class="span_"
+                                  *ngIf="order.status === CANCELLED"
+                                >
+                                  Đã hủy
+                                </span>
+                                <span
+                                  class="span_"
+                                  *ngIf="order.status === FAILED"
+                                >
+                                  Thất bại
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- section end -->

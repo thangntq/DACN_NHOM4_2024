@@ -1,0 +1,393 @@
+<app-breadcrumb
+  [title]="'Tài khoản'"
+  [breadcrumb]="'Tài khoản'"
+></app-breadcrumb>
+<!-- section start -->
+<section class="section-b-space">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="account-sidebar" (click)="ToggleDashboard()">
+          <a style="color: white" hre="javascript:void(0)" class="popup-btn">
+            my account
+          </a>
+        </div>
+        <div class="dashboard-left" [class.open]="openDashboard">
+          <div class="collection-mobile-back" (click)="ToggleDashboard()">
+            <span class="filter-back">
+              <i class="fa fa-angle-left" aria-hidden="true"></i> back
+            </span>
+          </div>
+          <div class="block-content">
+            <div class="info info-1">
+              <img
+                style="margin-bottom: 15px"
+                src="https://cdn-icons-png.flaticon.com/128/149/149071.png"
+                alt="15th of August"
+              />
+              <p>{{ userInfo?.fullname }}</p>
+              <a class="click_logout" href="/account/logout">Đăng xuất</a>
+            </div>
+            <ul>
+              <li>
+                <a routerLink="/account" class="title-info"
+                  >Thông tin tài khoản</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/orders" class="title-info active"
+                  >Đơn hàng của tôi</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/address" class="title-info"
+                  >Địa chỉ của tôi</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/history" class="title-info"
+                  >Đã xem gần đây</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="dashboard-right">
+          <div class="dashboard">
+            <!-- <div class="page-title">
+                            <h2>My Dashboard</h2>
+                        </div>
+                        <div class="welcome-msg">
+                            <p>Hello, MARK JECNO !</p>
+                            <p>From your My Account Dashboard you have the ability to view a snapshot of your recent
+                                account activity and update your account information. Select a link below to view or
+                                edit information.</p>
+                        </div> -->
+            <div *ngIf="billReturn" class="box-account box-info">
+              <div class="row mb-2">
+                <div class="col-sm-12">
+                  <div class="box">
+                    <div class="box-title">
+                      <h3
+                        style="
+                          font-size: 18px;
+                          font-weight: 700;
+                          padding-left: 32px;
+                          position: relative;
+                        "
+                      >
+                        <a
+                          class="back"
+                          routerLink="/account/orders/{{
+                            billReturn.codeOrder
+                          }}"
+                        ></a
+                        >Chi tiết đơn hàng trả #{{ billReturn.code }}
+                      </h3>
+                      <a href="javascript:void(0)"
+                        ><span class="note order_date"
+                          >Ngày tạo:
+                          {{
+                            billReturn.createTime | date : "HH:mm dd/MM/yyyy"
+                          }}</span
+                        ></a
+                      >
+                    </div>
+                    <div class="box-content">
+                      <div class="shipping_status">
+                        <span class="note">Trạng thái vận chuyển:</span>
+                        <span
+                          class="span_pending"
+                          *ngIf="billReturn.status === UNCONFIRMED"
+                        >
+                          Chưa xác nhận
+                        </span>
+                        <span
+                          class="span_pending"
+                          *ngIf="billReturn.status === CONFIRMED"
+                        >
+                          Đã xác nhận
+                        </span>
+                        <span
+                          class="span_pending"
+                          *ngIf="billReturn.status === IN_PROGRESS"
+                        >
+                          Shop đã nhận được hàng
+                        </span>
+                        <span
+                          class="span_"
+                          *ngIf="billReturn.status === COMPLETED"
+                        >
+                          Đã bị từ chối
+                        </span>
+                      </div>
+                      <div *ngIf="billReturn.codeOrder" class="code_order">
+                        <span class="note">Hóa đơn gốc :</span>
+                        <span
+                          class="span_pending"
+                          style="
+                            margin-left: 3px;
+                            color: #357ebd;
+                            cursor: pointer;
+                          "
+                        >
+                          <u
+                            routerLink="/account/orders/{{
+                              billReturn.codeOrder
+                            }}"
+                            >#{{ billReturn.codeOrder }}</u
+                          >
+                        </span>
+                      </div>
+                      <div class="row">
+                        <div
+                          class="col-xs-12 col-sm-12 col-md-12 col-lg-12 body_order"
+                        >
+                          <div class="box-address">
+                            <h2 class="title-head">Lí do</h2>
+                            <div class="box-des">
+                              <p>
+                                {{ billReturn.reason }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                          <div class="table-order">
+                            <div class="table-responsive-block table_mobile">
+                              <table
+                                id="order_details"
+                                class="table table-cart"
+                              >
+                                <thead class="thead-default theborder">
+                                  <tr>
+                                    <th>Sản phẩm</th>
+                                    <th>Đơn giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Tổng</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr
+                                    *ngFor="
+                                      let productDetail of billReturn.returnDetail
+                                    "
+                                  >
+                                    <td class="link" data-title="Tên">
+                                      <div class="image_order">
+                                        <a
+                                          [routerLink]="[
+                                            '/shop/product/',
+                                            productDetail?.oderDetailResponseAdmin?.productDetailId?.product.name.replace(
+                                              ' ',
+                                              '-'
+                                            )
+                                          ]"
+                                          title="Áo Polo Nam Pique Mắt Chim Basic Co Giãn Thoáng Khí"
+                                          ><img
+                                            [src]="
+                                              getImageProductDetail(
+                                                productDetail
+                                                  ?.oderDetailResponseAdmin
+                                                  .productDetailId?.product,
+                                                productDetail
+                                                  ?.oderDetailResponseAdmin
+                                                  .productDetailId
+                                              )[0].urlImage
+                                            "
+                                            alt=""
+                                        /></a>
+                                      </div>
+                                      <div class="content_right">
+                                        <a
+                                          [routerLink]="[
+                                            '/shop/product/',
+                                            productDetail?.oderDetailResponseAdmin?.productDetailId?.product.name.replace(
+                                              ' ',
+                                              '-'
+                                            )
+                                          ]"
+                                          class="title_order"
+                                          title="Áo Polo Nam Pique Mắt Chim Basic Co Giãn Thoáng Khí"
+                                        >
+                                          {{
+                                            productDetail
+                                              ?.oderDetailResponseAdmin
+                                              ?.productDetailId?.product?.name
+                                          }}</a
+                                        >
+                                        <p
+                                          style="
+                                            color: #828282;
+                                            font-size: 12px;
+                                          "
+                                        >
+                                          {{
+                                            productDetail
+                                              ?.oderDetailResponseAdmin
+                                              ?.productDetailId?.color?.name
+                                          }}
+                                          /
+                                          {{
+                                            productDetail
+                                              ?.oderDetailResponseAdmin
+                                              ?.productDetailId?.size?.code
+                                          }}
+                                        </p>
+                                        <p class="sku_order">
+                                          Mã sản phẩm:
+                                          {{
+                                            productDetail
+                                              ?.oderDetailResponseAdmin
+                                              ?.productDetailId?.product?.code
+                                          }}
+                                        </p>
+                                        <div class="bottom_mb">
+                                          <div class="sum_mb">
+                                            {{
+                                              (
+                                                productDetail
+                                                  ?.oderDetailResponseAdmin
+                                                  ?.unitprice -
+                                                (productDetail
+                                                  ?.oderDetailResponseAdmin
+                                                  ?.unitprice *
+                                                  productDetail
+                                                    ?.oderDetailResponseAdmin
+                                                    ?.discount) /
+                                                  100
+                                              ).toLocaleString("vi-VN") + "đ x"
+                                            }}
+                                          </div>
+                                          <div class="quantity_mb">
+                                            {{ " " + productDetail.quantity }}
+                                          </div>
+                                        </div>
+                                        <div class="bottom_mb">
+                                          <span
+                                            *ngIf="
+                                              productDetail
+                                                ?.oderDetailResponseAdmin
+                                                ?.discount
+                                            "
+                                            style="
+                                              text-decoration: line-through;
+                                              color: #a9a9a9;
+                                              display: block;
+                                            "
+                                          >
+                                            {{
+                                              productDetail?.oderDetailResponseAdmin?.unitprice.toLocaleString(
+                                                "vi-VN"
+                                              ) + "đ "
+                                            }}</span
+                                          >
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td data-title="Giá" class="price">
+                                      <div class="sum_mb">
+                                        {{
+                                          (
+                                            productDetail
+                                              ?.oderDetailResponseAdmin
+                                              ?.unitprice -
+                                            (productDetail
+                                              ?.oderDetailResponseAdmin
+                                              ?.unitprice *
+                                              productDetail
+                                                ?.oderDetailResponseAdmin
+                                                ?.discount) /
+                                              100
+                                          ).toLocaleString("vi-VN") + "đ "
+                                        }}
+                                        <span
+                                          *ngIf="
+                                            productDetail
+                                              ?.oderDetailResponseAdmin
+                                              ?.discount
+                                          "
+                                          style="
+                                            text-decoration: line-through;
+                                            color: #a9a9a9;
+                                            display: block;
+                                          "
+                                        >
+                                          {{
+                                            productDetail?.oderDetailResponseAdmin?.unitprice.toLocaleString(
+                                              "vi-VN"
+                                            ) + "đ "
+                                          }}</span
+                                        >
+                                      </div>
+                                    </td>
+                                    <td data-title="Số lượng">
+                                      {{ productDetail.quantity }}
+                                    </td>
+                                    <td data-title="Tổng" class="price numeric">
+                                      <div class="sum_mb">
+                                        {{
+                                          (
+                                            (productDetail
+                                              ?.oderDetailResponseAdmin
+                                              ?.unitprice -
+                                              (productDetail
+                                                ?.oderDetailResponseAdmin
+                                                ?.unitprice *
+                                                productDetail
+                                                  ?.oderDetailResponseAdmin
+                                                  ?.discount) /
+                                                100) *
+                                            productDetail?.quantity
+                                          ).toLocaleString("vi-VN") + "đ "
+                                        }}
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              style="display: none"
+                            >
+                              <symbol id="spinner">
+                                <svg viewBox="0 0 30 30">
+                                  <circle
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-dasharray="85%"
+                                    cx="50%"
+                                    cy="50%"
+                                    r="40%"
+                                  >
+                                    <animateTransform
+                                      attributeName="transform"
+                                      type="rotate"
+                                      from="0 15 15"
+                                      to="360 15 15"
+                                      dur="0.7s"
+                                      repeatCount="indefinite"
+                                    ></animateTransform>
+                                  </circle>
+                                </svg>
+                              </symbol>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

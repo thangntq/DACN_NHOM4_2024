@@ -1,0 +1,293 @@
+<app-loader></app-loader>
+<div class="container-fluid">
+  <app-page-title
+    title="Phiếu giảm giá"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                   <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search..."
+                  [(ngModel)]="term"
+                  />
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="text-sm-end">
+                <button
+                  type="button"
+                  class="btn btn-success btn-rounded mb-2 mr-2 me-2"
+                  (click)="openModal()"
+                >
+                  <i class="mdi mdi-plus me-1"></i> Tạo mới phiếu
+                </button>
+                
+              </div>
+            </div>
+            <!-- end col-->
+          </div>
+          <div class="table-responsive">
+            <table  class="table align-middle table-nowrap">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>code</th>
+                  <th>Tên</th>
+                  <th>Mô tả</th>
+                  <th>Phần trăm</th>
+                  <th>Ngày bắt đầu</th>
+                  <th>Ngày kết thúc</th>
+                  <th>thấp nhất</th>
+                  <th>Cao nhất</th>
+                  <th>kiểu tính</th>
+                  <th>Trạng thái</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-template #noData>
+                  <tr>
+                    <td colspan="12" class="text-center">Chưa có dữ liệu</td>
+                  </tr>
+                </ng-template>
+                <ng-container
+                  *ngIf="(materialData | filter : term)?.length; else noData"
+                >
+                  <tr
+                    *ngFor="
+                      let mateRial of osTypeDataPage | filter : term;
+                      let i = index
+                    "
+                  >
+                    <td>
+                      <div class="form-check font-size-16">
+                        <input
+                          id="customCheck{{ i }}"
+                          type="checkbox"
+                          class="form-check-input"
+                        />
+                        <label class="form-check-label" for="customCheck{{ i }}"
+                          >&nbsp;</label
+                        >
+                      </div>
+                    </td>
+                    <td>{{ mateRial.code }}</td>
+                    <td>{{ mateRial.name }}</td>
+                    <td>{{ mateRial.description }}</td>
+                    <td>{{ mateRial.discount }}</td>
+                    <td>{{ mateRial.startDate | date : "dd/MM/yyyy HH:mm"}}</td>
+                    <td>{{ mateRial.endDate | date : "dd/MM/yyyy HH:mm"}}</td>
+                    <td>{{ mateRial.min}}</td>
+                    <td>{{ mateRial.max}}</td>
+                    <td *ngIf="mateRial.type == 0">
+                      <span class="badge bg-success">theo tiền</span>
+                    </td>
+                    <td *ngIf="mateRial.type != 0">
+                      <span class="badge bg-success ">theo phần trăm</span>
+                    </td>
+                    <!-- <td>
+                      <p class="mb-1">{{ mateRial.createBy }}</p>
+                    <p class="mb-0">{{ mateRial.createTime | date : "dd/MM/yyyy HH:mm" }}</p>
+                      </td> -->
+                   <!-- <td>
+                    <p class="mb-1">{{ mateRial.updateBy }}</p>
+                    <p class="mb-0">{{ mateRial.updateTime | date : "dd/MM/yyyy HH:mm" }}</p>
+                    </td> -->
+                    <td *ngIf="mateRial.status == 0">
+                      <span class="badge bg-success">Đang hoạt động</span>
+                    </td>
+                    <td *ngIf="mateRial.status != 0">
+                      <span class="badge bg-danger">Xóa</span>
+                    </td>
+                    <td>
+                      <div
+                        class="dropdown"
+                        ngbDropdown
+                        placement="bottom-right"
+                      >
+                        <a
+                          href="javascript: void(0);"
+                          class="dropdown-toggle card-drop"
+                          data-toggle="dropdown"
+                          ngbDropdownToggle
+                          aria-expanded="false"
+                        >
+                          <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                        </a>
+                        <ul
+                          class="dropdown-menu dropdown-menu-end"
+                          ngbDropdownMenu
+                        >
+                          <li>
+                            <a
+                              (click)="deleteOsType(mateRial.id)"
+                              class="dropdown-item"
+                              ><i class="fas fa-trash-alt text-danger me-1"></i>
+                              Delete</a
+                            >
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+           <ngb-pagination
+            [(page)]="currentPage"
+            [pageSize]="itemsPerPage"
+            [collectionSize]="totalItems"
+            (pageChange)="onPageChange($event)"
+            class="pagination pagination-rounded justify-content-end mb-2"
+          >
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #content role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Ưu đãi </h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-hidden="true"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+ <div class="modal-body">
+     <form (ngSubmit)="saveOsType()" [formGroup]="formData">
+      <div class="row">
+        <div class="col-6">
+
+          <div class="mb-3">
+            <label class="control-label">Tên ưu đãi</label>
+            <input
+              class="form-control"
+              placeholder="Nhập tên ưu đãi"
+              type="text"
+              name="title"
+              autocomplete="off"
+              formControlName="name"
+              [ngClass]="{ 'is-invalid': submitted && form.name.errors }"
+            />
+            <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+              <span *ngIf="form.name.errors.required"
+                >Dữ liệu trống</span
+              >
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="control-label">Mô tả</label>
+            <input
+              class="form-control"
+              placeholder="Nhập mô tả"
+              type="text"
+              name="title"
+              autocomplete="off"
+              formControlName="description"
+              [ngClass]="{ 'is-invalid': submitted && form.description.errors }"
+            />
+            <div *ngIf="submitted && form.description.errors" class="invalid-feedback">
+              <span *ngIf="form.description.errors.required"
+                >Dữ liệu trống</span
+              >
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="control-label">Giảm theo</label>
+            <ng-select
+            [items] ="getType"
+            bindValue = "id"
+            bindLabel="name"
+            formControlName="type"
+            >
+          </ng-select>
+        </div>
+          <div class="mb-3">
+            <label class="control-label"> Phần trăm</label>
+            <input
+              class="form-control"
+              placeholder="Nhập phần trăm"
+              type="number"
+              name="title"
+              autocomplete="off"
+              formControlName="discount"
+              [ngClass]="{ 'is-invalid': submitted && form.discount.errors }"
+            />
+            <div *ngIf="submitted && form.discount.errors" class="invalid-feedback">
+              <span *ngIf="form.discount.errors.required"
+                >Dữ liệu trống</span
+              >
+            </div>
+          </div>
+
+        </div>
+        <div class="col-6">
+          <div class="mb-3 row">
+            <label>Ngày bắt đầu</label>
+            <div class="col-md-12">
+              <input class="form-control" formControlName="startDate" type="date">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label>Ngày kết thúc</label>
+            <div class="col-md-12">
+              <input class="form-control" formControlName="endDate" type="date">
+            </div>
+          </div>
+
+      <div class="mb-3">
+        <label class="control-label"> Thấp nhất</label>
+        <input
+          class="form-control"
+          placeholder="Nhập giá trị thấp nhất"
+          type="number"
+          name="title"
+          autocomplete="off"
+          formControlName="min"
+          [ngClass]="{ 'is-invalid': submitted && form.min.errors }"
+        />
+        <div *ngIf="submitted && form.min.errors" class="invalid-feedback">
+          <span *ngIf="form.min.errors.required"
+            >Dữ liệu trống</span
+          >
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="control-label"> Cao nhất</label>
+        <input
+          class="form-control"
+          placeholder="Nhập giá trị cao nhất"
+          type="number"
+          name="title"
+          autocomplete="off"
+          formControlName="max"
+          [ngClass]="{ 'is-invalid': submitted && form.max.errors }"
+        />
+        <div *ngIf="submitted && form.max.errors" class="invalid-feedback">
+          <span *ngIf="form.max.errors.required"
+            >Dữ liệu trống</span
+          >
+        </div>
+      </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" id="btn-save-event">
+        Lưu
+      </button>
+    </form>
+   </div>
+</ng-template>

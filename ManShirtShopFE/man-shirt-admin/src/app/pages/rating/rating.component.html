@@ -1,0 +1,77 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+<!-- <app-loader></app-loader> -->
+<div class="container-fluid">
+  <app-page-title title="Đánh giá" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term" />
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="text-sm-end">
+
+              </div>
+            </div>
+            <!-- end col-->
+          </div>
+          <div class="table-responsive">
+            <table class="table align-middle table-nowrap">
+              <thead>
+                <tr>
+                  <th>Ảnh</th>
+                  <th>Tên khách hàng</th>
+                  <th>Mã hoá đơn</th>
+                  <th>Sản phẩm</th>
+                  <th>Sao đánh giá</th>
+                  <th>Nội dung</th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-template #noData>
+                  <tr>
+                    <td colspan="12" class="text-center">Chưa có dữ liệu</td>
+                  </tr>
+                </ng-template>
+                <ng-container *ngIf="( ratingDataPage | filter : term)?.length; else noData">
+                  <tr *ngFor="
+                      let rating of ratingDataPage | filter : term;
+                      let i = index
+
+                    ">
+                    <td><img [src]="rating.ratingImage[0]?.image" id="expandedImg" alt="" class="avatar-md p-1">
+                    </td>
+                    <td>{{ rating.customerName }}</td>
+                    <td>{{ rating.orderId }}</td>
+                    <td>{{ rating.productId }}</td>
+                    <td>{{ rating.rating }}</td>
+                    <td style="width: 230px">
+                      {{ rating.content }}
+                    </td>
+                    <td>
+                      <div class="form-check form-switch form-switch-md mb-3">
+                        <input class="form-check-input" type="checkbox" id="SwitchCheckSizesm"
+                          [(ngModel)]="rating.status" (change)="toggleStatus($event, rating)">
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <ngb-pagination [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="totalItems"
+            (pageChange)="onPageChange($event)" class="pagination pagination-rounded justify-content-end mb-2">
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

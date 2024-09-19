@@ -1,0 +1,288 @@
+<!-- <app-breadcrumb [title]="'Login'" [breadcrumb]="'Login'"></app-breadcrumb> -->
+<!-- section start -->
+<section class="login-page section-b-space">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 login-card right-login">
+        <h1><span>ĐĂNG</span> KÝ</h1>
+        <div class="theme-card">
+          <form
+            [formGroup]="registerForm"
+            (submit)="register()"
+            class="theme-form"
+          >
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control mb-1"
+                placeholder="Họ và tên"
+                formControlName="fullName"
+              />
+              <div
+                *ngIf="registerForm.controls.fullName.invalid && isSubmit"
+                class="page-signup-error px-1"
+              >
+                <div>Vui lòng nhập Họ và tên</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control mb-1"
+                placeholder="Số điện thoại"
+                formControlName="phoneNumber"
+              />
+              <div
+                *ngIf="registerForm.controls.phoneNumber.invalid && isSubmit"
+                class="page-signup-error px-1"
+              >
+                <div>Vui lòng nhập Số điện thoại</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control mb-1"
+                placeholder="Địa chỉ email"
+                formControlName="email"
+              />
+              <div
+                *ngIf="registerForm.controls.email.errors?.required && isSubmit"
+                class="page-signup-error px-1"
+              >
+                <div>Vui lòng nhập Email</div>
+              </div>
+              <div
+                *ngIf="registerForm.controls.email.errors?.email && isSubmit"
+                class="page-signup-error px-1"
+              >
+                <div>Email không hợp lệ</div>
+              </div>
+            </div>
+            <div class="form-group" style="position: relative">
+              <input
+                [type]="isShowPassword ? 'text' : 'password'"
+                class="form-control mb-1"
+                placeholder="Mật khẩu"
+                formControlName="password"
+              />
+              <div
+                *ngIf="
+                  registerForm.controls.password.errors?.required && isSubmit
+                "
+                class="page-signup-error px-1"
+              >
+                <div>Vui lòng nhập mật khẩu</div>
+              </div>
+              <div
+                *ngIf="
+                  (registerForm.controls.password.errors?.minlength ||
+                    registerForm.controls.password.errors?.maxlength) &&
+                  isSubmit
+                "
+                class="page-signup-error px-1"
+              >
+                <div>Mật khẩu dài từ 6 đến 50 ký tự</div>
+              </div>
+              <span (click)="isShowPassword = !isShowPassword" class="showpass"
+                ><i
+                  *ngIf="!isShowPassword"
+                  class="fa fa-eye"
+                  aria-hidden="true"
+                ></i
+                ><i
+                  *ngIf="isShowPassword"
+                  class="fa fa-eye-slash"
+                  aria-hidden="true"
+                ></i
+              ></span>
+            </div>
+            <div class="form-group" style="position: relative">
+              <input
+                [type]="isShowConfirmPassword ? 'text' : 'password'"
+                class="form-control mb-1"
+                placeholder="Xác nhận mật khẩu"
+                formControlName="confirmPassword"
+              />
+              <div
+                *ngIf="
+                  isSubmit &&
+                  registerForm.controls.confirmPassword.errors?.required
+                "
+                class="page-signup-error px-1"
+              >
+                <div>Mật khẩu xác nhận không khớp</div>
+              </div>
+              <div
+                *ngIf="
+                  !passwordMatchValidator() &&
+                  isSubmit &&
+                  !registerForm.controls.confirmPassword.errors?.required &&
+                  !registerForm.controls.password.invalid
+                "
+                class="page-signup-error px-1"
+              >
+                <div>Mật khẩu xác nhận không khớp</div>
+              </div>
+              <span
+                (click)="isShowConfirmPassword = !isShowConfirmPassword"
+                class="showpass"
+                ><i
+                  *ngIf="!isShowConfirmPassword"
+                  class="fa fa-eye"
+                  aria-hidden="true"
+                ></i
+                ><i
+                  *ngIf="isShowConfirmPassword"
+                  class="fa fa-eye-slash"
+                  aria-hidden="true"
+                ></i
+              ></span>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-checkout spinner"
+              [ngClass]="{ 'spinner--active': isLoading }"
+              [disabled]="isLoading"
+            >
+              <span class="spinner-label">ĐĂNG KÝ</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="spinner-loader">
+                <use href="#spinner"></use>
+              </svg>
+            </button>
+          </form>
+          <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+            <symbol id="spinner">
+              <svg viewBox="0 0 30 30">
+                <circle
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-dasharray="85%"
+                  cx="50%"
+                  cy="50%"
+                  r="40%"
+                >
+                  <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    from="0 15 15"
+                    to="360 15 15"
+                    dur="0.7s"
+                    repeatCount="indefinite"
+                  ></animateTransform>
+                </circle>
+              </svg>
+            </symbol>
+          </svg>
+          <div class="page-signup-redirect-login page-signup-text">
+            <span>Bạn đã có tài khoản?</span>
+            <a routerLink="/login">Đăng nhập ngay!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Section ends-->
+<ng-template class="theme-modal" #sendCode let-modal>
+  <div class="modal-content">
+    <div class="modal-body p-3">
+      <form>
+        <div class="J1i6cp">
+          <div class="gZNAGg">
+            <div class="ZqWCFj">
+              <div class="v2Lbca Efn4Xp">
+                <div class="GpqIkE">Nhập mã xác nhận</div>
+              </div>
+            </div>
+          </div>
+          <div class="yXry6s B-fiUo">
+            <div></div>
+            <div class="_66LxYw">Mã xác minh của bạn sẽ được gửi đến</div>
+            <div class="QB3Rcf">
+              <div class="REgXqn">
+                {{ maskEmail(registerForm.get("email").value) }}
+              </div>
+            </div>
+            <div class="BZOjMA">
+              <div class="hBZjRj">
+                <input
+                  class="WZp32T"
+                  type="tel"
+                  autocomplete="one-time-code"
+                  maxlength="6"
+                  name="verificationCode"
+                  [(ngModel)]="verificationCode"
+                />
+                <div class="_29bVQs">
+                  <div class="EwAdvD"></div>
+                  <div class="EwAdvD"></div>
+                  <div class="EwAdvD"></div>
+                  <div class="EwAdvD"></div>
+                  <div class="EwAdvD"></div>
+                  <div class="EwAdvD"></div>
+                </div>
+              </div>
+            </div>
+            <div class="jjZYAs">
+              <div *ngIf="formattedCountdown && !countdownEnded">
+                {{ formattedCountdown }}
+              </div>
+              <div *ngIf="countdownEnded" class="-8CgIK">
+                Bạn vẫn chưa nhận được?
+              </div>
+              <div *ngIf="countdownEnded">
+                <span
+                  style="cursor: pointer"
+                  (click)="sendAgain()"
+                  class="_1vRGRJ DTS0VZ"
+                  >Gửi lại</span
+                >
+              </div>
+            </div>
+            <button
+              class="btn btn-checkout spinner"
+              [ngClass]="{ 'spinner--active': isLoadingRegister }"
+              (click)="confirmRegister()"
+              [disabled]="isLoadingRegister"
+            >
+              <span class="spinner-label">Xác nhận</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="spinner-loader">
+                <use href="#spinner1"></use>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </form>
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+        <symbol id="spinner1">
+          <svg viewBox="0 0 30 30">
+            <circle
+              stroke="currentColor"
+              stroke-width="2"
+              fill="none"
+              stroke-linecap="round"
+              stroke-dasharray="85%"
+              cx="50%"
+              cy="50%"
+              r="40%"
+            >
+              <animateTransform
+                attributeName="transform"
+                type="rotate"
+                from="0 15 15"
+                to="360 15 15"
+                dur="0.7s"
+                repeatCount="indefinite"
+              ></animateTransform>
+            </circle>
+          </svg>
+        </symbol>
+      </svg>
+    </div>
+  </div>
+</ng-template>

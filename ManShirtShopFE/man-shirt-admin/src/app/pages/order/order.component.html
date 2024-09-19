@@ -1,0 +1,171 @@
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading>
+<div class="container-fluid">
+  <app-page-title
+    title="ĐƠN HÀNG"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search..."
+                    [(ngModel)]="term"
+                  />
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-sm-8">
+              <div class="text-sm-end">
+                <button type="button" class="btn btn-success btn-rounded mb-2 me-2">
+                  <i class="mdi mdi-plus mr-1"></i> Add New Order
+                </button>
+              </div>
+            </div> -->
+            <!-- end col-->
+          </div>
+          <ul
+            ngbNav
+            #customNav="ngbNav"
+            [activeId]="navActive"
+            class="nav nav-tabs nav-tabs-custom nav-success mb-3"
+          >
+            <!-- <li [ngbNavItem]="10" class="nav-item">
+              <a class="nav-link py-3 font-size-14" data-bs-toggle="tab" role="tab" aria-selected="true" ngbNavLink>
+                <i class="mdi mdi-shopping me-1 align-bottom"></i> Tất cả các
+                đơn đặt hàng
+              </a>
+            </li> -->
+            <li [ngbNavItem]="0" class="nav-item" (click)="getOrder(0)">
+              <a
+                ngbNavLink
+                class="nav-link py-3 font-size-14"
+                data-bs-toggle="tab"
+                role="tab"
+                aria-selected="false"
+              >
+                <i class="mdi mdi-book-alert-outline me-1 align-bottom"></i> Chờ
+                duyệt
+                <span *ngIf="count" class="badge bg-danger align-middle ms-1">{{
+                  count
+                }}</span>
+              </a>
+            </li>
+            <li [ngbNavItem]="1" class="nav-item" (click)="getOrder(1)">
+              <a
+                ngbNavLink
+                class="nav-link py-3 font-size-14"
+                data-bs-toggle="tab"
+                role="tab"
+                aria-selected="false"
+              >
+                <i class="mdi mdi-check-circle-outline me-1 align-bottom"></i>
+                Chuẩn bị hàng
+              </a>
+            </li>
+            <li [ngbNavItem]="2" class="nav-item" (click)="getOrder(2)">
+              <a
+                ngbNavLink
+                class="nav-link py-3 font-size-14"
+                data-bs-toggle="tab"
+                role="tab"
+                aria-selected="false"
+              >
+                <i class="mdi mdi-truck me-1 align-bottom"></i> Đang giao
+                <!-- <span class="badge bg-danger align-middle ms-1">1</span> -->
+              </a>
+            </li>
+            <li [ngbNavItem]="3" class="nav-item" (click)="getOrder(3)">
+              <a
+                ngbNavLink
+                class="nav-link py-3 font-size-14"
+                data-bs-toggle="tab"
+                role="tab"
+                aria-selected="false"
+              >
+                <i class="mdi mdi-clipboard-arrow-left me-1 align-bottom"></i>
+                Thành công
+              </a>
+            </li>
+            <li [ngbNavItem]="4" class="nav-item" (click)="getOrder(4)">
+              <a
+                ngbNavLink
+                class="nav-link py-3 font-size-14"
+                data-bs-toggle="tab"
+                role="tab"
+                aria-selected="false"
+              >
+                <i class="mdi mdi-close-circle-outline me-1 align-bottom"></i>
+                Đã hủy
+              </a>
+            </li>
+            <li [ngbNavItem]="5" class="nav-item" (click)="getOrder(5)">
+              <a
+                ngbNavLink
+                class="nav-link py-3 font-size-14"
+                data-bs-toggle="tab"
+                role="tab"
+                aria-selected="false"
+              >
+                <i class="mdi mdi-close-circle-outline me-1 align-bottom"></i>
+                Thất bại
+              </a>
+            </li>
+          </ul>
+          <!-- Table data -->
+          <ng-container *ngIf="orders">
+            <app-transaction
+              [onLoadingChanged]="onLoadingChanged"
+              [orders]="orders | filter : term"
+            ></app-transaction>
+          </ng-container>
+          <ul class="pagination pagination-rounded justify-content-end mb-2">
+            <li class="page-item disabled">
+              <a
+                class="page-link"
+                href="javascript: void(0);"
+                aria-label="Previous"
+              >
+                <i class="mdi mdi-chevron-left"></i>
+              </a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="javascript: void(0);">1</a>
+            </li>
+            <!-- <li class="page-item">
+              <a class="page-link" href="javascript: void(0);">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript: void(0);">3</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript: void(0);">4</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript: void(0);">5</a>
+            </li> -->
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="javascript: void(0);"
+                aria-label="Next"
+              >
+                <i class="mdi mdi-chevron-right"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

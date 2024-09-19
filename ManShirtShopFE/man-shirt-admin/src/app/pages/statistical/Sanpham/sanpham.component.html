@@ -1,0 +1,193 @@
+
+<div class="row">
+  <div class="col-12">
+
+    <div class="card">
+      <label for=""> Sản phẩm theo time</label>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-sm-3">
+            <div class="search-box me-2 mb-2 d-inline-block">
+
+            </div>
+          </div>
+          <div class="col-sm-6" style="margin-bottom: 20px;">
+            <div class="modal-body" >
+              <form  (ngSubmit)="saveProductTime()" [formGroup] = "formData" >
+                  <div class="col-12" style="display: flex;">
+                    <div class="col-5">
+                        <label>Ngày bắt đầu</label>
+                        <div class="col-md-10">
+                          <input class="form-control" formControlName="startDate" type="date">
+                        </div>
+                      </div>
+                      <div class="col-5">
+                        <label>Ngày kết thúc</label>
+                        <div class="col-md-10">
+                          <input class="form-control" formControlName="endDate" type="date">
+                        </div>
+                      </div>
+
+                <div class="col-2" style="margin-top: 10px;">
+                <button  type="submit" class="btn btn-success" id="btn-save-event">
+                  Tìm kiếm
+                </button>
+              </div>
+              </div>
+              </form>
+          </div>
+        </div>
+
+
+        <div class="table-responsive">
+          <table class="table align-middle table-nowrap">
+            <thead>
+              <tr>
+
+                <th>Tên</th>
+                <th>kiểu dáng</th>
+                <th>Số lượng bán</th>
+                <th>Tổng tiền bán</th>
+
+              </tr>
+            </thead>
+
+            <tbody>
+              <ng-template #noData>
+                <tr>
+                  <td colspan="8" class="text-center">
+
+
+                    <h5 class="mt-4">Chọn ngày tháng để thống kê</h5>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-container
+                *ngIf="(getProductTime | filter : term)?.length; else noData"
+              >
+                <tr
+                  *ngFor="
+                    let sanphamsta of sanphamStaDataDp | filter : term;
+                    let i = index
+                  "
+                >
+                  <td>{{ sanphamsta.fullName }}</td>
+                  <td>{{ sanphamsta.nameDe }}</td>
+                  <td>{{ sanphamsta.quantity }}</td>
+                  <td>{{ sanphamsta.total | number }} VNĐ</td>
+
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <ngb-pagination
+        [(page)]="currentPage1"
+        [pageSize]="itemsPerPage1"
+        [collectionSize]="totalItems1"
+        (pageChange)="onPageChange($event)"
+        class="pagination pagination-rounded justify-content-end mb-2"
+      >
+      </ngb-pagination>
+      </div>
+
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-12">
+
+    <div class="card">
+      <label for=""> Sản phẩm theo Discount</label>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-sm-3">
+            <div class="search-box me-2 mb-2 d-inline-block">
+
+            </div>
+          </div>
+          <div class="col-sm-6" style="margin-bottom: 20px;">
+            <div class="modal-body" >
+              <form (ngSubmit)="saveProductByDiscount()" [formGroup] = "formData1">
+                  <div class="col-12" style="display: flex;">
+                    <div class="col-6" style="margin-right: 30px;">
+                      <label class="control-label">Discount</label>
+                      <ng-select [items]="discountData" bindValue="id" bindLabel="name"
+                      formControlName="discountId"></ng-select>
+                  </div>
+
+                <div class="col-4" style="margin-top: 10px;">
+                <button type="submit" class="btn btn-success" id="btn-save-event">
+                  Tìm kiếm
+                 </button>
+              </div>
+              </div>
+              </form>
+          </div>
+        </div>
+          <div class="col-sm-2">
+            <div class="text-sm-end">
+
+
+
+            </div>
+          </div>
+          <!-- end col-->
+
+        <div class="table-responsive">
+          <table class="table align-middle table-nowrap">
+            <thead>
+              <tr>
+
+                <th>Tên</th>
+                <th>kiểu dáng</th>
+                <th>Số lượng bán</th>
+                <th>Tổng tiền bán</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-template #noData>
+                <tr>
+                  <td colspan="8" class="text-center">
+
+                    <h5 class="mt-4">Sorry! No Result Found</h5>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-container
+                *ngIf="(getProductDiscount | filter : term)?.length; else noData"
+              >
+                <tr
+                  *ngFor="
+                    let productDiscountSta of getProductDiscount1 | filter : term;
+                    let i = index
+                  "
+                >
+
+                  <td>{{ productDiscountSta.fullName }}</td>
+                  <td>{{ productDiscountSta.nameDe }}</td>
+                  <td>{{ productDiscountSta.quantity }}</td>
+                  <td>{{ productDiscountSta.total | number }} VNĐ</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <ngb-pagination
+        [(page)]="currentPage"
+        [pageSize]="itemsPerPage"
+        [collectionSize]="totalItems"
+        (pageChange)="onPageChange1($event)"
+        class="pagination pagination-rounded justify-content-end mb-2"
+      >
+      </ngb-pagination>
+      </div>
+
+  </div>
+</div>
+
+
+
+
+

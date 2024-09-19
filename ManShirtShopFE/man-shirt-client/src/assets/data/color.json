@@ -1,0 +1,92 @@
+[
+  {
+    "id": 2,
+    "createTime": "2023-06-15T09:56:04.786+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Trắng"
+  },
+  {
+    "id": 3,
+    "createTime": "2023-06-15T09:56:22.282+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Đen"
+  },
+  {
+    "id": 4,
+    "createTime": "2023-06-15T09:56:31.922+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Xanh da trời"
+  },
+  {
+    "id": 5,
+    "createTime": "2023-06-15T09:56:39.570+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Xanh Navy"
+  },
+  {
+    "id": 6,
+    "createTime": "2023-06-15T09:56:47.002+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Xanh lá cây"
+  },
+  {
+    "id": 7,
+    "createTime": "2023-06-15T09:56:53.322+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Be"
+  },
+  {
+    "id": 8,
+    "createTime": "2023-06-15T09:56:58.274+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Vàng"
+  },
+  {
+    "id": 9,
+    "createTime": "2023-06-15T09:57:04.586+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Đỏ"
+  },
+  {
+    "id": 10,
+    "createTime": "2023-06-15T09:57:10.673+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Tím than"
+  },
+  {
+    "id": 11,
+    "createTime": "2023-06-15T09:57:18.249+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Cam"
+  }
+]

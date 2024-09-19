@@ -1,0 +1,169 @@
+<app-loader></app-loader>
+<div class="container-fluid">
+  <app-page-title
+    title="Khách hàng"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search..."
+                    [(ngModel)]="term"
+                  />
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="text-sm-end"></div>
+            </div>
+            <!-- end col-->
+          </div>
+          <div class="table-responsive">
+            <table class="table align-middle table-nowrap">
+              <thead>
+                <tr>
+                  <th>Ảnh</th>
+                  <th>email</th>
+                  <th>tên</th>
+                  <th>ngày sinh</th>
+                  <th>số điện thoại</th>
+                  <th>Trạng thái</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-template #noData>
+                  <tr>
+                    <td colspan="12" class="text-center">Chưa có dữ liệu</td>
+                  </tr>
+                </ng-template>
+                <ng-container
+                  *ngIf="(materialData | filter : term)?.length; else noData"
+                >
+                  <tr
+                    *ngFor="
+                      let mateRial of osTypeDataPage | filter : term;
+                      let i = index
+                    "
+                  >
+                    <td>
+                      <img
+                        [src]="
+                          mateRial?.photo ||
+                          '../../../assets/images/product/placeholder.jpg'
+                        "
+                        id="expandedImg"
+                        alt=""
+                        class="avatar-md p-1"
+                      />
+
+                    </td>
+                    <td>{{ mateRial.email }}</td>
+                    <td>{{ mateRial.fullname }}</td>
+                    <td>{{ mateRial.birthDate | date : "dd/MM/yyyy" }}</td>
+                    <td>{{ mateRial.phone }}</td>
+                    <td *ngIf="mateRial.status == 0">
+                      <span class="badge bg-success">Đang hoạt động</span>
+                    </td>
+                    <td *ngIf="mateRial.status != 0">
+                      <span class="badge bg-danger">Xóa</span>
+                    </td>
+                    <td>
+                      <div
+                        class="dropdown"
+                        ngbDropdown
+                        placement="bottom-right"
+                      >
+                        <a
+                          href="javascript: void(0);"
+                          class="dropdown-toggle card-drop"
+                          data-toggle="dropdown"
+                          ngbDropdownToggle
+                          aria-expanded="false"
+                        >
+                          <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                        </a>
+                        <ul
+                          class="dropdown-menu dropdown-menu-end"
+                          ngbDropdownMenu
+                        >
+                          <li>
+                            <a
+                              (click)="checkaddress(mateRial)"
+                              class="dropdown-item"
+                              ><i class="mdi mdi-eye font-size-20"></i> Check
+                              Address</a
+                            >
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <ngb-pagination
+            [(page)]="currentPage"
+            [pageSize]="itemsPerPage"
+            [collectionSize]="totalItems"
+            (pageChange)="onPageChange($event)"
+            class="pagination pagination-rounded justify-content-end mb-2"
+          >
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content2 role="document" let-modal>
+  <div class="table-responsive">
+    <table class="table align-middle table-nowrap">
+      <thead>
+        <tr>
+          <th>Tên khách hàng</th>
+          <th>Thành phố</th>
+          <th>Quận</th>
+          <th>Phường</th>
+          <th>Khác</th>
+          <th>Địa chỉ</th>
+          <th>Trạng thái</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-template #noData>
+          <tr>
+            <td colspan="12" class="text-center">Chưa có dữ liệu</td>
+          </tr>
+        </ng-template>
+        <ng-container *ngIf="(addresData | filter : term)?.length; else noData">
+          <tr *ngFor="let adress of addresData | filter : term; let i = index">
+            <td>{{ adress.customerResponse.fullname }}</td>
+            <td>{{ adress.cityName }}</td>
+            <td>{{ adress.wardName }}</td>
+            <td>{{ adress.districtName }}</td>
+            <td>{{ adress.other }}</td>
+            <td>{{ adress.address }}</td>
+            <td *ngIf="adress.status == 0">
+              <span class="badge bg-success">Đang hoạt động</span>
+            </td>
+            <td *ngIf="adress.status != 0">
+              <span class="badge bg-danger">Xóa</span>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+
+</ng-template>

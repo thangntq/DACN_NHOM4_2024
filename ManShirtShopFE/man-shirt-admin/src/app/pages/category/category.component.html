@@ -1,0 +1,198 @@
+<app-loader></app-loader>
+<div class="container-fluid">
+  <app-page-title
+    title="Thể loại"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search..."
+                    [(ngModel)]="term"
+                  />
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="text-sm-end">
+                <button
+                  type="button"
+                  class="btn btn-success btn-rounded mb-2 mr-2 me-2"
+                  (click)="openModal()"
+                >
+                  <i class="mdi mdi-plus me-1"></i> Thêm mới thể loại
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-success btn-rounded mb-2 mr-2"
+                  (click)="ExportTOExcel()"
+                >
+                  <i class="mdi mdi-microsoft-excel me-1"></i> Export Excel
+                </button>
+              </div>
+            </div>
+            <!-- end col-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="table-responsive">
+  <table
+    class="table align-middle table-nowrap"
+    mat-table
+    [dataSource]="dataSource"
+  >
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>
+        <span [style.paddingLeft.px]="40"> Name </span>
+      </th>
+      <td
+        mat-cell
+        *matCellDef="let data; let i = index"
+        class="cell"
+        (click)="treeControl.toggle(data)"
+        [style.backgroundColor]="treeControl.isExpanded(data) ? '#ECEBEC' : ''"
+      >
+        <div [style.paddingLeft.px]="data.level * 50" class="icon-wrapper">
+          <div class="form-check font-size-16">
+            <input
+              id="customCheck{{ i }}"
+              type="checkbox"
+              class="form-check-input"
+            />
+            <label class="form-check-label" for="customCheck{{ i }}"
+              >&nbsp;</label
+            >
+          </div>
+          <button
+            class="button"
+            mat-icon-button
+            [style.visibility]="!data.expandable ? 'hidden' : ''"
+          >
+            <mat-icon>
+              {{
+                treeControl.isExpanded(data) ? "expand_more" : "chevron_right"
+              }}
+            </mat-icon>
+          </button>
+          <span class="text">{{ data.name }}</span>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="create">
+      <th mat-header-cell *matHeaderCellDef>Thông tin tạo</th>
+      <td
+        mat-cell
+        *matCellDef="let data"
+        [style.backgroundColor]="treeControl.isExpanded(data) ? '#ECEBEC' : ''"
+      >
+        <p class="mb-1">{{ data.createBy }}</p>
+        <p class="mb-0">
+          {{ data.createTime | date : "dd/MM/yyyy HH:mm" }}
+        </p>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="update">
+      <th mat-header-cell *matHeaderCellDef>Thông tin sửa</th>
+      <td
+        mat-cell
+        *matCellDef="let data"
+        [style.backgroundColor]="treeControl.isExpanded(data) ? '#ECEBEC' : ''"
+      >
+        <p class="mb-1">{{ data.updateBy }}</p>
+        <p class="mb-0">
+          {{ data.updateTime | date : "dd/MM/yyyy HH:mm" }}
+        </p>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td
+        mat-cell
+        *matCellDef="let data"
+        [style.backgroundColor]="treeControl.isExpanded(data) ? '#ECEBEC' : ''"
+      >
+        <div class="dropdown" ngbDropdown placement="bottom-right">
+          <a
+            href="javascript: void(0);"
+            class="dropdown-toggle card-drop"
+            data-toggle="dropdown"
+            ngbDropdownToggle
+            aria-expanded="false"
+          >
+            <i class="mdi mdi-dots-horizontal font-size-18"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+            <li>
+              <a (click)="createCategoryChild(data)" class="dropdown-item"
+                ><i class="fas fa-plus text-success me-1"></i> Thêm thể loại
+                nhỏ</a
+              >
+            </li>
+            <li>
+              <a (click)="editCategory(data)" class="dropdown-item"
+                ><i class="fas fa-pencil-alt text-success me-1"></i> Edit</a
+              >
+            </li>
+            <li>
+              <a (click)="deleteCategory(data.id)" class="dropdown-item"
+                ><i class="fas fa-trash-alt text-danger me-1"></i> Delete</a
+              >
+            </li>
+          </ul>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+<ng-template #content role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Thêm thể loại</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-hidden="true"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="saveCategory()" [formGroup]="formData">
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="control-label">Tên thể loại</label>
+            <input
+              class="form-control"
+              placeholder="Nhập thể loại"
+              type="text"
+              name="title"
+              autocomplete="off"
+              formControlName="name"
+              [ngClass]="{ 'is-invalid': submitted && form.name.errors }"
+            />
+            <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+              <span *ngIf="form.name.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" id="btn-save-event">
+        Lưu
+      </button>
+    </form>
+  </div>
+</ng-template>

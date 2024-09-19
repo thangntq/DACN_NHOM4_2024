@@ -1,0 +1,17 @@
+::ng-deep table {
+  margin-bottom: 8rem !important;
+}
+::ng-deep .button {
+  border: none !important;
+  background-color: transparent !important;
+}
+.cell {
+  white-space: nowrap;
+}
+.icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+}
+.icon-wrapper .text {
+  margin-left: 10px;
+}

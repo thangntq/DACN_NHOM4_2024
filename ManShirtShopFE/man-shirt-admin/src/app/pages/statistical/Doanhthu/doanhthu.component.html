@@ -1,0 +1,322 @@
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading>
+<div class="container-fluid">
+  <app-page-title
+    title="Thống kê doanh thu"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <label for=""> doanh thu theo time</label>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-sm-3">
+            <div class="search-box me-2 mb-2 d-inline-block">
+            </div>
+          </div>
+          <div class="col-sm-6" style="margin-bottom: 20px;">
+            <div class="modal-body" >
+              <form  (ngSubmit)="saveProductTime()" [formGroup] = "formData" >
+                  <div class="col-12" style="display: flex;">
+                    <div class="col-5">
+                        <label>Ngày bắt đầu</label>
+                        <div class="col-md-10">
+                          <input class="form-control" formControlName="startDate" type="date">
+                        </div>
+                      </div>
+                      <div class="col-5">
+                        <label>Ngày kết thúc</label>
+                        <div class="col-md-10">
+                          <input class="form-control" formControlName="endDate" type="date">
+                        </div>
+                      </div>
+
+                <div class="col-2" style="margin-top: 10px;">
+                <button  type="submit" class="btn btn-success" id="btn-save-event">
+                  Tìm kiếm
+                </button>
+              </div>
+              </div>
+              </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class ="col-3"> <label for="">Tổng doanh thu : {{getProductTime.total | number }} VNĐ</label></div>
+
+          <div class ="col-3"> <label for="">Tổng hoá đơn : {{getProductTime.orderNumber}} </label></div>
+        </div>
+
+
+        <div class="table-responsive">
+          <table class="table align-middle table-nowrap">
+            <thead>
+              <tr>
+                <th>Mã hoá đơn</th>
+                <th>Tên khách hàng</th>
+                <th>Ngày mua</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <ng-template #noData>
+                <tr>
+                  <td colspan="8" class="text-center">
+
+
+                    <h5 class="mt-4">Chọn để thống kê</h5>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-container
+                *ngIf="(getProductTime.order | filter : term)?.length; else noData"
+              >
+                <tr
+                  *ngFor="
+                    let sanphamsta of sanphamStaDataDp | filter : term;
+                    let i = index
+                  "
+                >
+
+                 <td>
+                  <a
+                    (click)="openModal(content,sanphamsta)"
+                    class="text-body fw-bold"
+                    style="cursor: pointer"
+                    ><u>{{ sanphamsta.id}}</u></a
+                  >
+                </td>
+                  <td>{{ sanphamsta.name}}</td>
+                  <td>{{ sanphamsta.updateTime | date : "dd/MM/yyyy"}}</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <ngb-pagination
+        [(page)]="currentPage1"
+        [pageSize]="itemsPerPage1"
+        [collectionSize]="totalItems1"
+        (pageChange)="onPageChange($event)"
+        class="pagination pagination-rounded justify-content-end mb-2"
+      >
+      </ngb-pagination>
+      </div>
+
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-12">
+
+    <div class="card">
+      <label for=""> Sản phẩm theo Discount</label>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-sm-3">
+            <div class="search-box me-2 mb-2 d-inline-block">
+
+            </div>
+          </div>
+          <div class="col-sm-6" style="margin-bottom: 20px;">
+            <div class="modal-body" >
+              <form (ngSubmit)="saveProductByDiscount()" [formGroup] = "formData1">
+                  <div class="col-12" style="display: flex;">
+                    <div class="col-6" style="margin-right: 30px;">
+                      <label class="control-label">Discount</label>
+                      <ng-select [items]="discountData" bindValue="id" bindLabel="name"
+                      formControlName="discountId"></ng-select>
+                  </div>
+
+                <div class="col-4" style="margin-top: 10px;">
+                <button type="submit" class="btn btn-success" id="btn-save-event">
+                  Tìm kiếm
+                 </button>
+              </div>
+              </div>
+              </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class ="col-3"> <label for="">Tổng doanh thu : {{getProductDiscount.total | number}} VNĐ</label></div>
+
+          <div class ="col-3"> <label for="">Tổng hoá đơn : {{getProductDiscount.orderNumber}} </label></div>
+        </div>
+          <!-- end col-->
+
+        <div class="table-responsive">
+          <table class="table align-middle table-nowrap">
+            <thead>
+              <tr>
+
+                <th>Mã hoá đơn</th>
+                <th>Tên khách hàng</th>
+                <th>Ngày mua</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-template #noData>
+                <tr>
+                  <td colspan="8" class="text-center">
+
+                    <h5 class="mt-4">Sorry! No Result Found</h5>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-container
+                *ngIf="(getProductDiscount.order | filter : term)?.length; else noData"
+              >
+                <tr
+                  *ngFor="
+                    let productDiscountSta of getProductDiscount1 | filter : term;
+                    let i = index
+                  "
+                >
+
+
+                  <td>{{ productDiscountSta.id}}</td>
+                  <td>{{ productDiscountSta.name}}</td>
+                  <td>{{ productDiscountSta.updateTime | date : "dd/MM/yyyy"}}</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <ngb-pagination
+        [(page)]="currentPage"
+        [pageSize]="itemsPerPage"
+        [collectionSize]="totalItems"
+        (pageChange)="onPageChange1($event)"
+        class="pagination pagination-rounded justify-content-end mb-2"
+      >
+      </ngb-pagination>
+      </div>
+
+  </div>
+</div>
+
+
+
+
+
+<ng-template #content role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Chi tiết đơn hàng</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-hidden="true"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+
+
+  <div *ngIf="order" class="modal-body">
+    <p class="mb-2">
+      Mã đơn hàng:
+      <span class="text-primary">{{ order.orderResponeAdmin?.code }}</span>
+    </p>
+    <p class="mb-2" style="float: right;">
+      Mã đơn trả:
+      <span class="text-primary">{{ order.returnResponseAdminGetAll?.code }}</span>
+    </p>
+    <p class="mb-2">
+      Người mua:
+      <span class="text-primary">{{
+        order.orderResponeAdmin?.shipName ? order.orderResponeAdmin?.shipName : order.orderResponeAdmin?.customer.fullname
+      }}</span>
+    </p>
+    <p class="mb-2">
+      Số điện thoại:
+      <span class="text-primary">{{ order.orderResponeAdmin?.shipPhone }}</span>
+    </p>
+    <p class="mb-2">
+      Địa chỉ:
+      <span class="text-primary"
+        >{{ order.orderResponeAdmin.address }}, {{ order.orderResponeAdmin.wardName }}, {{ order.orderResponeAdmin.districtName }},
+        {{ order.orderResponeAdmin.cityName }}</span
+      >
+    </p>
+     <p class="mb-4">
+      Ghi chú:
+      <span class="text-primary"> {{ order.orderResponeAdmin.note }}</span>
+    </p>
+    <div class="table-responsive">
+      <table class="table table-centered table-nowrap">
+        <thead>
+          <tr>
+            <th scope="col">Sản phẩm</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Giá</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of order.orderResponeAdmin.orderDetail">
+            <td>
+              <div>
+                <h5 class="text-truncate font-size-14">
+                  {{ data.productDetailId.product.name }}
+                </h5>
+                <p class="text-muted mb-0">
+                  Màu: <strong>{{ data.productDetailId.color.name }}</strong>
+                </p>
+                <p class="text-muted mb-3">
+                  Size: <strong>{{ data.productDetailId.size.code }}</strong>
+                </p>
+              </div>
+            </td>
+            <td>
+              {{ data.quantity }}
+            </td>
+            <td>
+              <p class="text-muted mb-0">
+                <strong
+                  >{{
+                    (
+                      data?.unitprice -
+                      (data?.unitprice * data?.discount) / 100
+                    ).toLocaleString("vi-VN")
+                  }}đ</strong
+                >
+              </p>
+
+              <p *ngIf="data?.discount > 0">
+                <del>{{ data?.unitprice?.toLocaleString("vi-VN") }}đ</del>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <h6 class="m-0 text-end">Thành tiền:</h6>
+            </td>
+            <td>{{ getTamTinh()?.toLocaleString("vi-VN") }}đ</td>
+          </tr>
+          <tr *ngIf="order.voucher">
+            <td colspan="2">
+              <h6 class="m-0 text-end">
+                Voucher({{ order?.orderResponeAdmin?.voucher?.code }}):
+              </h6>
+            </td>
+            <td>-{{ getTotalVoucher()?.toLocaleString("vi-VN") }}đ</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <h6 class="m-0 text-end">Phí vận chuyển:</h6>
+            </td>
+            <td>{{ order.orderResponeAdmin.freight?.toLocaleString("vi-VN") }}đ</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <h6 class="m-0 text-end">Tổng:</h6>
+            </td>
+            <td>{{ order.orderResponeAdmin.total?.toLocaleString("vi-VN") }}đ</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</ng-template>

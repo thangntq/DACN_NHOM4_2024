@@ -1,0 +1,328 @@
+<app-breadcrumb
+  [title]="'Tài khoản'"
+  [breadcrumb]="'Tài khoản'"
+></app-breadcrumb>
+<!-- section start -->
+<section class="section-b-space">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="account-sidebar" (click)="ToggleDashboard()">
+          <a style="color: white" hre="javascript:void(0)" class="popup-btn">
+            my account
+          </a>
+        </div>
+        <div class="dashboard-left" [class.open]="openDashboard">
+          <div class="collection-mobile-back" (click)="ToggleDashboard()">
+            <span class="filter-back">
+              <i class="fa fa-angle-left" aria-hidden="true"></i> back
+            </span>
+          </div>
+          <div class="block-content">
+            <div class="info info-1">
+              <img
+                style="margin-bottom: 15px"
+                src="https://cdn-icons-png.flaticon.com/128/149/149071.png"
+                alt="15th of August"
+              />
+              <p>{{ userInfo?.fullname }}</p>
+            </div>
+            <ul>
+              <li>
+                <a routerLink="/account" class="title-info active"
+                  >Thông tin tài khoản</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/orders" class="title-info"
+                  >Đơn hàng của tôi</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/address" class="title-info"
+                  >Địa chỉ của tôi</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/history" class="title-info"
+                  >Đã xem gần đây</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="dashboard-right">
+          <div class="dashboard">
+            <!-- <div class="page-title">
+                            <h2>My Dashboard</h2>
+                        </div>
+                        <div class="welcome-msg">
+                            <p>Hello, MARK JECNO !</p>
+                            <p>From your My Account Dashboard you have the ability to view a snapshot of your recent
+                                account activity and update your account information. Select a link below to view or
+                                edit information.</p>
+                        </div> -->
+            <div *ngIf="userInfo" class="box-account box-info">
+              <div class="row mb-2">
+                <div class="col-sm-12">
+                  <div class="box">
+                    <div class="box-title">
+                      <h3 style="font-size: 18px; font-weight: 700">
+                        Thông tin cá nhân
+                      </h3>
+                      <!-- <a href="javascript:void(0)">Sửa</a> -->
+                    </div>
+                    <div class="box-content row">
+                      <div class="col-sm-6">
+                        <h6 class="mb-1">
+                          Họ và tên: {{ userInfo?.fullname }}
+                        </h6>
+                        <h6 class="mb-2">
+                          Địa chỉ email: {{ userInfo?.email }}
+                        </h6>
+                      </div>
+                      <div class="col-sm-6">
+                        <h6 class="mb-1">
+                          Số điện thoại: {{ userInfo?.phone }}
+                        </h6>
+                        <h6 class="mb-2">Địa chỉ: {{ userInfo?.address }}</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="box">
+                <div class="box-title">
+                  <h3>Mật khẩu</h3>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <h6>
+                      <a
+                        class="bubble"
+                        style="cursor: pointer"
+                        (click)="sendCode()"
+                        >Thay đổi mật khẩu</a
+                      >
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<ng-template class="theme-modal" #SendCode let-modal>
+  <div class="modal-content">
+    <div class="modal-body p-3">
+      <form>
+        <div class="J1i6cp">
+          <div class="gZNAGg">
+            <div class="ZqWCFj">
+              <div class="v2Lbca Efn4Xp">
+                <div class="GpqIkE">Nhập mã xác nhận</div>
+              </div>
+            </div>
+          </div>
+          <div class="yXry6s B-fiUo">
+            <div></div>
+            <div class="_66LxYw">Mã xác minh của bạn sẽ được gửi đến</div>
+            <div class="QB3Rcf">
+              <div class="REgXqn">
+                {{ maskEmail(userInfo?.email) }}
+              </div>
+            </div>
+            <div class="BZOjMA">
+              <div class="hBZjRj">
+                <input
+                  class="WZp32T"
+                  type="tel"
+                  autocomplete="one-time-code"
+                  maxlength="6"
+                  name="verificationCode"
+                  [(ngModel)]="verificationCode"
+                />
+                <div class="_29bVQs">
+                  <div class="EwAdvD"></div>
+                  <div class="EwAdvD"></div>
+                  <div class="EwAdvD"></div>
+                  <div class="EwAdvD"></div>
+                  <div class="EwAdvD"></div>
+                  <div class="EwAdvD"></div>
+                </div>
+              </div>
+            </div>
+            <div class="jjZYAs">
+              <div *ngIf="formattedCountdown && !countdownEnded">
+                {{ formattedCountdown }}
+              </div>
+              <div *ngIf="countdownEnded" class="-8CgIK">
+                Bạn vẫn chưa nhận được?
+              </div>
+              <div *ngIf="countdownEnded">
+                <span
+                  style="cursor: pointer"
+                  (click)="sendAgain()"
+                  class="_1vRGRJ DTS0VZ"
+                  >Gửi lại</span
+                >
+              </div>
+            </div>
+            <button
+              class="btn btn-checkout spinner"
+              [ngClass]="{ 'spinner--active': isLoadingForgotPassword }"
+              (click)="confirmForgot()"
+              [disabled]="isLoadingForgotPassword"
+            >
+              <span class="spinner-label">XÁC NHẬN</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="spinner-loader">
+                <use href="#spinner1"></use>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </form>
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+        <symbol id="spinner1">
+          <svg viewBox="0 0 30 30">
+            <circle
+              stroke="currentColor"
+              stroke-width="2"
+              fill="none"
+              stroke-linecap="round"
+              stroke-dasharray="85%"
+              cx="50%"
+              cy="50%"
+              r="40%"
+            >
+              <animateTransform
+                attributeName="transform"
+                type="rotate"
+                from="0 15 15"
+                to="360 15 15"
+                dur="0.7s"
+                repeatCount="indefinite"
+              ></animateTransform>
+            </circle>
+          </svg>
+        </symbol>
+      </svg>
+    </div>
+  </div>
+</ng-template>
+<ng-template class="theme-modal" #forgetPass let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Đổi mật khẩu</h5>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body p-3">
+      <form
+        [formGroup]="forgotForm"
+        (submit)="submitForgetPass()"
+        class="theme-form"
+      >
+        <div class="form-group" style="position: relative">
+          <input
+            type="password"
+            class="form-control mb-1"
+            placeholder="Mật khẩu"
+            formControlName="password"
+          />
+          <div
+            *ngIf="forgotForm.controls.password.errors?.required && isSubmit"
+            class="page-signup-error px-1"
+          >
+            <div>Vui lòng nhập mật khẩu</div>
+          </div>
+          <div
+            *ngIf="
+              (forgotForm.controls.password.errors?.minlength ||
+                forgotForm.controls.password.errors?.maxlength) &&
+              isSubmit
+            "
+            class="page-signup-error px-1"
+          >
+            <div>Mật khẩu dài từ 6 đến 50 ký tự</div>
+          </div>
+        </div>
+        <div class="form-group" style="position: relative">
+          <input
+            type="password"
+            class="form-control mb-1"
+            placeholder="Xác nhận mật khẩu"
+            formControlName="confirmPassword"
+          />
+          <div
+            *ngIf="
+              isSubmit && forgotForm.controls.confirmPassword.errors?.required
+            "
+            class="page-signup-error px-1"
+          >
+            <div>Mật khẩu xác nhận không khớp</div>
+          </div>
+          <div
+            *ngIf="
+              !passwordMatchValidator() &&
+              isSubmit &&
+              !forgotForm.controls.confirmPassword.errors?.required &&
+              !forgotForm.controls.password.invalid
+            "
+            class="page-signup-error px-1"
+          >
+            <div>Mật khẩu xác nhận không khớp</div>
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-checkout spinner"
+          [ngClass]="{ 'spinner--active': isSendCode }"
+          [disabled]="isSendCode"
+        >
+          <span class="spinner-label">Đổi mật khẩu</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="spinner-loader">
+            <use href="#spinner2"></use>
+          </svg>
+        </button>
+      </form>
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+        <symbol id="spinner2">
+          <svg viewBox="0 0 30 30">
+            <circle
+              stroke="currentColor"
+              stroke-width="2"
+              fill="none"
+              stroke-linecap="round"
+              stroke-dasharray="85%"
+              cx="50%"
+              cy="50%"
+              r="40%"
+            >
+              <animateTransform
+                attributeName="transform"
+                type="rotate"
+                from="0 15 15"
+                to="360 15 15"
+                dur="0.7s"
+                repeatCount="indefinite"
+              ></animateTransform>
+            </circle>
+          </svg>
+        </symbol>
+      </svg>
+    </div>
+  </div>
+</ng-template>

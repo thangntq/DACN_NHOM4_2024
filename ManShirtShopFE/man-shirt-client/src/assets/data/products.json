@@ -1,0 +1,1970 @@
+[
+  {
+    "id": 35,
+    "name": "Áo Polo Thể Thao Nữ Phối Màu 1",
+    "price": 390000,
+    "rating": 3.5,
+    "new": true,
+    "sale": true,
+    "description": "Áo Polo Thể Thao Nữ Phối Màu",
+    "weight": 0.3,
+    "discount": 30,
+    "total": 30135,
+    "productDetail": [
+      {
+        "id": 208,
+        "barCode": "8931234502089",
+        "quantity": 21,
+        "productId": 35,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 209,
+        "barCode": "8931234502096",
+        "quantity": 321,
+        "productId": 35,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 210,
+        "barCode": "8931234502102",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 211,
+        "barCode": "8931234502119",
+        "quantity": 23123,
+        "productId": 35,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 212,
+        "barCode": "8931234502126",
+        "quantity": 3213,
+        "productId": 35,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 213,
+        "barCode": "8931234502133",
+        "quantity": 3213,
+        "productId": 35,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 214,
+        "barCode": "8931234502140",
+        "quantity": 3,
+        "productId": 35,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 215,
+        "barCode": "8931234502157",
+        "quantity": 21,
+        "productId": 35,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 216,
+        "barCode": "8931234502164",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 217,
+        "barCode": "8931234502171",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 218,
+        "barCode": "8931234502188",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 219,
+        "status": 0,
+        "barCode": "8931234502195",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 220,
+        "status": 0,
+        "barCode": "8931234502201",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 221,
+        "barCode": "8931234502218",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 222,
+        "barCode": "8931234502225",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      }
+    ],
+    "productImage": [
+      {
+        "id": 326,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/77f2772b-940c-43d2-ada5-4a616eae4ac2?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 327,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/26339a6c-2eba-48ab-a53e-f93baa50d230?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 328,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/065c5f48-1f73-46cb-a03b-8a5237fb0d99?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 329,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/91f11e29-4e7c-4687-9f10-01768e4e9c66?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 330,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/754585d4-dc17-4130-9a02-0eb5b2e679a5?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 331,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/ecaa88d8-95ab-4018-b334-fc796e781f7e?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 332,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/9a9e63d7-903e-4881-a82e-8e0c6752d54e?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 333,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/3daef58a-c8e1-4b53-84e4-29a94a0f208b?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 334,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/79620f21-c785-4571-ad83-c255ce1c57a1?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 335,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/bb027ce7-d204-412d-af14-1752bb4c9531?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 336,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/ee81dd02-166e-4bee-86a5-03fd5d782310?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 337,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/cd7cd3d6-f7d4-46f3-8fd7-4cd20f2b710f?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 338,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/ff0cc6d5-d744-403c-801a-6e56bb95934d?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 339,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/3ebc577a-a4e1-4af8-810c-433acb33fe02?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 340,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/76df37b9-19b3-49c6-9e68-78826beff2ad?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 341,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/8f83fe5c-b892-4691-8396-c5bc20e8a051?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 342,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/6f481ff1-0b25-479f-ba9a-4c8db1b30989?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 343,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/94ee5fe2-1cd0-4864-a841-85d72d148aa6?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 344,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/6a06fefd-ce4e-4724-b2d1-57575ad26abc?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 345,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 127,
+          "name": "Trắng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 128,
+          "name": "Đen"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 129,
+          "name": "Vàng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 130,
+          "name": "Xanh"
+        },
+        "productId": 35,
+        "status": 0
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Áo Polo Thể Thao Nữ Phối Màu 1",
+    "price": 390000,
+    "rating": 4,
+    "new": true,
+    "sale": true,
+    "description": "Áo Polo Thể Thao Nữ Phối Màu",
+    "weight": 0.3,
+    "discount": 30,
+    "total": 30135,
+    "productDetail": [
+      {
+        "id": 208,
+        "barCode": "8931234502089",
+        "quantity": 21,
+        "productId": 35,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 209,
+        "barCode": "8931234502096",
+        "quantity": 321,
+        "productId": 35,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 210,
+        "barCode": "8931234502102",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 211,
+        "barCode": "8931234502119",
+        "quantity": 23123,
+        "productId": 35,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 212,
+        "barCode": "8931234502126",
+        "quantity": 3213,
+        "productId": 35,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 213,
+        "barCode": "8931234502133",
+        "quantity": 3213,
+        "productId": 35,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 214,
+        "barCode": "8931234502140",
+        "quantity": 3,
+        "productId": 35,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 215,
+        "barCode": "8931234502157",
+        "quantity": 21,
+        "productId": 35,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 216,
+        "barCode": "8931234502164",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 217,
+        "barCode": "8931234502171",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 218,
+        "barCode": "8931234502188",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 219,
+        "status": 0,
+        "barCode": "8931234502195",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 220,
+        "status": 0,
+        "barCode": "8931234502201",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 221,
+        "barCode": "8931234502218",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 222,
+        "barCode": "8931234502225",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      }
+    ],
+    "productImage": [
+      {
+        "id": 326,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/77f2772b-940c-43d2-ada5-4a616eae4ac2?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 327,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/26339a6c-2eba-48ab-a53e-f93baa50d230?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 328,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/065c5f48-1f73-46cb-a03b-8a5237fb0d99?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 329,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/91f11e29-4e7c-4687-9f10-01768e4e9c66?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 330,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/754585d4-dc17-4130-9a02-0eb5b2e679a5?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 331,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/ecaa88d8-95ab-4018-b334-fc796e781f7e?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 332,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/9a9e63d7-903e-4881-a82e-8e0c6752d54e?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 333,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/3daef58a-c8e1-4b53-84e4-29a94a0f208b?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 334,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/79620f21-c785-4571-ad83-c255ce1c57a1?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 335,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/bb027ce7-d204-412d-af14-1752bb4c9531?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 336,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/ee81dd02-166e-4bee-86a5-03fd5d782310?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 337,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/cd7cd3d6-f7d4-46f3-8fd7-4cd20f2b710f?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 338,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/ff0cc6d5-d744-403c-801a-6e56bb95934d?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 339,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/3ebc577a-a4e1-4af8-810c-433acb33fe02?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 340,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/76df37b9-19b3-49c6-9e68-78826beff2ad?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 341,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/8f83fe5c-b892-4691-8396-c5bc20e8a051?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 342,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/6f481ff1-0b25-479f-ba9a-4c8db1b30989?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 343,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/94ee5fe2-1cd0-4864-a841-85d72d148aa6?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 344,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/6a06fefd-ce4e-4724-b2d1-57575ad26abc?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 345,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 127,
+          "name": "Trắng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 128,
+          "name": "Đen"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 129,
+          "name": "Vàng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 130,
+          "name": "Xanh"
+        },
+        "productId": 35,
+        "status": 0
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Áo Polo Thể Thao Nữ Phối Màu 1",
+    "price": 390000,
+    "rating": 4,
+    "new": true,
+    "sale": true,
+    "description": "Áo Polo Thể Thao Nữ Phối Màu",
+    "weight": 0.3,
+    "discount": 30,
+    "total": 30135,
+    "productDetail": [
+      {
+        "id": 208,
+        "barCode": "8931234502089",
+        "quantity": 21,
+        "productId": 35,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 209,
+        "barCode": "8931234502096",
+        "quantity": 321,
+        "productId": 35,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 210,
+        "barCode": "8931234502102",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 211,
+        "barCode": "8931234502119",
+        "quantity": 23123,
+        "productId": 35,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 212,
+        "barCode": "8931234502126",
+        "quantity": 3213,
+        "productId": 35,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 213,
+        "barCode": "8931234502133",
+        "quantity": 3213,
+        "productId": 35,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 214,
+        "barCode": "8931234502140",
+        "quantity": 3,
+        "productId": 35,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 215,
+        "barCode": "8931234502157",
+        "quantity": 21,
+        "productId": 35,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 216,
+        "barCode": "8931234502164",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 217,
+        "barCode": "8931234502171",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 218,
+        "barCode": "8931234502188",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 219,
+        "status": 0,
+        "barCode": "8931234502195",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 220,
+        "status": 0,
+        "barCode": "8931234502201",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 221,
+        "barCode": "8931234502218",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 222,
+        "barCode": "8931234502225",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      }
+    ],
+    "productImage": [
+      {
+        "id": 326,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/77f2772b-940c-43d2-ada5-4a616eae4ac2?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 327,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/26339a6c-2eba-48ab-a53e-f93baa50d230?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 328,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/065c5f48-1f73-46cb-a03b-8a5237fb0d99?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 329,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/91f11e29-4e7c-4687-9f10-01768e4e9c66?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 330,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/754585d4-dc17-4130-9a02-0eb5b2e679a5?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 331,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/ecaa88d8-95ab-4018-b334-fc796e781f7e?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 332,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/9a9e63d7-903e-4881-a82e-8e0c6752d54e?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 333,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/3daef58a-c8e1-4b53-84e4-29a94a0f208b?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 334,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/79620f21-c785-4571-ad83-c255ce1c57a1?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 335,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/bb027ce7-d204-412d-af14-1752bb4c9531?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 336,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/ee81dd02-166e-4bee-86a5-03fd5d782310?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 337,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/cd7cd3d6-f7d4-46f3-8fd7-4cd20f2b710f?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 338,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/ff0cc6d5-d744-403c-801a-6e56bb95934d?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 339,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/3ebc577a-a4e1-4af8-810c-433acb33fe02?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 340,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/76df37b9-19b3-49c6-9e68-78826beff2ad?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 341,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/8f83fe5c-b892-4691-8396-c5bc20e8a051?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 342,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/6f481ff1-0b25-479f-ba9a-4c8db1b30989?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 343,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/94ee5fe2-1cd0-4864-a841-85d72d148aa6?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 344,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/6a06fefd-ce4e-4724-b2d1-57575ad26abc?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 345,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 127,
+          "name": "Trắng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 128,
+          "name": "Đen"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 129,
+          "name": "Vàng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 130,
+          "name": "Xanh"
+        },
+        "productId": 35,
+        "status": 0
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Áo Polo Thể Thao Nữ Phối Màu 1",
+    "price": 390000,
+    "rating": 4,
+    "new": true,
+    "sale": true,
+    "description": "Áo Polo Thể Thao Nữ Phối Màu",
+    "weight": 0.3,
+    "discount": 30,
+    "total": 30135,
+    "productDetail": [
+      {
+        "id": 208,
+        "barCode": "8931234502089",
+        "quantity": 21,
+        "productId": 35,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 209,
+        "barCode": "8931234502096",
+        "quantity": 321,
+        "productId": 35,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 210,
+        "barCode": "8931234502102",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 211,
+        "barCode": "8931234502119",
+        "quantity": 23123,
+        "productId": 35,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 212,
+        "barCode": "8931234502126",
+        "quantity": 3213,
+        "productId": 35,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "size": {
+          "id": 1,
+          "code": "S"
+        }
+      },
+      {
+        "id": 213,
+        "barCode": "8931234502133",
+        "quantity": 3213,
+        "productId": 35,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 214,
+        "barCode": "8931234502140",
+        "quantity": 3,
+        "productId": 35,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 215,
+        "barCode": "8931234502157",
+        "quantity": 21,
+        "productId": 35,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 216,
+        "barCode": "8931234502164",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 217,
+        "barCode": "8931234502171",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "size": {
+          "id": 2,
+          "code": "M"
+        }
+      },
+      {
+        "id": 218,
+        "barCode": "8931234502188",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 219,
+        "status": 0,
+        "barCode": "8931234502195",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 220,
+        "status": 0,
+        "barCode": "8931234502201",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 221,
+        "barCode": "8931234502218",
+        "quantity": 23,
+        "productId": 35,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      },
+      {
+        "id": 222,
+        "barCode": "8931234502225",
+        "quantity": 32,
+        "productId": 35,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "size": {
+          "id": 3,
+          "code": "L"
+        }
+      }
+    ],
+    "productImage": [
+      {
+        "id": 326,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/77f2772b-940c-43d2-ada5-4a616eae4ac2?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 327,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/26339a6c-2eba-48ab-a53e-f93baa50d230?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 328,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/065c5f48-1f73-46cb-a03b-8a5237fb0d99?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 329,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/91f11e29-4e7c-4687-9f10-01768e4e9c66?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 11,
+          "name": "Cam"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 330,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/754585d4-dc17-4130-9a02-0eb5b2e679a5?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 331,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/ecaa88d8-95ab-4018-b334-fc796e781f7e?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 332,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/9a9e63d7-903e-4881-a82e-8e0c6752d54e?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 333,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/3daef58a-c8e1-4b53-84e4-29a94a0f208b?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 17,
+          "name": "Xanh thẫm"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 334,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/79620f21-c785-4571-ad83-c255ce1c57a1?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 335,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/bb027ce7-d204-412d-af14-1752bb4c9531?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 336,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/ee81dd02-166e-4bee-86a5-03fd5d782310?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 337,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/cd7cd3d6-f7d4-46f3-8fd7-4cd20f2b710f?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 24,
+          "name": "Hồng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 338,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/ff0cc6d5-d744-403c-801a-6e56bb95934d?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 339,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/3ebc577a-a4e1-4af8-810c-433acb33fe02?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 340,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/76df37b9-19b3-49c6-9e68-78826beff2ad?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 341,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/8f83fe5c-b892-4691-8396-c5bc20e8a051?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 25,
+          "name": "Tím hoa"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 342,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/6f481ff1-0b25-479f-ba9a-4c8db1b30989?alt=media",
+        "mainImage": true,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 343,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/94ee5fe2-1cd0-4864-a841-85d72d148aa6?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 344,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/6a06fefd-ce4e-4724-b2d1-57575ad26abc?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 345,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 27,
+          "name": "Xanh nước biển"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 127,
+          "name": "Trắng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 128,
+          "name": "Đen"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 129,
+          "name": "Vàng"
+        },
+        "productId": 35,
+        "status": 0
+      },
+      {
+        "id": 346,
+        "urlImage": "https://firebasestorage.googleapis.com/v0/b/newmenstore-dbb2f.appspot.com/o/988dcf33-dff5-4915-972c-74e005d37c14?alt=media",
+        "mainImage": false,
+        "color": {
+          "id": 130,
+          "name": "Xanh"
+        },
+        "productId": 35,
+        "status": 0
+      }
+    ]
+  }
+]

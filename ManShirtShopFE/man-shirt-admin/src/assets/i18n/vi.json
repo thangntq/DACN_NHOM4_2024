@@ -1,0 +1,364 @@
+{
+  "HEADER": {
+    "SEARCH": "Tìm kiếm...",
+    "MEGA_MENU": "Menu lớn",
+    "NOTIFICATIONS": {
+      "TITLE": "Thông báo",
+      "VIEW_ALL": "Xem tất cả",
+      "LOAD_MORE": "Xem thêm...",
+      "FIRST": {
+        "TITLE": "Đơn hàng của bạn đã được đặt",
+        "TEXT": "Nếu một số ngôn ngữ kết hợp ngữ pháp",
+        "TIME": "3 phút trước"
+      },
+      "SECOND": {
+        "TITLE": "James Lemire",
+        "TEXT": "Nó sẽ giống như tiếng Anh đơn giản.",
+        "TIME": "1 giờ trước"
+      },
+      "THIRD": {
+        "TITLE": "Mặt hàng của bạn đã được giao",
+        "TEXT": "Nếu một số ngôn ngữ kết hợp ngữ pháp",
+        "TIME": "3 phút trước"
+      },
+      "FOUR": {
+        "TITLE": "Salena Layfield",
+        "TEXT": "Với tư cách là một người bạn hoài nghi của Đại học Cambridge.",
+        "TIME": "1 giờ trước"
+      }
+    },
+    "SETTINGS": "Cài đặt",
+    "UI": {
+      "TITLE": "Các thành phần UI",
+      "LIGHTBOX": "Lightbox",
+      "RANGE_SLIDER": "Thanh trượt phạm vi",
+      "SWEET_ALERT": "Thông báo ngọt ngào",
+      "RATING": "Đánh giá",
+      "FORMS": "Các mẫu",
+      "TABLES": "Bảng",
+      "CHARTS": "Biểu đồ"
+    },
+    "APPLICATIONS": {
+      "TITLE": "Ứng dụng",
+      "ECOMMERCE": "Thương mại điện tử",
+      "CALENDAR": "Lịch",
+      "EMAIL": "Email",
+      "PROJECTS": "Dự án",
+      "TASKS": "Nhiệm vụ",
+      "CONTACTS": "Liên hệ"
+    },
+    "EXTRA_PAGES": {
+      "TITLE": "Trang bổ sung",
+      "LIGHT_SIDEBAR": "Thanh bên sáng",
+      "COMPACT_SIDEBAR": "Thanh bên gọn",
+      "HORIZONTAL_LAYOUT": "Bố cục nằm ngang",
+      "MAINTENANCE": "Bảo trì",
+      "COMING SOON": "Sắp ra mắt",
+      "TIMELINE": "Dòng thời gian",
+      "FAQ": "Câu hỏi thường gặp"
+    },
+    "LOGIN": {
+      "PROFILE": "Hồ sơ",
+      "MY_WALLET": "Ví của tôi",
+      "SETTINGS": "Cài đặt",
+      "LOCK_SCREEN": "Khóa màn hình",
+      "LOGOUT": "Đăng xuất"
+    }
+  },
+  "MENUITEMS": {
+    "MENU": {
+      "TEXT": "Menu"
+    },
+    "DASHBOARDS": {
+      "TEXT": "Bảng điều khiển"
+    },
+    "POS": {
+      "TEXT": "Bán hàng"
+    },
+    "ORDERS": {
+      "TEXT": "Đơn hàng",
+      "LIST": {
+        "CREATEORDER": "Tạo đơn hàng",
+        "LISTORDERS": "Danh sách đơn hàng",
+        "EXCHANGE": "Trả",
+        "WARRANTY": "Bảo hành"
+      }
+    },
+    "MANAGERS": {
+      "TEXT": "Quản lý"
+    },
+    "LAYOUTS": {
+      "TEXT": "Bố cục",
+      "LIST": {
+        "HORIZONTAL": "Nằm ngang",
+        "LIGHTSIDEBAR": "Thanh bên sáng",
+        "COMPACTSIDEBAR": "Thanh bên gọn",
+        "ICONSIDEBAR": "Thanh bên biểu tượng",
+        "BOXED": "Bố cục hộp",
+        "COLOREDSIDEBAR": "Thanh bên có màu",
+        "VERTICAL": "Dọc",
+        "LIGHTTOPBAR": "Thanh trên sáng",
+        "COLOREDHEADER": "Đầu có màu",
+        "SCROLLABLE": "Có thể cuộn"
+      }
+    },
+    "PRODUCTS": {
+      "TEXT": "Sản phẩm"
+    },
+    "RATING": {
+      "TEXT": "Đánh giá"
+    },
+    "CATEGORYS": {
+      "TEXT": "Thể loại"
+    },
+    "DISCOUNTS": {
+      "TEXT": "Khuyến mãi"
+    },
+    "VOUCHERS": {
+      "TEXT": "Phiếu giảm giá"
+    },
+    "CONTACT": {
+      "TEXT": "Liên hệ"
+    },
+    "EMPLOYEE": {
+      "TEXT": "Nhân viên"
+    },
+    "CUSTOMER": {
+      "TEXT": "Khách hàng"
+    },
+    "STATISTICAL": {
+      "TEXT": "Thống kê",
+      "LIST": {
+
+        "thongkesanpham": "Sản phẩm",
+        "thongkedoanhthu":"Doanh thu"
+      }
+    },
+    "CATEGORIES": {
+      "TEXT": "Thể loại chính"
+    },
+    "ATTRIBUTES": {
+      "TEXT": "Thuộc tính sản phẩm",
+      "LIST": {
+        "MATERIAL": "Chất liệu",
+        "COLOR": "Màu sắc",
+        "SIZE": "Kích cỡ",
+        "DESIGN": "Thiết kế",
+        "FORM": "Hình dáng",
+        "SLEEVE": "Tay áo",
+        "COLLAR": "Cổ áo"
+      }
+    },
+    "CHAT": {
+      "TEXT": "Trò chuyện",
+      "BADGE": "Mới"
+    },
+    "FILEMANAGER": {
+      "TEXT": "Quản lý tập tin",
+      "BADGE": "Mới"
+    },
+    "ECOMMERCE": {
+      "TEXT": "Thương mại điện tử",
+      "LIST": {
+        "PRODUCTS": "Sản phẩm",
+        "PRODUCTDETAIL": "Chi tiết sản phẩm",
+        "ORDERS": "Đơn đặt hàng",
+        "CUSTOMERS": "Khách hàng",
+        "CART": "Giỏ hàng",
+        "CHECKOUT": "Thanh toán",
+        "SHOPS": "Cửa hàng",
+        "ADDPRODUCT": "Thêm sản phẩm"
+      }
+    },
+    "CRYPTO": {
+      "TEXT": "Crypto",
+      "LIST": {
+        "WALLET": "Wallet",
+        "BUY/SELL": "Buy/Sell",
+        "EXCHANGE": "Exchange",
+        "LENDING": "Lending",
+        "ORDERS": "Orders",
+        "KYCAPPLICATION": "KYC Application",
+        "ICOLANDING": "ICO Landing"
+      }
+    },
+    "EMAIL": {
+      "TEXT": "Email",
+      "LIST": {
+        "INBOX": "Inbox",
+        "READEMAIL": "Read Email",
+        "TEMPLATE": {
+          "BADGE": "New",
+          "TEXT": "Template",
+          "LIST": {
+            "BASIC": "Basic Action",
+            "ALERT": "Alert Email",
+            "BILLING": "Billing Email"
+          }
+        }
+      }
+    },
+    "INVOICES": {
+      "TEXT": "Invoices",
+      "LIST": {
+        "INVOICELIST": "Invoice List",
+        "INVOICEDETAIL": "Invoice Detail"
+      }
+    },
+    "PROJECTS": {
+      "TEXT": "Projects",
+      "LIST": {
+        "GRID": "Projects Grid",
+        "PROJECTLIST": "Projects List",
+        "OVERVIEW": "Project Overview",
+        "CREATE": "Create New"
+      }
+    },
+    "TASKS": {
+      "TEXT": "Tasks",
+      "LIST": {
+        "TASKLIST": "Task List",
+        "KANBAN": "Kanban Board",
+        "CREATETASK": "Create Task"
+      }
+    },
+    "CONTACTS": {
+      "TEXT": "Contacts",
+      "LIST": {
+        "USERGRID": "User Grid",
+        "USERLIST": "User List",
+        "PROFILE": "Profile"
+      }
+    },
+    "BLOG": {
+      "TEXT": "Blog",
+      "BADGE": "New",
+      "LIST": {
+        "BLOGLIST": "Blog List",
+        "BLOGGRID": "Blog Grid",
+        "DETAIL": "Blog Details"
+      }
+    },
+    "PAGES": {
+      "TEXT": "Pages"
+    },
+    "AUTHENTICATION": {
+      "TEXT": "Authentication",
+      "BADGE": "New",
+      "LIST": {
+        "LOGIN": "Login",
+        "LOGIN2": "Login 2",
+        "REGISTER": "Register",
+        "REGISTER2": "Register 2",
+        "RECOVERPWD": "Recover Password",
+        "RECOVERPWD2": "Recover Password 2",
+        "LOCKSCREEN": "Lock screen",
+        "LOCKSCREEN2": "Lock screen 2",
+        "CONFIRMMAIL": "Confirm Mail",
+        "CONFIRMMAIL2": "Confirm Mail 2",
+        "EMAILVERIFICATION": "Email verification",
+        "EMAILVERIFICATION2": "Email verification 2",
+        "TWOSTEPVERIFICATION": "Two step verification",
+        "TWOSTEPVERIFICATION2": "Two step verification 2"
+      }
+    },
+    "UTILITY": {
+      "TEXT": "Utility",
+      "LIST": {
+        "STARTER": "Starter Page",
+        "MAINTENANCE": "Maintenance",
+        "TIMELINE": "Timeline",
+        "FAQS": "FAQs",
+        "PRICING": "Pricing",
+        "ERROR404": "Error 404",
+        "ERROR500": "Error 500"
+      }
+    },
+    "COMPONENTS": {
+      "TEXT": "Components"
+    },
+    "UIELEMENTS": {
+      "TEXT": "UI Elements",
+      "LIST": {
+        "ALERTS": "Alerts",
+        "BUTTONS": "Buttons",
+        "CARDS": "Cards",
+        "CAROUSEL": "Carousel",
+        "DROPDOWNS": "Dropdowns",
+        "GRID": "Grid",
+        "IMAGES": "Images",
+        "LIGHTBOX": "Lightbox",
+        "MODALS": "Modals",
+        "RANGESLIDER": "Range Slider",
+        "PROGRESSBAR": "Progress Bars",
+        "PLACEHOLDER": "Placeholder",
+        "SWEETALERT": "Sweet Alert",
+        "TABS": "Tabs & Accordions",
+        "TYPOGRAPHY": "Typography",
+        "VIDEO": "Video",
+        "GENERAL": "General",
+        "COLORS": "Colors",
+        "CROPPER": "Image Cropper"
+      }
+    },
+    "FORMS": {
+      "TEXT": "Forms",
+      "BADGE": "09",
+      "LIST": {
+        "ELEMENTS": "Form Elements",
+        "VALIDATION": "Form Validation",
+        "ADVANCED": "Form Advanced",
+        "EDITOR": "Form Editor",
+        "FILEUPLOAD": "Form File Upload",
+        "REPEATER": "Form Repeater",
+        "WIZARD": "Form Wizard",
+        "MASK": "Form Mask",
+        "LAYOUTS": "Form Layouts"
+      }
+    },
+    "TABLES": {
+      "TEXT": "Tables",
+      "LIST": {
+        "BASIC": "Basic Tables",
+        "ADVANCED": "Advanced Table"
+      }
+    },
+    "CHARTS": {
+      "TEXT": "Charts",
+      "LIST": {
+        "APEX": "Apex Chart",
+        "CHARTJS": "Chartjs Chart",
+        "CHARTIST": "Chartist Chart",
+        "ECHART": "E Chart"
+      }
+    },
+    "ICONS": {
+      "TEXT": "Icons",
+      "LIST": {
+        "BOXICONS": "Boxicons",
+        "MATERIALDESIGN": "Material Design",
+        "DRIPICONS": "Dripicons",
+        "FONTAWESOME": "Font Awesome"
+      }
+    },
+    "MAPS": {
+      "TEXT": "Maps",
+      "LIST": {
+        "GOOGLEMAP": "Google Maps"
+      }
+    },
+    "MULTILEVEL": {
+      "TEXT": "Multi Level",
+      "LIST": {
+        "LEVEL1": {
+          "1": "Level 1.1",
+          "2": "Level 1.2",
+          "LEVEL2": {
+            "1": "Level 2.1",
+            "2": "Level 2.2"
+          }
+        }
+      }
+    }
+  }
+}

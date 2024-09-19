@@ -1,0 +1,291 @@
+<app-breadcrumb
+  [title]="'Tài khoản'"
+  [breadcrumb]="'Tài khoản'"
+></app-breadcrumb>
+<!-- section start -->
+<section class="section-b-space">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="account-sidebar" (click)="ToggleDashboard()">
+          <a style="color: white" hre="javascript:void(0)" class="popup-btn">
+            my account
+          </a>
+        </div>
+        <div class="dashboard-left" [class.open]="openDashboard">
+          <div class="collection-mobile-back" (click)="ToggleDashboard()">
+            <span class="filter-back">
+              <i class="fa fa-angle-left" aria-hidden="true"></i> back
+            </span>
+          </div>
+          <div class="block-content">
+            <div class="info info-1">
+              <img
+                style="margin-bottom: 15px"
+                src="https://cdn-icons-png.flaticon.com/128/149/149071.png"
+                alt="15th of August"
+              />
+              <p>{{ userInfo?.fullname }}</p>
+            </div>
+            <ul>
+              <li>
+                <a routerLink="/account" class="title-info"
+                  >Thông tin tài khoản</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/orders" class="title-info"
+                  >Đơn hàng của tôi</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/address" class="title-info active"
+                  >Địa chỉ của tôi</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/history" class="title-info"
+                  >Đã xem gần đây</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="dashboard-right">
+          <div class="dashboard">
+            <!-- <div class="page-title">
+                            <h2>My Dashboard</h2>
+                        </div>
+                        <div class="welcome-msg">
+                            <p>Hello, MARK JECNO !</p>
+                            <p>From your My Account Dashboard you have the ability to view a snapshot of your recent
+                                account activity and update your account information. Select a link below to view or
+                                edit information.</p>
+                        </div> -->
+            <div class="box-account box-info">
+              <div class="row mb-2">
+                <div class="col-sm-12">
+                  <div class="box">
+                    <div class="box-title">
+                      <h3 style="font-size: 18px; font-weight: 700">
+                        Địa chỉ của tôi
+                      </h3>
+                      <a (click)="openModal()"
+                        ><button
+                          class="btn-edit-addr btn btn-primarys btn-more"
+                          type="button"
+                        >
+                          + Thêm địa chỉ mới
+                        </button></a
+                      >
+                    </div>
+                    <div *ngIf="lstAddress" class="box-content">
+                      <div
+                        class="customer_address"
+                        *ngFor="let address of lstAddress"
+                      >
+                        <div class="address_info">
+                          <div class="address-group">
+                            <div class="address form-signup">
+                              <p>
+                                <span><strong>Họ tên: </strong></span
+                                >{{ address.fullName }}
+                                <span
+                                  *ngIf="address.default"
+                                  class="address-default"
+                                  ><i class="fa fa-check-circle"></i>Địa chỉ mặc
+                                  định
+                                </span>
+                              </p>
+                              <p>
+                                <span><strong>Địa chỉ:</strong></span
+                                >{{ address.address }}, {{ address.wardName }},
+                                {{ address.districtName }},
+                                {{ address.cityName }}
+                              </p>
+                              <p>
+                                <span><strong>Số điện thoại:</strong></span
+                                >{{ address.phone }}
+                              </p>
+                            </div>
+                          </div>
+                          <div id="tool_address_24471576" class="btn-address">
+                            <button
+                              (click)="edit(address)"
+                              class="btn-edit-addr btn btn-primarys btn-edit"
+                              type="button"
+                            >
+                              Sửa
+                            </button>
+                            <button
+                              (click)="remove(address)"
+                              *ngIf="!address.default"
+                              class="btn btn-dark-address btn-edit-addr btn-delete"
+                              type="button"
+                            >
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- section end -->
+<ng-template class="theme-modal" #addressModal let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Thêm mới địa chỉ</h5>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body p-3">
+      <form (ngSubmit)="save()">
+        <div class="pop_bottom">
+          <div class="form_address">
+            <div class="row">
+              <div class="field col-md-6">
+                <fieldset class="form-group">
+                  <input
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    placeholder="Họ và tên"
+                    [formControl]="addressForm.controls['name']"
+                  />
+                </fieldset>
+                <p class="error-msg"></p>
+              </div>
+              <div class="field col-md-6">
+                <fieldset class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="phone"
+                    [formControl]="addressForm.controls['phone']"
+                    placeholder="Số điện thoại"
+                  />
+                </fieldset>
+              </div>
+            </div>
+            <div class="field">
+              <fieldset class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="address"
+                  [formControl]="addressForm.controls['address']"
+                  placeholder="Địa chỉ"
+                />
+              </fieldset>
+            </div>
+            <div class="group-country row">
+              <fieldset class="form-group select-field not-vn col-md-4">
+                <select
+                  name="province"
+                  class="form-control add has-content"
+                  [formControl]="addressForm.controls['province']"
+                  (change)="onProvinceChange($event.target.value)"
+                >
+                  <option
+                    *ngFor="let province of provinces"
+                    [value]="province.ProvinceID"
+                  >
+                    {{ province.ProvinceName }}
+                  </option>
+                </select>
+                <label>Tỉnh thành</label>
+              </fieldset>
+              <fieldset class="form-group select-field not-vn col-md-4">
+                <select
+                  name="district"
+                  class="form-control add has-content"
+                  [formControl]="addressForm.controls['district']"
+                  id="district"
+                  (change)="onDistrictChange($event.target.value)"
+                  [ngClass]="{
+                    disabled: !districts || districts.length === 0
+                  }"
+                >
+                  <option
+                    *ngFor="let district of districts"
+                    [value]="district.DistrictID"
+                  >
+                    {{ district.DistrictName }}
+                  </option>
+                </select>
+                <label>Quận huyện</label>
+              </fieldset>
+              <fieldset class="form-group select-field not-vn col-md-4">
+                <select
+                  name="ward"
+                  class="form-control add has-content"
+                  [formControl]="addressForm.controls['ward']"
+                  id="ward"
+                  [ngClass]="{ disabled: !wards || wards.length === 0 }"
+                >
+                  <option *ngFor="let ward of wards" [value]="ward.WardCode">
+                    {{ ward.WardName }}
+                  </option>
+                </select>
+                <label>Phường xã</label>
+              </fieldset>
+            </div>
+          </div>
+          <div class="checkbox">
+            <label class="c-input c-checkbox" style="padding-left: 26px">
+              <input
+                type="checkbox"
+                name="IsDefault"
+                [formControl]="addressForm.controls['default']"
+              />
+              <span class="c-indicator">Đặt là địa chỉ mặc định?</span>
+            </label>
+          </div>
+          <div class="btn-row">
+            <button
+              (click)="modal.dismiss('Cross click')"
+              class="btn btn-lg btn-dark-address btn-outline article-readmore btn-close"
+              type="button"
+            >
+              HỦY
+            </button>
+            <button
+              *ngIf="isSubmitting"
+              class="btn btn-lg btn-primarys btn-submit"
+              id="addnew"
+              type="button"
+            >
+              <span class="spinner-border spinner-border-sm"></span>
+            </button>
+            <button
+              *ngIf="!isSubmitting"
+              class="btn btn-lg btn-primarys btn-submit"
+              id="addnew"
+              type="submit"
+            >
+              LƯU
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,130 @@
+<app-loader></app-loader>
+<div class="container-fluid">
+  <app-page-title title="Hình dáng" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term" />
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="text-sm-end">
+                <button type="button" class="btn btn-success btn-rounded mb-2 mr-2 me-2"
+                (click)="openModal()">
+                  <i class="mdi mdi-plus me-1"></i> Thêm hình dáng
+                </button>
+                
+              </div>
+
+            </div>
+            <!-- end col-->
+          </div>
+          <div class="table-responsive">
+            <table class="table align-middle table-nowrap">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Tên</th>
+                  <th>Thông tin tạo</th>
+                  <th>Thông tin sửa</th>
+                  <th>Trạng thái</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-template #noData>
+                  <tr>
+                    <td colspan="8" class="text-center">Chưa có dữ liệu</td>
+                  </tr>
+                </ng-template>
+                <ng-container *ngIf="(formmData | filter : term)?.length; else noData">
+                  <tr *ngFor="
+                      let mateRial of osTypeDataPage | filter : term;
+                      let i = index
+                    ">
+                    <td>
+                      <div class="form-check font-size-16">
+                        <input id="customCheck{{ i }}" type="checkbox" class="form-check-input" />
+                        <label class="form-check-label" for="customCheck{{ i }}">&nbsp;</label>
+                      </div>
+                    </td>
+                    <td>{{ mateRial.name }}</td>
+                    <td>
+                      <p class="mb-1">{{ mateRial.createBy }}</p>
+                      <p class="mb-0">{{ mateRial.createTime | date : "dd/MM/yyyy HH:mm" }}</p>
+                    </td>
+                    <td>
+                      <p class="mb-1">{{ mateRial.updateBy }}</p>
+                      <p class="mb-0">{{ mateRial.updateTime | date : "dd/MM/yyyy HH:mm" }}</p>
+                    </td>
+                    <td *ngIf="mateRial.status == 0">
+                      <span class="badge bg-success">Đang hoạt động</span>
+                    </td>
+                    <td *ngIf="mateRial.status != 0">
+                      <span class="badge bg-danger">Xóa</span>
+                    </td>
+                    <td>
+                      <div class="dropdown" ngbDropdown placement="bottom-right">
+                        <a href="javascript: void(0);" class="dropdown-toggle card-drop" data-toggle="dropdown"
+                          ngbDropdownToggle aria-expanded="false">
+                          <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                          <li>
+                            <a (click)="editOsType(mateRial)" class="dropdown-item"><i
+                                class="fas fa-pencil-alt text-success me-1"></i>
+                              Edit</a>
+                          </li>
+                          <li>
+                            <a (click)="deleteOsType(mateRial.id)" class="dropdown-item"><i
+                                class="fas fa-trash-alt text-danger me-1"></i>
+                              Delete</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <ngb-pagination [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="totalItems"
+            (pageChange)="onPageChange($event)" class="pagination pagination-rounded justify-content-end mb-2">
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #content role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Thêm hình dáng</h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="saveOsType()" [formGroup]="formData">
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="control-label">Hình dáng</label>
+            <input class="form-control" placeholder="Nhập hình dáng" type="text" name="title" autocomplete="off"
+              formControlName="name" [ngClass]="{ 'is-invalid': submitted && form.name.errors }" />
+            <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+              <span *ngIf="form.name.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" id="btn-save-event">
+        Lưu
+      </button>
+    </form>
+  </div>
+</ng-template>

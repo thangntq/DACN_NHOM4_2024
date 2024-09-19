@@ -1,0 +1,10 @@
+export const UNCONFIRMED = 0;
+export const CONFIRMED = 1;
+export const IN_PROGRESS = 2;
+export const COMPLETED = 3;
+export const CANCELLED = 4;
+export const FAILED = 5;
+export const SALE_POS = true;
+export const SALE_ONLINE = false;
+export const CHUA_THANH_TOAN = 0;
+export const DA_THANH_TOAN = 1;

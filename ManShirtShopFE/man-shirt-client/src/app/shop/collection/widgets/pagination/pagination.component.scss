@@ -1,0 +1,47 @@
+.page-item.disabled .page-link {
+  width: 41px;
+  background: #fff;
+  border: solid 1px #dde1ef;
+  text-align: center;
+  height: 37px;
+  font-size: 16px;
+  padding: 0;
+  line-height: 35px;
+  color: #7a7a9d;
+  text-decoration: none;
+  border-radius: 4px;
+}
+.product-pagination .pagination .page-item {
+  margin: 0 4px 6px;
+}
+.product-pagination .pagination .page-item.active a {
+  width: 41px;
+  background: #fff;
+  text-align: center;
+  height: 37px;
+  font-size: 16px;
+  padding: 0;
+  line-height: 35px;
+  color: #7a7a9d;
+  text-decoration: none;
+  border-radius: 4px;
+  background: #357ebd;
+  color: #fff;
+  display: block;
+}
+.product-pagination .pagination {
+  justify-content: center;
+}
+.product-pagination .pagination .page-item a {
+  width: 41px;
+  background: #fff;
+  border: solid 1px #dde1ef;
+  text-align: center;
+  height: 37px;
+  font-size: 16px;
+  padding: 0;
+  line-height: 35px;
+  color: #7a7a9d;
+  text-decoration: none;
+  border-radius: 4px;
+}

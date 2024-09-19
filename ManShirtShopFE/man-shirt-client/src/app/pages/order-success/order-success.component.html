@@ -1,0 +1,17 @@
+<section *ngIf="order" class="section-b-space light-layout">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="success-text">
+                    <i class="fa fa-check-circle" aria-hidden="true" style="font-size: 90px;"></i>
+                    <h2>thank you</h2>
+                    <p *ngIf="order.paymentType == 'VNPAY'">Thanh toán được xử lý thành công và đơn đặt hàng của bạn
+                        đang được thực hiện</p>
+                    <p *ngIf="order.paymentType == 'COD'">Đơn hàng của bạn đang được xử lý, chúng tôi sẽ liên hệ sớm cho
+                        bạn</p>
+                    <p>Mã hóa đơn <a routerLink="/account/orders/{{order.code}}">#{{order.code}}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

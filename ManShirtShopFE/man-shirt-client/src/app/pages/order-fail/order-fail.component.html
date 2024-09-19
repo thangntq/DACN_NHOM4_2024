@@ -1,0 +1,43 @@
+<section *ngIf="order" class="section-b-space light-layout">
+    <div class="container">
+        <div class="row">
+            <div class="col col--half">
+                <div class="icon-failure">
+                    <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M22.5 0C10.0743 0 0 10.0743 0 22.5C0 34.9271 10.0743 45 22.5 45C34.9271 45 45 34.9285 45 22.5C45 10.0743 34.9269 0 22.5 0ZM22.5 40.7812C12.4032 40.7812 4.21882 32.5968 4.21882 22.5C4.21882 12.4032 12.4032 4.21882 22.5 4.21882C32.5968 4.21882 40.7812 12.4032 40.7812 22.5C40.7812 32.5968 32.5968 40.7812 22.5 40.7812ZM22.5014 9.86761C20.8899 9.86761 19.6706 10.7086 19.6706 12.067V24.5264C19.6706 25.8862 20.8897 26.7243 22.5014 26.7243C24.0736 26.7243 25.3323 25.8511 25.3323 24.5264V12.067C25.3321 10.7409 24.0736 9.86761 22.5014 9.86761ZM22.5014 29.5313C20.9531 29.5313 19.6931 30.7913 19.6931 32.3409C19.6931 33.8877 20.9531 35.1478 22.5014 35.1478C24.0497 35.1478 25.3084 33.8877 25.3084 32.3409C25.3082 30.7912 24.0497 29.5313 22.5014 29.5313Z"
+                            fill="#FFAE06"></path>
+                    </svg>
+                </div>
+                <h3 class="section__title section__title--fail">Thanh toán thất bại</h3>
+                <div class="p-desc p-desc--fail">
+                    <p>
+                        Giao dịch không thành công, xin vui lòng thử lại.
+                    </p>
+                    <p>
+                        Mã đơn hàng <a routerLink="/account/orders/{{order.code}}"
+                            style="color: #357EBD;">#{{order.code}} </a>
+                    </p>
+                </div>
+                <section class="checkout__choice--wrapper pt-3">
+                    <div>
+                        <a routerLink="/checkout/{{order.codeCheckOut}}" class="btn btn--light"
+                            style="background-color: #357EBD; color: white;">
+                            Thanh toán lại
+                        </a>
+                    </div>
+                </section>
+                <!-- <div>
+                    <p>Hoặc</p>
+                </div>
+                <section class="checkout__choice--wrapper pt-0">
+                    <div>
+                        <a routerLink="/" class="btn btn--light">
+                            Tiếp tục mua hàng
+                        </a>
+                    </div>
+                </section> -->
+            </div>
+        </div>
+    </div>
+</section>

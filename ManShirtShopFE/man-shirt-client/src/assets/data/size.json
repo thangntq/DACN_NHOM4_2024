@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "createTime": "2023-06-15T10:06:10.547+00:00",
+    "updateTime": "2023-06-15T10:06:26.834+00:00",
+    "updateBy": "admin",
+    "createBy": "admin",
+    "status": 0,
+    "code": "S",
+    "description": "Ngực: 90 - 96cm Vòng eo: 76 - 82cm"
+  },
+  {
+    "id": 2,
+    "createTime": "2023-06-15T10:06:45.575+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "admin",
+    "status": 0,
+    "code": "M",
+    "description": "Ngực: 97 - 104cm Vòng eo: 83 - 90cm"
+  },
+  {
+    "id": 3,
+    "createTime": "2023-06-15T10:07:00.454+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "admin",
+    "status": 0,
+    "code": "L",
+    "description": "Ngực: 105 - 112cm Vòng eo: 91 - 98cm"
+  },
+  {
+    "id": 4,
+    "createTime": "2023-06-15T10:07:20.442+00:00",
+    "updateTime": "2023-06-15T10:07:42.678+00:00",
+    "updateBy": "admin",
+    "createBy": "admin",
+    "status": 0,
+    "code": "XL",
+    "description": "Ngực: 113 - 120cm Vòng eo: 99 - 106cm"
+  },
+  {
+    "id": 5,
+    "createTime": "2023-06-15T10:08:03.587+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "admin",
+    "status": 0,
+    "code": "XXL",
+    "description": "Ngực: 121 - 128cm Vòng eo: 107 - 114cm"
+  },
+  {
+    "id": 6,
+    "createTime": "2023-06-15T10:08:21.300+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "admin",
+    "status": 0,
+    "code": "3XL",
+    "description": "Ngực: 129 - 136cm Vòng eo: 115 - 122cm"
+  }
+]

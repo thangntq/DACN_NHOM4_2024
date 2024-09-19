@@ -1,0 +1,32 @@
+<div
+  class="collection-collapse-block"
+  [class.open]="collapse"
+  *ngIf="filterbycategory.length"
+>
+  <h3 class="collapse-block-title" (click)="collapse = !collapse">
+    Loại sản phẩm
+  </h3>
+  <div class="collection-collapse-block-content">
+    <div class="collection-brand-filter category-filter">
+      <div class="custom-control custom-checkbox collection-filter-checkbox">
+        <li *ngFor="let category of filterbycategory">
+          <input
+            type="checkbox"
+            [value]="category"
+            [checked]="checked(category)"
+            [id]="category"
+            class="custom-control-input"
+            (change)="appliedFilter($event)"
+          />
+          <label
+            class="custom-control-label"
+            [ngClass]="{ checked: checked(category) }"
+            for="{{ category }}"
+          >
+            {{ category }}
+          </label>
+        </li>
+      </div>
+    </div>
+  </div>
+</div>

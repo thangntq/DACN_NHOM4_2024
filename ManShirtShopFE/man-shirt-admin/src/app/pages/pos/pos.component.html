@@ -1,0 +1,464 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+<div id="app" class="app app-content-full-height app-without-sidebar app-without-header bg-white">
+  <div id="content" class="app-content p-0">
+    <div class="pos pos-customer" [ngClass]="{ 'pos-mobile-sidebar-toggled': isClassVisible }">
+      <div class="pos-content">
+        <div class="d-flex align-items-center p-3" style="background-color: white">
+          <button routerLink="/dashboard" class="btn btn-success w-auto me-3" type="button">
+            <i class="bx bx-log-out"></i>
+          </button>
+          <button *ngIf="!isFullscreen" class="btn btn-white text-black w-auto me-3" (click)="openFullscreen()"
+            type="button">
+            <i class="bx bx-fullscreen"></i>
+          </button>
+          <button *ngIf="isFullscreen" class="btn btn-white text-black w-auto me-3" (click)="closeFullscreen()"
+            type="button">
+            <i class="bx bx-exit-fullscreen"></i>
+          </button>
+          <div class="form me-3">
+            <i class="fa fa-search"></i>
+            <input type="text" class="form-control form-input" [(ngModel)]="term"
+              placeholder="Tìm kiếm tên hoặc mã sản phẩm..." />
+          </div>
+          <button class="btn btn-success w-auto me-3" type="button">
+            <i class="fa fa-plus"></i>
+          </button>
+          <a class="btn btn-scanner-set" (click)="openModalBarCodeScanner()"><img
+              src="../../../assets/images/barcode.png" alt="img" /></a>
+          <ng-template #barCodeScanner role="document" let-modal>
+            <div class="modal-header">
+              <button type="button" class="btn-close" aria-hidden="true"
+                (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+              <ngx-barcode-scanner [(value)]="barCodeValue" (valueChange)="onValueChanges($event)"
+                [codes]="['code_128', 'ean', 'upc', 'upc_e', 'ean_8']" [errorThreshold]="0.1"></ngx-barcode-scanner>
+            </div>
+          </ng-template>
+        </div>
+        <div class="pos-content-container">
+          <div class="product-row">
+            <div *ngFor="let product of productListDatas | filter : term" class="product-container">
+              <a class="product" [ngClass]="product.total <= 0 ? 'not-available' : ''"
+                (click)="openModalPosItem(product)">
+                <div class="product-img position-relative">
+                  <div class="avatar-sm product-ribbon" style="height: 2rem !important;"
+                    *ngIf="product.productDiscount.length > 0">
+                    <span class="avatar-title rounded-circle bg-primary" style="border-radius: 15% !important;">
+                      -{{product.productDiscount[0].percent}} %
+                    </span>
+                  </div>
+                  <div class="img" style="background-image: url('{{product.productImage[0].urlImage}}');"></div>
+                </div>
+                <div class="text">
+                  <div class="title">{{ product.name }}</div>
+                  <div class="price">
+                    {{ product.price.toLocaleString("vi-VN") }}đ
+                    <del *ngIf="product.productDiscount.length > 0" class="desc">{{(product.price *
+                      product.productDiscount[0].percent /
+                      100).toLocaleString("vi-VN")}}đ</del>
+                  </div>
+                </div>
+                <div *ngIf="product.total<=0" class="not-available-text">
+                  <div>Hết hàng</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pos-sidebar">
+        <div class="pos-sidebar-header">
+          <div class="back-btn">
+            <button type="button" (click)="toggleClass()" class="btn">
+              <svg viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+              </svg>
+            </button>
+          </div>
+          <div class="icon">
+            <img src="../../../assets/images/tshirt.png" />
+          </div>
+          <div class="title">{{ tabValue?.name }}</div>
+          <div class="order">Hóa đơn: <b>#0056</b></div>
+        </div>
+        <div class="pos-sidebar-nav">
+          <ul class="nav nav-tabs nav-fill bill-nav">
+            <li *ngFor="let tab of tabs; index as i" class="nav-item" (click)="selectTab(i)" style="cursor: pointer">
+              <a class="nav-link" [class.active]="i === selectedTabIndex">{{ tab.name }}
+                <span (click)="removeTab(tab)"><i class="fa fa-times ms-3 text-end"
+                    style="color: #00acac"></i></span></a>
+            </li>
+            <li class="nav-item" style="
+                width: 50px !important;
+                background-color: #00acac !important;
+              ">
+              <a class="nav-link" (click)="addTab()" style="
+                  cursor: pointer;
+                  background-color: #00acac !important;
+                  color: white;
+                "><i class="fa fa-plus"></i></a>
+            </li>
+          </ul>
+        </div>
+        <div class="pos-sidebar-body tab-content">
+          <div class="tab-pane fade h-100 show active" id="newOrderTab">
+            <div class="pos-table">
+              <div *ngFor="let productDetail of tabValue?.cartDetail" class="row pos-table-row">
+                <ng-container *ngIf="getProduct(productDetail.detail) as product">
+                  <div class="col-8">
+                    <div class="pos-product-thumb">
+                      <div class="img"
+                        style="background-image: url('{{product.productImage[0].urlImage}}');width: 30% !important; height: auto !important;">
+                      </div>
+                      <div class="info">
+                        <div class="title">
+                          {{ product.name }}
+                        </div>
+                        <div class="single-price">
+                          {{ product.price.toLocaleString("vi-VN") }}đ
+                          <del *ngIf="product.productDiscount.length > 0" class="desc">{{(product.price *
+                            product.productDiscount[0].percent /
+                            100).toLocaleString("vi-VN")}}đ</del>
+                        </div>
+                        <div class="desc">
+                          Size: {{ productDetail.detail.size.code }}
+                        </div>
+                        <div class="desc">
+                          Màu: {{ productDetail.detail.color.name }}
+                        </div>
+                        <div class="input-group qty">
+                          <div class="input-group-append">
+                            <a class="btn btn-default" (click)="decrementItem(productDetail.detail)"><i
+                                class="fa fa-minus"></i></a>
+                          </div>
+                          <input type="text" class="form-control"
+                            (input)="setQuantity($event.target.value, productDetail)"
+                            [(value)]="productDetail.quantity" />
+                          <div class="input-group-prepend">
+                            <a class="btn btn-default" (click)="incrementItem(productDetail.detail)"><i
+                                class="fa fa-plus"></i></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4 total-price">
+                    <div class="flex-1">
+                      {{((product.price - product.price *
+                      product.productDiscount[0]?.percent /
+                      100) * productDetail.quantity).toLocaleString("vi-VN")}}
+                    </div>
+                    <div class="text-end">
+                      <a class="btn btn-default btn-sm" (click)="removeItem(productDetail)"><i
+                          class="fa fa-trash"></i></a>
+                    </div>
+                  </div>
+                  <div class="pos-remove-confirmation" [hidden]="productDetail !== showRemoveConfirmation">
+                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="me-2" fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                      <path fill-rule="evenodd"
+                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                    </svg>
+                    Remove this item?
+                    <a class="btn btn-white ms-auto me-2" (click)="cancelRemove()">No</a>
+                    <a class="btn btn-danger" (click)="removeDetail(productDetail)">Yes</a>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pos-sidebar-footer">
+          <div class="total">
+            <div class="text">Tổng</div>
+            <div class="price">{{(total != 0 ? total : 0).toLocaleString("vi-VN")}}</div>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-success" (click)="openModalCheckout()"><i class="fa fa-check fa-fw fa-lg"></i> Thanh
+              toán</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a class="pos-mobile-sidebar-toggler" (click)="toggleClass()">
+      <svg viewBox="0 0 16 16" class="img" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+          d="M14 5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5zM1 4v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4H1z" />
+        <path d="M8 1.5A2.5 2.5 0 0 0 5.5 4h-1a3.5 3.5 0 1 1 7 0h-1A2.5 2.5 0 0 0 8 1.5z" />
+      </svg>
+      <span class="badge">2</span>
+    </a>
+  </div>
+  <ng-template #modalPosItem role="document" let-modal>
+    <div class="modal-header">
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-content">
+        <div class="modal-content-body p-0">
+          <div class="pos-product">
+            <div class="pos-product-img">
+              <div class="img" style="background-image: url('{{productDataModal.productImage[0].urlImage}}');"></div>
+            </div>
+            <div class="pos-product-info">
+              <div class="title">{{ productDataModal.name }}</div>
+              <div class="price">
+                {{ productDataModal.price.toLocaleString("vi-VN") }}đ
+                <del class="desc">356,000đ</del>
+              </div>
+              <hr />
+              <div class="option-row">
+                <div class="qty d-flex align-items-center">
+                  <div class="input-group me-3">
+                    <a class="btn btn-default" (click)="decrement()"><i class="fa fa-minus"></i></a>
+                    <input type="text" class="form-control border-0 text-center" name=""
+                      [(ngModel)]="quantityDataModal" />
+                    <a class="btn btn-default" (click)="increment()"><i class="fa fa-plus"></i></a>
+                  </div>
+                  <span>Tồn kho:
+                    {{
+                    getQuantity(
+                    productDataModal.productDetail,
+                    selectedColor,
+                    selectedSize
+                    )
+                    }}</span>
+                </div>
+              </div>
+              <div class="option-row">
+                <div class="option-title">Màu sắc</div>
+                <div class="option-list">
+                  <div *ngFor="let color of getAllColors(productDataModal)" class="option">
+                    <input type="radio" [value]="color.id" class="option-input"
+                      [checked]="color.id === selectedColor?.id" />
+                    <label class="option-label" (click)="changeColor(color)">
+                      <span class="option-text">{{ color.name }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="option-row">
+                <div class="option-title">Size</div>
+                <div class="option-list">
+                  <div *ngFor="let size of getAllSizes(productDataModal)" class="option">
+                    <input type="radio" [value]="size.id" class="option-input"
+                      [checked]="size.id === selectedSize?.id" />
+                    <label class="option-label" (click)="changeSize(size)">
+                      <span class="option-text">{{ size.code }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="btn-row">
+                <a class="btn btn-default" (click)="modal.dismiss('Cross click')" data-bs-dismiss="modal">Cancel</a>
+                <a class="btn btn-success" (click)="
+                addToCart1(
+                      productDataModal.productDetail,
+                      selectedColor,
+                      selectedSize
+                    )
+                  ">Add to cart <i class="fa fa-plus fa-fw ms-2"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #modalCheckout role="document" let-modal>
+  <div class="modal-header">
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="checkout()" [formGroup]="formData">
+      <div class="row">
+        <div class="col-lg-7 col-sm-12 col-12" style="padding-right: 60px;">
+          <div class="col-lg-12 col-sm-12 col-12">
+            <div class="form-group">
+              <label>Khách hàng</label>
+              <ng-select (change)="onChangeCustomer()" [items]="customerData" bindLabel="name" bindValue="id"
+                formControlName="customer" [notFoundText]="'Không tìm thấy kết quả'" class="custom-select"
+                [compareWith]="compareFn" (search)="onSearchCustomerChange($event)">
+                <ng-template ng-notfound-tmp>
+                  <div class="add-new-button-container p-3" *ngIf="showAddCustomerButton">
+                    <button type="button" class="btn btn-success" style="padding: 1px 3px !important;"
+                      (click)="openModalCustomer()">
+                      <i class="mdi mdi-plus me-2"></i>Thêm mới khách hàng
+                    </button>
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-lg-12 col-sm-12 col-12">
+            <div class="form-group d-flex">
+              <input class="form-check-input me-2" type="checkbox" [checked]="showAddress" id="formCheck1"
+                (change)="toggleAddress()" />
+              <label class="form-check-label mb-0 me-2" for="formCheck1">
+                Giao hàng
+              </label>
+            </div>
+          </div>
+          <div [style.display]="showAddress ? 'block' : 'none'">
+            <div class="row">
+              <div class="col-lg-6 col-sm-12 col-12">
+                <div class="form-group">
+                  <label>Thành phố/Tỉnh</label>
+                  <ng-select [items]="selectProvince" bindLabel="ProvinceName" bindValue="ProvinceID"
+                    (change)="onChangeProvince(formData.get('province').value)" formControlName="province"></ng-select>
+                </div>
+              </div>
+              <div class="col-lg-6 col-sm-12 col-12">
+                <div class="form-group">
+                  <label>Quận/Huyện</label>
+                  <ng-select [items]="selectDistrict" bindLabel="DistrictName" bindValue="DistrictID"
+                    (change)="onChangeDistrict(formData.get('district').value)" formControlName="district"></ng-select>
+                </div>
+              </div>
+              <div class="col-lg-6 col-sm-12 col-12">
+                <div class="form-group">
+                  <label>Phường/Xã</label>
+                  <ng-select [items]="selectWard" bindLabel="WardName" bindValue="WardCode" (change)="onChangeWard()"
+                    formControlName="ward"></ng-select>
+                </div>
+              </div>
+              <div class="col-lg-6 col-sm-12 col-12">
+                <div class="form-group">
+                  <label>Địa chỉ chi tiết</label>
+                  <input formControlName="address" type="text" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 col-sm-12 col-12">
+            <div class="form-group">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" formControlName="paymentType" id="paymentType1"
+                  value="Tiền mặt">
+                <label class="form-check-label" for="paymentType1">Tiền mặt</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" formControlName="paymentType" id="paymentType2"
+                  value="Chuyển khoản">
+                <label class="form-check-label" for="paymentType2">Chuyển khoản</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 col-sm-12 col-12">
+            <div class="form-group">
+              <label>Ghi chú</label>
+              <textarea formControlName="note" class="col-12" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 col-sm-12 col-12">
+          <h4>
+            Đơn hàng ({{tabValue?.cartDetail.length}} sản phẩm)
+          </h4>
+          <div *ngFor="let productDetail of tabValue?.cartDetail" class="row pos-table-row">
+            <ng-container *ngIf="getProduct(productDetail.detail) as product">
+              <div class="col-8">
+                <div class="pos-product-thumb">
+                  <div class="img" style="background-image: url('{{product.productImage[0].urlImage}}')">
+                  </div>
+                  <div class="info">
+                    <div class="title">
+                      {{ product.name }}
+                    </div>
+                    <div class="desc">
+                      {{ productDetail.detail.size.code }} / {{ productDetail.detail.color.name }}
+                    </div>
+                    <div class="single-price">
+                      {{ product.price.toLocaleString("vi-VN") }}đ
+                      <del *ngIf="product.productDiscount.length > 0" class="desc">{{(product.price *
+                        product.productDiscount[0].percent /
+                        100).toLocaleString("vi-VN")}}đ</del>
+                    </div>
+                    <div class="input-group qty">
+                      Số lượng: {{productDetail.quantity}}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-4 total-price">
+                <div class="flex-1">
+                </div>
+                <div class="text-end">
+                  {{((product.price - product.price *
+                  product.productDiscount[0]?.percent /
+                  100) * productDetail.quantity).toLocaleString("vi-VN")}}đ
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          <div class="row mt-3">
+            <div class="col-lg-12 col-sm-12 col-12">
+              <div class="form-group">
+                <label>Giảm giá</label>
+                <ng-select (change)="onChangeVoucher()" [items]="voucherData" bindLabel="name" bindValue="id"
+                  formControlName="voucher"></ng-select>
+              </div>
+            </div>
+          </div>
+          <div class="pos-sidebar-footer">
+            <div class="subtotal">
+              <div class="text">Tạm tính</div>
+              <div class="price">{{total.toLocaleString("vi-VN")}}đ</div>
+            </div>
+            <div class="taxes">
+              <div class="text">Khuyến mãi{{codeVoucher != undefined ? '('+ codeVoucher + ')' : ''}}</div>
+              <div class="price">{{costVoucher?.toLocaleString("vi-VN") || 0}}đ</div>
+            </div>
+            <div class="taxes">
+              <div class="text">Phí vận chuyển</div>
+              <div class="price">{{costShip?.toLocaleString("vi-VN") || 0}}đ</div>
+            </div>
+            <div class="total">
+              <div class="text">Tổng</div>
+              <div class="price">{{getTong(total, costShip, costVoucher).toLocaleString("vi-VN")}}đ</div>
+            </div>
+            <div class="btn-row">
+              <button type="submit" class="btn btn-success"><i class="fa fa-check fa-fw fa-lg"></i>Hoàn tất</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<ng-template #modalCustomer role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Thêm khách hàng</h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="saveCustomer()" [formGroup]="formCustomer">
+      <div class="row">
+        <div class="col-lg-12 col-sm-12 col-12">
+          <div class="form-group">
+            <label>Số điện thoại</label>
+            <input type="text" formControlName="phone" />
+          </div>
+        </div>
+        <div class="col-lg-12 col-sm-12 col-12">
+          <div class="form-group">
+            <label>Tên khách hàng</label>
+            <input type="text" name="fullName" formControlName="fullName" />
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" id="btn-save-event">
+        Lưu
+      </button>
+    </form>
+  </div>
+</ng-template>

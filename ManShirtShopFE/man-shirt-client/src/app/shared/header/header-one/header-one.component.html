@@ -1,0 +1,101 @@
+<header class="sticky" [ngClass]="class" [class.fixed]="stick && sticky">
+  <!-- <div class="mobile-fix-option"></div> -->
+  <div class="top-header" *ngIf="topbar">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="header-contact">
+            <ul>
+              <li>Chào mừng đến với NewMen</li>
+              <li>
+                <i class="fa fa-phone" aria-hidden="true"></i>0392-133-732
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6 text-right">
+          <ul class="header-dropdown">
+            <li class="compare">
+              <a [routerLink]="['/shop/compare']"
+                ><i class="fa fa-random" aria-hidden="true"></i>So sánh</a
+              >
+            </li>
+            <li class="mobile-wishlist">
+              <a [routerLink]="['/shop/wishlist']"
+                ><i class="fa fa-heart" aria-hidden="true"></i>Yêu thích</a
+              >
+            </li>
+            <li *ngIf="isLogin" class="onhover-dropdown mobile-account">
+              <i class="fa fa-user" aria-hidden="true"></i> Cá nhân
+              <ul class="onhover-show-div">
+                <li>
+                  <a
+                    href="/account"
+                    style="border-bottom: 1px #dde1ef solid; color: #357ebd"
+                    ><b>{{ userInfo?.fullname }}</b></a
+                  >
+                </li>
+                <li>
+                  <a routerLink="/account">Tài khoản của tôi</a>
+                </li>
+                <li>
+                  <a routerLink="/account/orders">Danh sách đơn hàng</a>
+                </li>
+                <li>
+                  <a routerLink="/account/address">Sổ địa chỉ</a>
+                </li>
+                <li>
+                  <a routerLink="/account/history">Đã xem gần đây</a>
+                </li>
+                <li (click)="logout()" class="logout">
+                  <a>Đăng xuất</a>
+                </li>
+              </ul>
+            </li>
+            <li *ngIf="!isLogin" class="mobile-account">
+              <a [routerLink]="['/login']"
+                ><i class="fa fa-user" aria-hidden="true"></i> Đăng nhập</a
+              >
+              /
+              <a [routerLink]="['/register']">Đăng ký</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div style="background: url(//bizweb.dktcdn.net/100/438/408/themes/913235/assets/background-header.png?1688174049090);background-repeat: no-repeat;
+    background-size: 100% 100%;
+    box-shadow: 0 6px 12px 0 rgba(0,0,0,0.05)"> -->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="main-menu">
+          <div class="menu-left">
+            <app-left-menu></app-left-menu>
+            <div class="brand-logo">
+              <a routerLink="/home" id="headerlogo">
+                <img
+                  width="120px"
+                  [src]="themeLogo"
+                  class="img-fluid"
+                  alt="logo"
+                />
+              </a>
+            </div>
+          </div>
+          <div class="menu-right pull-right">
+            <div>
+              <app-menu></app-menu>
+            </div>
+            <div>
+              <app-settings></app-settings>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</header>
+<!-- <div class="header-mask"></div> -->

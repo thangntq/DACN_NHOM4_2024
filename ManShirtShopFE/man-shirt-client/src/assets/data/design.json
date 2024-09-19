@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "createTime": "2023-06-15T03:11:18.138+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Kẻ carô"
+  },
+  {
+    "id": 2,
+    "createTime": "2023-06-15T03:11:24.554+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Kẻ sọc dọc"
+  },
+  {
+    "id": 3,
+    "createTime": "2023-06-15T03:11:30.788+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Kẻ sọc ngang"
+  },
+  {
+    "id": 4,
+    "createTime": "2023-06-15T03:11:36.508+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Kẻ trơn."
+  },
+  {
+    "id": 5,
+    "createTime": "2023-06-15T03:11:43.708+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Kẻ vuông"
+  },
+  {
+    "id": 6,
+    "createTime": "2023-06-15T03:11:49.515+00:00",
+    "updateTime": null,
+    "updateBy": null,
+    "createBy": "New Men-Manager",
+    "status": 0,
+    "name": "Kẻ ô"
+  }
+]

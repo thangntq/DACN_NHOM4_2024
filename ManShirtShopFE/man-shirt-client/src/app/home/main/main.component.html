@@ -1,0 +1,341 @@
+<app-header-one [sticky]="true"></app-header-one>
+
+<!-- Home slider start-->
+<section
+  class="p-0"
+  style="
+    background: linear-gradient(
+      90deg,
+      rgba(255, 182, 150, 1) 0%,
+      rgba(255, 182, 150, 1) 26%,
+      rgba(255, 182, 79, 1) 58%,
+      rgba(255, 182, 79, 1) 100%
+    );
+  "
+>
+  <div class="container banner-custom">
+    <app-slider
+      [sliders]="sliders"
+      [textClass]="'text-center'"
+      [category]="'fashion'"
+      [buttonText]="'shop now'"
+    >
+    </app-slider>
+  </div>
+</section>
+<section>
+  <div class="container">
+    <div class="big-campaign product-slide-custom">
+      <div class="slider-banner">
+        <owl-carousel-o
+          class="product-m no-arrow"
+          [options]="CategorySliderConfig"
+        >
+          <ng-container *ngFor="let slide of collections">
+            <ng-template carouselSlide>
+              <div
+                class="owl-item active"
+                style="margin-right: 10px; margin-left: 10px"
+              >
+                <a><img style="border-radius: 12px" [src]="slide.image" /></a>
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- <section >
+  <div class="container product-slide-custom">
+    <div class="row">
+      <div class="col p-0">
+        <owl-carousel-o
+          class="product-m no-arrow"
+          [options]="CategorySliderConfig"
+        >
+          <ng-container *ngFor="let category of categories ">
+            <ng-template carouselSlide>
+            <div class="product-box">
+              <li class="menu_silebar_item swiper-slide" style="height: auto;">
+                <div class="group_item">
+                  <a href="/ao-khoac-nam" class="category_item">
+                    <div class="image">
+                      <img
+                        class="category-desktop-lazyload"
+                        width="90"
+                        height="90"
+                        alt="home_danhmuc_2_child_1_title"
+                        src="https://bizweb.dktcdn.net/100/438/408/themes/916476/assets/home_danhmuc_2_child_3_image.png?1692179160630"
+                      />
+                    </div>
+                    <div class="title">{{category.name}}</div>
+                  </a>
+                </div>
+              </li>
+            </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- Home slider End -->
+<section *ngIf="products.length" class="section-b-space">
+  <div class="container product-slide-custom">
+    <div class="header-preview">
+      <div class="title title-promotion">
+        <a style="color: #11006f" routerLink="/shop" class="title-flash-sale"
+          >Flash sale</a
+        >
+        <app-countdown [date]="'August 30 2023'"></app-countdown>
+      </div>
+      <a
+        class="show-more"
+        routerLink="/shop"
+        style="
+          color: #c53800;
+          background: url(https://bizweb.dktcdn.net/100/438/408/themes/916476/assets/icon-arrow-flash-sale.svg?1692091941605)
+            right center no-repeat;
+        "
+      >
+        Xem thêm
+      </a>
+    </div>
+    <div style="display: flex">
+      <a
+        class="banner d-none d-md-block"
+        routerLink="/shop"
+        style="height: auto"
+      >
+        <img
+          src="https://shopeeplus.com//upload/images/211581915597123_540.png"
+          class="scroll-desktop-lazyload"
+          width="191"
+          height="419"
+          alt="icon flash"
+          style="height: 100%"
+        />
+      </a>
+      <div class="col wrap-list-product">
+        <owl-carousel-o
+          class="product-m no-arrow"
+          [options]="ProductSliderConfig"
+        >
+          <ng-container *ngFor="let product of products">
+            <ng-template carouselSlide>
+              <div class="product-box">
+                <app-product-box-one
+                  [product]="product"
+                  [currency]="productService?.Currency"
+                  [onHowerChangeImage]="true"
+                  [cartModal]="true"
+                  [flashSale]="true"
+                >
+                </app-product-box-one>
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- collection banner start-->
+<!-- <section class="pb-0">
+  <div class="container">
+    <div class="row partition2">
+      <div class="col-md-6" *ngFor="let collection of collections">
+        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion' }">
+          <div class="collection-banner p-right text-center">
+            <img [src]="collection.image" class="img-fluid" alt="collection-banner" />
+            <div class="contain-banner">
+              <div style="margin-bottom: 10px;">
+                <h4>{{ collection.save }}</h4>
+                <h2>{{ collection.title }}</h2>
+                <app-countdown [date]="'August 30 2023'"></app-countdown>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- collection banner End -->
+
+<!-- Product slider start-->
+<section class="section-b-space">
+  <div class="container product-slide-custom">
+    <div class="header-preview">
+      <div class="title">
+        <a style="color: #11006f"> Hàng Mới Về </a>
+      </div>
+      <a class="show-more" routerLink="/shop/san-pham-moi"> Xem thêm </a>
+    </div>
+    <div style="display: flex">
+      <a class="banner d-none d-md-block" routerLink="/shop/san-pham-moi">
+        <img
+          src="https://bizweb.dktcdn.net/100/438/408/themes/916476/assets/home_preivew_sanpham_2_image_desktop.jpg?1691814283308"
+          class="scroll-desktop-lazyload"
+          width="191"
+          height="419"
+          alt="icon flash"
+        />
+      </a>
+      <div class="col wrap-list-product">
+        <owl-carousel-o
+          class="product-m no-arrow"
+          [options]="ProductSliderConfig"
+        >
+          <ng-container *ngFor="let product of products">
+            <ng-template carouselSlide>
+              <div class="product-box">
+                <app-product-box-one
+                  [product]="product"
+                  [currency]="productService?.Currency"
+                  [onHowerChangeImage]="true"
+                  [cartModal]="true"
+                >
+                </app-product-box-one>
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Product slider End -->
+
+<!-- Parallax banner start-->
+<section class="p-0">
+  <div
+    class="full-banner parallax-banner1 parallax text-center p-left"
+    [ngStyle]="{ 'background-image': 'url(assets/images/parallax/1.jpg)' }"
+  >
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="banner-contain">
+            <h2>2023</h2>
+            <h3>fashion trends</h3>
+            <h4>special offer</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section-b-space">
+  <div class="container product-slide-custom">
+    <div class="header-preview">
+      <div class="title">
+        <a style="color: #11006f"> Sản phẩm bán chạy </a>
+      </div>
+      <a class="show-more" routerLink="/shop/ban-chay-nhat"> Xem thêm </a>
+    </div>
+    <div style="display: flex">
+      <a class="banner d-none d-md-block" routerLink="/shop/ban-chay-nhat">
+        <img
+          src="https://bizweb.dktcdn.net/100/438/408/themes/916476/assets/home_preivew_sanpham_3_image_desktop.jpg?1691814283308"
+          class="scroll-desktop-lazyload"
+          width="191"
+          height="419"
+          alt="icon flash"
+        />
+      </a>
+      <div class="col wrap-list-product">
+        <owl-carousel-o
+          class="product-m no-arrow"
+          [options]="ProductSliderConfig"
+        >
+          <ng-container *ngFor="let product of topProducts">
+            <ng-template carouselSlide>
+              <div class="product-box">
+                <app-product-box-one
+                  [product]="product"
+                  [currency]="productService?.Currency"
+                  [thumbnail]="true"
+                  [cartModal]="true"
+                >
+                </app-product-box-one>
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-b-space">
+  <div class="container product-slide-custom">
+    <div class="header-preview">
+      <div class="title">
+        <a style="color: #11006f"> Sản phẩm giảm giá nhiều nhất </a>
+      </div>
+      <a class="show-more" routerLink="/shop/giam-gia-sieu-lon"> Xem thêm </a>
+    </div>
+    <div style="display: flex">
+      <a class="banner d-none d-md-block" routerLink="/shop/giam-gia-sieu-lon">
+        <img
+          src="https://bizweb.dktcdn.net/100/438/408/themes/916476/assets/home_preivew_sanpham_5_image_desktop.jpg?1691814283308"
+          class="scroll-desktop-lazyload"
+          width="191"
+          height="419"
+          alt="icon flash"
+        />
+      </a>
+      <div class="col wrap-list-product">
+        <owl-carousel-o
+          class="product-m no-arrow"
+          [options]="ProductSliderConfig"
+        >
+          <ng-container *ngFor="let product of topDiscountProduct">
+            <ng-template carouselSlide>
+              <div class="product-box">
+                <app-product-box-one
+                  [product]="product"
+                  [currency]="productService?.Currency"
+                  [thumbnail]="true"
+                  [cartModal]="true"
+                >
+                </app-product-box-one>
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Tab product End -->
+
+<!-- services start-->
+<div class="container">
+  <section class="service border-section small-section">
+    <app-services></app-services>
+  </section>
+</div>
+
+<section class="blog p-t-0 mb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="title1 section-t-space">
+          <h2 class="title-inner1">neWMen's blog</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <app-blog [blogs]="blog"></app-blog>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <app-newsletter></app-newsletter> -->
+<app-footer-one></app-footer-one>

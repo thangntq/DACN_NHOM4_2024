@@ -1,0 +1,16 @@
+<div class="collection-collapse-block" [class.open]="collapse" *ngIf="filterByMaterial.length">
+    <h3 [ngClass]="'collapse-block-title ' + (collapse ? 'arrowup' : '')" (click)="collapse = !collapse">Chất liệu</h3>
+    <div class="collection-collapse-block-content">
+        <div class="collection-brand-filter color-filter">
+            <div class="custom-control custom-checkbox collection-filter-checkbox">
+                <li *ngFor="let material of filterByMaterial">
+                    <input type="checkbox" [value]="material" [checked]="checked(material)" [id]="material"
+                        (change)="appliedFilter($event)" class="custom-control-input" />
+                    <label class="custom-control-label" [ngClass]="{'checked': checked(material)}" for="{{material}}">
+                        {{material}}
+                    </label>
+                </li>
+            </div>
+        </div>
+    </div>
+</div>

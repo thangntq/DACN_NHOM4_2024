@@ -1,0 +1,227 @@
+.selected {
+  border: 1px solid #357ebd;
+  // transform: scale(0.98);
+}
+.color-variant li {
+  height: 100% !important;
+  width: 30px !important;
+  border-radius: 0;
+}
+
+::ng-deep .color-variant .owl-item {
+  width: 25px !important;
+  margin-right: 10px !important;
+}
+.wrap-product-sold-info {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: auto;
+  z-index: 2;
+  padding: 0 7px 0 7px;
+  border-top-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background: rgba(0, 0, 0, 0.6);
+  height: 24px;
+  font-size: 12px;
+  font-family: "SVN-Gilroy";
+  color: #fff;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+.wrap-product-sold-info .product-review {
+  display: flex;
+  align-items: center;
+}
+.wrap-product-sold-info .product-review i {
+  color: #ffa500;
+  margin-right: 2px;
+}
+.wrap-product-sold-info .product-sold {
+  margin-left: 3px;
+  display: flex;
+}
+.wrap-product-sold-info .product-sold .line {
+  background: #fff;
+  width: 1px;
+  padding: 0px 0px;
+  height: 11px;
+  margin: auto 0px;
+  margin-right: 3px;
+}
+.wrap-product-sold-info .product-sold .number-product-sold {
+  display: flex;
+  margin-left: 3px;
+}
+.sale {
+  position: absolute;
+  top: 0px;
+  right: 0;
+  z-index: 3;
+  width: 80px;
+  height: 24px;
+  color: #fff;
+  font-size: 12px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background: #cd151c;
+  border-top-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  font-family: "SVN-Gilroy";
+  font-weight: 600;
+  text-align: center;
+  padding-top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.product-detail a h6 {
+  font-size: 16px;
+  margin-bottom: 3px;
+  // height: 30px;
+}
+
+.product-detail a:hover h6 {
+  color: #357ebd;
+}
+.product-detail h4 {
+  color: #cd151c !important;
+  font-size: 16px;
+}
+.product-detail h4 .money {
+  margin-left: 10px;
+}
+@media only screen and (min-width: 1200px) and (max-width: 1430px) {
+  .sale {
+    width: 50px !important;
+  }
+}
+@media (max-width: 992px) {
+  .wrap-product-sold-info {
+    font-size: 10px;
+    height: 17px;
+    padding: 0 3px 0 4px;
+  }
+  .wrap-product-sold-info .product-sold {
+    padding-top: 2px;
+  }
+  .item_product_main .product-thumbnail.discount:before {
+    width: 45px;
+  }
+  .sale {
+    width: 45px;
+    line-height: 21px;
+    width: 55px;
+    font-size: 10px;
+    padding-left: 5px;
+    height: 17px;
+    border-bottom-right-radius: unset;
+    border-top-left-radius: unset;
+    font-weight: 600;
+    padding-top: 2px;
+  }
+}
+.product-detail h3 {
+  padding: 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0 0 5px;
+  line-height: 18px;
+  height: 18px;
+}
+
+.product-detail h3:hover {
+  color: #357ebd;
+}
+
+.product-detail h3 a {
+  color: #000;
+  text-transform: capitalize;
+}
+
+.product-detail h3 a:hover {
+  color: #357ebd;
+}
+
+@media (max-width: 1599px) {
+  .product-detail h3 {
+    height: 36px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: initial;
+  }
+}
+
+.checked {
+  color: orange;
+}
+
+.nochecked {
+  color: #ccc;
+}
+.rZzxlM {
+  position: relative;
+  width: 100%;
+}
+.RX2Jch.RJ6Vpu {
+  width: 1.125rem;
+  height: 20px;
+}
+.RX2Jch {
+  width: 0.875rem;
+  height: 1rem;
+  background: url(https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/c5316dd01de2b0d41d267a57f5b32844.png)
+    0 100% no-repeat;
+  background-size: contain;
+  position: absolute;
+  left: 0.1875rem;
+  top: -0.375rem;
+  z-index: 4;
+}
+.eNmE7o.RJ6Vpu {
+  font-size: 0.75rem;
+}
+.eNmE7o {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: inherit;
+  width: inherit;
+  color: #fff;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  z-index: 3;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
+}
+.d3m1Az,
+.SqDxib {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: inherit;
+}
+.d3m1Az {
+  background: url(https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/ac7f81d9ee062223753413ec98497a86.png)
+    0 100% no-repeat;
+  background-size: cover;
+  z-index: 2;
+}
+.SqDxib {
+  width: inherit;
+  background: #ffbda6;
+  z-index: 1;
+}
+.Nq-pih.QpXvtd {
+  padding: 0 5px;
+}

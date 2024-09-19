@@ -1,0 +1,104 @@
+<ng-template class="theme-modal" #ratingModal let-modal>
+  <div class="modal-content">
+    <!-- <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Đánh giá sản phẩm</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> -->
+    <div class="modal-body p-3">
+      <a (click)="modal.dismiss('Cross click')" class="close-modal">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
+          <path
+            d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z">
+          </path>
+        </svg>
+      </a>
+      <div class="sapo-product-reviews-form">
+        <div>
+          <form class="MultiFile-intercepted">
+            <div class="title-form">Đánh giá sản phẩm</div>
+            <div class="review-product-name">
+              {{ product?.name }}
+            </div>
+            <div class="bpr-form-rating">
+              <div class="form-group">
+                <label>Đánh giá của bạn về sản phẩm:</label>
+                <div class="sapo-product-reviews-star" style="cursor: pointer">
+                  <i *ngFor="
+                      let _ of [].constructor(maxRating);
+                      let index = index
+                    " class="fa fa-star" [class.checked]="index + 1 <= (hoverRating || rating)"
+                    [class.nochecked]="index + 1 > (hoverRating || rating)" (mouseenter)="handleMouseEnter(index + 1)"
+                    (mouseleave)="handleMouseLeave()" (click)="handleClick(index + 1)">
+                  </i>
+                  <span class="mt-2" style="font-size: 16px; color: black" *ngIf="(hoverRating || rating) > 0">
+                    {{ labelRating[maxRating - (hoverRating || rating)] }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="bpr-form-contact">
+              <div class="form-group__textarea">
+                <div class="form-group">
+                  <div class="bpr-form-review-body">
+                    <textarea maxlength="1000" id="review_body" name="body" rows="5"
+                      placeholder="Nhập nội dung đánh giá của bạn về sản phẩm này" [(ngModel)]="content"></textarea>
+                  </div>
+                </div>
+                <div id="fileAttach" class="bpr-file-attach option">
+                  <label class="next-label" for="inputFileAttach">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+                      <path
+                        d="M 4 5 C 2.895 5 2 5.895 2 7 L 2 23 C 2 24.105 2.895 25 4 25 L 14.230469 25 C 14.083469 24.356 14 23.688 14 23 C 14 22.662 14.021594 22.329 14.058594 22 L 5 22 L 5 15 L 7.2890625 12.710938 C 8.2340625 11.765937 9.7659375 11.765937 10.710938 12.710938 L 15.720703 17.720703 C 17.356703 15.469703 20.004 14 23 14 C 24.851 14 26.57 14.559578 28 15.517578 L 28 7 C 28 5.895 27.105 5 26 5 L 4 5 z M 23 8 C 24.105 8 25 8.895 25 10 C 25 11.105 24.105 12 23 12 C 21.895 12 21 11.105 21 10 C 21 8.895 21.895 8 23 8 z M 23 16 C 19.134 16 16 19.134 16 23 C 16 26.866 19.134 30 23 30 C 26.866 30 30 26.866 30 23 C 30 19.134 26.866 16 23 16 z M 23 19 C 23.552 19 24 19.447 24 20 L 24 22 L 26 22 C 26.552 22 27 22.447 27 23 C 27 23.553 26.552 24 26 24 L 24 24 L 24 26 C 24 26.553 23.552 27 23 27 C 22.448 27 22 26.553 22 26 L 22 24 L 20 24 C 19.448 24 19 23.553 19 23 C 19 22.447 19.448 22 20 22 L 22 22 L 22 20 C 22 19.447 22.448 19 23 19 z">
+                      </path>
+                    </svg>
+                    <span>Đính kèm hình ảnh (chọn tối đa 3 hình)</span>
+                  </label>
+                  <div class="MultiFile-wrap">
+                    <input style="color: #fff; opacity: 0; cursor: pointer" type="file" name="file"
+                      class="with-preview MultiFile-applied" value="" (change)="handleFileUpload($event)" />
+                    <div class="MultiFile-list">
+                      <div *ngFor="let file of uploadedFiles; let i = index" class="MultiFile-label">
+                        <a *ngIf="file" class="MultiFile-remove" style="cursor: pointer;" (click)="removeFile(i)">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
+                            <path
+                              d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M16.414,15 c0,0,3.139,3.139,3.293,3.293c0.391,0.391,0.391,1.024,0,1.414c-0.391,0.391-1.024,0.391-1.414,0C18.139,19.554,15,16.414,15,16.414 s-3.139,3.139-3.293,3.293c-0.391,0.391-1.024,0.391-1.414,0c-0.391-0.391-0.391-1.024,0-1.414C10.446,18.139,13.586,15,13.586,15 s-3.139-3.139-3.293-3.293c-0.391-0.391-0.391-1.024,0-1.414c0.391-0.391,1.024-0.391,1.414,0C11.861,10.446,15,13.586,15,13.586 s3.139-3.139,3.293-3.293c0.391-0.391,1.024-0.391,1.414,0c0.391,0.391,0.391,1.024,0,1.414C19.554,11.861,16.414,15,16.414,15z">
+                            </path>
+                          </svg></a>
+                        <span *ngIf="file">
+                          <img class="MultiFile-preview" [src]="file">
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="step__btn-group">
+              <button (click)="sendRating()" type="submit" class="btn btn-checkout spinner"
+                [ngClass]="{'spinner--active': isRating}" [disabled]="isRating">
+                <span class="spinner-label">Gửi đánh giá</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="spinner-loader">
+                  <use href="#spinner"></use>
+                </svg>
+              </button>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+              <symbol id="spinner">
+                <svg viewBox="0 0 30 30">
+                  <circle stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                    stroke-dasharray="85%" cx="50%" cy="50%" r="40%">
+                    <animateTransform attributeName="transform" type="rotate" from="0 15 15" to="360 15 15" dur="0.7s"
+                      repeatCount="indefinite"></animateTransform>
+                  </circle>
+                </svg>
+              </symbol>
+            </svg>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

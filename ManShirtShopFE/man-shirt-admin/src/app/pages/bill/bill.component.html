@@ -1,0 +1,144 @@
+<div *ngIf="billData" class="row">
+  <div class="col-lg-12">
+    <div #modalOrder class="card">
+      <div class="card-body">
+        <div class="invoice-title">
+          <div class="float-end" style="margin-top: 40px;">
+            <h4 class="font-size-16 m-0">
+              {{billData.code}}
+            </h4>
+            <address class="float-end">Thu ngân: Admin</address>
+          </div>
+          <div class="mb-4">
+            <img src="../../../assets/images/logo.png" alt="logo" height="40" />
+            <address>
+              ĐC: Nam Từ Liêm - Hà Nội<br />
+              ĐT: 0392-133-732
+            </address>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-6">
+            <address>
+              <strong>Khách hàng:</strong><br />
+              {{billData.customer?.fullname}}<br />
+              {{billData.customer?.phone}}<br />
+              {{billData.customer?.email}}
+            </address>
+          </div>
+          <div class="col-6 text-sm-end">
+            <address>
+              <strong>Địa chỉ:</strong><br />
+              {{billData.address}}<br />
+              {{billData.wardName}}<br />
+              {{billData.districtName}}, {{billData.cityName}}
+            </address>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 mt-3">
+            <address>
+              <strong>Phương thức thanh toán:</strong><br />
+              {{billData.paymentType}}<br />
+            </address>
+          </div>
+          <div class="col-6 mt-3 text-sm-end">
+            <address>
+              <strong>Ngày:</strong><br />
+              {{billData.createTime | date : "dd/MM/yyyy - HH:mm" }}<br /><br />
+            </address>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Mặt hàng</th>
+                <th>SL</th>
+                <th class="text-end">Đơn giá</th>
+                <th>KM(%)</th>
+                <th class="text-end">Thành tiền</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of billData.orderDetail">
+                <td>{{data.productDetailId.product.name + " " + data.productDetailId.color.name +" - "+
+                  data.productDetailId.size.code}}</td>
+                <td>{{data.quantity}}</td>
+                <td class="text-end">{{data?.unitprice?.toLocaleString("vi-VN")}}đ</td>
+                <td *ngIf="data?.productDetailId?.product?.productDiscount?.length > 0 && 
+                  data?.productDetailId?.product?.productDiscount[0]">
+                  {{(data?.unitprice * data?.productDetailId?.product?.productDiscount[0]?.percent / 100)?.
+                  toLocaleString("vi-VN")}}đ
+                  <span class="desc">{{"(" + data?.productDetailId?.product?.productDiscount[0]?.percent + "%)"}}</span>
+                </td>
+                <td
+                  *ngIf="data?.productDetailId?.product?.productDiscount === null ||data?.productDetailId?.product?.productDiscount === undefined || data?.productDetailId?.product?.productDiscount?.length < 1">
+                </td>
+                <td class="text-end">{{((data?.unitprice - (data?.unitprice *
+                  (data?.productDetailId?.product?.productDiscount?.length > 0 &&
+                  data?.productDetailId?.product?.productDiscount[0]?.percent ?
+                  data.productDetailId.product.productDiscount[0].percent : 0) / 100)) *
+                  data?.quantity)?.toLocaleString("vi-VN")}}đ</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="text-end">{{getTotal1()?.toLocaleString("vi-VN")}}đ</td>
+                <td>{{getTotalDiscount()?.toLocaleString("vi-VN")}}đ</td>
+                <td class="text-end">{{(getTotal1() - getTotalDiscount())?.toLocaleString("vi-VN")}}đ</td>
+              </tr>
+              <tr *ngIf="billData?.voucher !== null">
+                <td colspan="4" class="border-0 text-end">
+                  <strong>Khuyến mãi({{billData?.voucher?.code + "/-" + (billData?.voucher?.type === false ?
+                    (billData?.voucher?.discount + "%") : (billData?.voucher?.discount?.toLocaleString("vi-VN") +
+                    "đ"))}})</strong>
+                </td>
+                <td class="border-0 text-end">-{{getTotalVoucher().toLocaleString("vi-VN")}}đ</td>
+              </tr>
+              <tr *ngIf="billData?.freight !== 0">
+                <td colspan="4" class="border-0 text-end">
+                  <strong>Phí vận chuyển</strong>
+                </td>
+                <td class="border-0 text-end">{{billData?.freight.toLocaleString("vi-VN")}}đ</td>
+              </tr>
+              <tr>
+                <td colspan="4" class="border-0 text-end">
+                  <strong>Tổng tiền</strong>
+                </td>
+                <td class="border-0 text-end">
+                  <h4 class="m-0">{{getTotal2()?.toLocaleString("vi-VN")}}đ</h4>
+                </td>
+              </tr>
+              <!-- <tr>
+                  <td colspan="4" class="border-0 text-end">
+                    <strong>Tiền khách trả</strong>
+                  </td>
+                  <td class="border-0 text-end">
+                    <h4 class="m-0">1,350,000đ</h4>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4" class="border-0 text-end">
+                    <strong>Tiền thừa</strong>
+                  </td>
+                  <td class="border-0 text-end">
+                    <h4 class="m-0">0</h4>
+                  </td>
+                </tr> -->
+            </tbody>
+          </table>
+        </div>
+        <div style="text-align: center">
+          <i>Cám ơn quý khách! Hẹn gặp lại</i>
+        </div>
+      </div>
+    </div>
+    <div class="d-print-none">
+      <div class="float-end">
+        <a (click)="print()" id="donwloadpdf" class="btn btn-success"><i class="fa fa-print"></i></a>
+        <!-- <a href="javascript: void(0);" class="btn btn-primary w-md ms-1">Hoàn tất</a> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end row -->

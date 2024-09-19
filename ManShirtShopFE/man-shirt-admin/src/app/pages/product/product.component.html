@@ -1,0 +1,948 @@
+<!-- <app-loader></app-loader> -->
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+
+<div class="container-fluid">
+  <!-- page title -->
+  <app-page-title title="Sản phẩm" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row mb-2">
+                <div class="col-lg-8">
+                  <button type="button" class="btn btn-success mb-2 mr-2 me-2" (click)="openModal()">
+                    <i class="mdi mdi-plus me-1"></i> Thêm mới sản phẩm
+                  </button>
+                  <button type="button" class="btn btn-success mb-2 mr-2 me-2" (click)="ExportTOExcel()">
+                    <i class="mdi mdi-microsoft-excel me-1"></i> Export Excel
+                  </button>
+                 
+                </div>
+                <div class="col-lg-4">
+                  <div class="text-sm-end">
+                    <div class="search-box me-2 mb-2 d-inline-block">
+                      <div class="position-relative">
+                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term" />
+                        <i class="bx bx-search-alt search-icon"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <h5 class="font-size-14 mb-0">Thể loại</h5>
+                      <div class="row">
+                        <div class="col-md-12 col-12">
+                          <ng-select [items]="categoryDatas" bindLabel="name" bindValue="id"
+                            [(ngModel)]="category"></ng-select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <h5 class="font-size-14 mb-0">Khuyến mãi</h5>
+                      <div class="row">
+                        <div class="col-md-12 col-12">
+                          <ng-select [items]="discountDatas" bindLabel="name" bindValue="id"
+                            [(ngModel)]="discount"></ng-select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <h5 class="font-size-14 mb-0">Trạng thái</h5>
+                      <div class="row">
+                        <div class="col-md-12 col-12">
+                          <ng-select [items]="statusCbc" bindLabel="name" bindValue="id" [(ngModel)]="status"
+                            [clearable]="false" (change)="applyFilter()"></ng-select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="text-sm-end mt-3">
+                    <button type="button" class="btn btn-success" (click)="applyFilter()">
+                      <i class="mdi mdi-plus me-1"></i> Lọc
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table mat-table [dataSource]="productListDatasPage | filter : term" multiTemplateDataRows
+                class="table align-middle table-nowrap table-hover">
+                <ng-container matColumnDef="#">
+                  <th style="width: 60px" mat-header-cell *matHeaderCellDef class="gridjs-th"></th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="flex align-items-center form-check font-size-16">
+                      <button class="button" mat-icon-button (click)="
+                          expandedElement =
+                            expandedElement === element ? null : element
+                        ">
+                        <mat-icon>
+                          {{
+                          expandedElement === element
+                          ? "expand_less"
+                          : "expand_more"
+                          }}
+                        </mat-icon>
+                      </button>
+                    </div>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="product">
+                  <th mat-header-cell *matHeaderCellDef class="gridjs-th">
+                    <span class="text">SẢN PHẨM</span>
+                  </th>
+                  <td mat-cell *matCellDef="let element" class="gridjs-td">
+                    <div class="d-flex align-items-center">
+                      <div class="flex-shrink-0 me-3">
+                        <img style="object-fit: cover" src="{{ element.productImage[0]?.urlImage }}" id="expandedImg"
+                          alt="" class="avatar-md p-1" (click)="openImage(element.productImage, 0)" />
+                      </div>
+                      <div class="flex-grow-1">
+                        <p class="fw-bold mb-1 link-detail">
+                          <a (click)="editProduct(element)" style="cursor: pointer;" class="text-dark">{{
+                            element.name
+                            }}</a>
+                        </p>
+                        <p class="text-muted mb-1">
+                          Mã : <span class="fw-medium">{{ element.code }}</span>
+                        </p>
+                        <p class="text-muted mb-0">
+                          Số lượng :
+                          <span class="fw-medium">{{ element.total }}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="price">
+                  <th mat-header-cell *matHeaderCellDef class="gridjs-th">
+                    GIÁ BÁN
+                  </th>
+                  <td mat-cell *matCellDef="let element" class="gridjs-td">
+                    {{ element.price.toLocaleString() }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="weight">
+                  <th mat-header-cell *matHeaderCellDef class="gridjs-th">
+                    KHỐI LƯỢNG
+                  </th>
+                  <td mat-cell *matCellDef="let element" class="gridjs-td">
+                    {{ element.weight }}
+                  </td>
+                </ng-container>
+                <!-- Các cột hiển thị thông tin về ký hiệu và vị trí -->
+                <!-- <ng-container matColumnDef="form">
+                  <th mat-header-cell *matHeaderCellDef class="gridjs-th">
+                    KIỂU DÁNG
+                  </th>
+                  <td mat-cell *matCellDef="let element" class="gridjs-td">
+                    {{ element.form.name }}
+                  </td>
+                </ng-container> -->
+                <ng-container matColumnDef="category">
+                  <th mat-header-cell *matHeaderCellDef class="gridjs-th">
+                    THỂ LOẠI
+                  </th>
+                  <td mat-cell *matCellDef="let element" class="gridjs-td">
+                    {{ element.category.name }}
+                  </td>
+                </ng-container>
+                <!-- <ng-container matColumnDef="design">
+                  <th mat-header-cell *matHeaderCellDef class="gridjs-th">
+                    THIẾT KẾ
+                  </th>
+                  <td mat-cell *matCellDef="let element" class="gridjs-td">
+                    {{ element.design.name }}
+                  </td>
+                </ng-container> -->
+                <!-- <ng-container matColumnDef="material">
+                  <th mat-header-cell *matHeaderCellDef class="gridjs-th">
+                    CHẤT LIỆU
+                  </th>
+                  <td mat-cell *matCellDef="let element" class="gridjs-td">
+                    {{ element.material.name }}
+                  </td>
+                </ng-container> -->
+                <!-- <ng-container matColumnDef="sleeve">
+                  <th mat-header-cell *matHeaderCellDef class="gridjs-th">
+                    TAY ÁO
+                  </th>
+                  <td mat-cell *matCellDef="let element" class="gridjs-td">
+                    {{ element.sleeve.name }}
+                  </td>
+                </ng-container> -->
+                <!-- <ng-container matColumnDef="collar">
+                  <th mat-header-cell *matHeaderCellDef class="gridjs-th">
+                    CỔ ÁO
+                  </th>
+                  <td mat-cell *matCellDef="let element" class="gridjs-td">
+                    {{ element.collar.name }}
+                  </td>
+                </ng-container> -->
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef class="gridjs-th">
+                    TRẠNG THÁI
+                  </th>
+                  <td mat-cell *matCellDef="let element" class="gridjs-td">
+                    <span class="badge text-uppercase" [ngClass]="{
+                        'badge-soft-danger': element.status !== 0,
+                        'badge-soft-success': element.status === 0
+                      }">
+                      {{
+                      element.status === 0
+                      ? "Đang hoạt động"
+                      : "Chưa hoạt động"
+                      }}</span>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="expandedDetail">
+                  <td mat-cell *matCellDef="let element" colspan="12" style="background-color: white !important">
+                    <div class="example-element-detail" [@detailExpand]="
+                        element == expandedElement ? 'expanded' : 'collapsed'
+                      ">
+                      <div class="table-responsive" style="padding-left: 133px">
+                        <table mat-table [dataSource]="element.productDetail" multiTemplateDataRows
+                          class="table align-middle table-nowrap table-hover">
+                          <ng-container matColumnDef="#">
+                            <th style="width: 60px" mat-header-cell *matHeaderCellDef class="gridjs-th">
+                              <span class="text">#</span>
+                            </th>
+                            <td mat-cell *matCellDef="let detail" class="cell">
+                              <div class="icon-wrapper">
+                                <div class="form-check font-size-16">
+                                  <input id="customCheck{{ detail.index }}" type="checkbox"
+                                    class="form-check-input gridjs-td p-0" />
+                                </div>
+                              </div>
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="barCode">
+                            <th mat-header-cell *matHeaderCellDef class="gridjs-th">
+                              <span class="text">BARCODE</span>
+                            </th>
+                            <td mat-cell *matCellDef="let detail" class="gridjs-td">
+                              <span class="text"> {{ detail.barCode }}</span>
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef class="gridjs-th">
+                              <span class="text">SẢN PHẨM CHI TIẾT</span>
+                            </th>
+                            <td mat-cell *matCellDef="let detail" class="gridjs-td">
+                              <p (click)="editProductDetailDB(detail, element)" style="cursor: pointer; "
+                                class="link-detail mb-0">
+                                {{
+                                element.name +
+                                " - " +
+                                detail.color.name +
+                                " - " +
+                                detail.size.code
+                                }}
+                              </p>
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="quantity">
+                            <th mat-header-cell *matHeaderCellDef class="gridjs-th">
+                              <span class="text">SỐ LƯỢNG</span>
+                            </th>
+                            <td mat-cell *matCellDef="let detail" class="gridjs-td">
+                              <p class="mb-0">{{ detail.quantity }}</p>
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="statusDetail">
+                            <th mat-header-cell *matHeaderCellDef class="gridjs-th">
+                              <span class="text">TRẠNG THÁI</span>
+                            </th>
+                            <td mat-cell *matCellDef="let detail" class="gridjs-td">
+                              <span class="badge badge-soft-success text-uppercase" [ngClass]="{
+                                  'badge-soft-danger': detail.status !== 0
+                                }">
+                                {{
+                                detail.status === 0
+                                ? "Đang hoạt động"
+                                : "Ngừng hoạt động"
+                                }}</span>
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="detailColumns"></tr>
+                          <tr mat-row *matRowDef="let detail; columns: detailColumns"></tr>
+                        </table>
+                      </div>
+                      <div class="text-end">
+                        <button type="button" class="btn btn-success m-2" (click)="createProductDetail(element)">
+                          <i class="mdi mdi-plus me-1"></i> Thêm sản phẩm cùng
+                          loại
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                <tr mat-row *matRowDef="let element; columns: columnsToDisplay" class="example-element-row"
+                  [class.example-expanded-row]="expandedElement === element"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+              </table>
+            </div>
+            <div class="row pt-3 px-3 mb-0">
+              <div role="status" aria-live="polite" class="col-md-8" title="Page 1 of 2" style="color: #878a99">
+                Showing <b>1</b> to <b>10</b> of
+                <b>{{ productListDatasPage?.length }}</b> results
+              </div>
+              <div class="col-md-4">
+                <ngb-pagination [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="totalItems"
+                  (pageChange)="onPageChange($event)" class="pagination pagination-rounded justify-content-end mb-2">
+                </ngb-pagination>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #content role="document" let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">
+        {{
+        productEdit === true
+        ? "Sản phẩm " + product.name
+        : productDetailCreate === true
+        ? "Thêm sản phẩm cùng loại - " + titleProduct
+        : "Thêm sản phẩm"
+        }}
+      </h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="formData" (ngSubmit)="saveProduct()">
+        <ul ngbNav #customNav="ngbNav" [activeId]="productDetailCreate === true ? 2 : 1"
+          class="nav-tabs nav-tabs-custom nav-justified">
+          <li [ngbNavItem]="1" [ngStyle]="{
+              display: productDetailCreate == true ? 'none' : 'block'
+            }">
+            <a ngbNavLink>
+              <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+              <span class="d-none d-sm-block">Thông tin</span>
+            </a>
+            <ng-template ngbNavContent>
+              <div class="row mt-5">
+                <div class="col-lg-7 col-md-12 col-12">
+                  <div class="row mb-3">
+                    <label class="col-md-3 col-form-label fw-bold">Mã sản phẩm</label>
+                    <div class="col-md-9">
+                      <input class="form-control input-custom" name="id" formControlName="id" type="number"
+                        placeholder="Mã hàng tự động" disabled="true" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-md-3 col-form-label fw-bold">Tên sản phẩm</label>
+                    <div class="col-md-9">
+                      <input class="form-control input-custom" name="name" formControlName="name" type="text" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-md-3 col-form-label fw-bold">Nhóm sản phẩm</label>
+                    <div class="col-md-8">
+                      <div class="row">
+                        <div class="col-md-10 col-10">
+                          <ng-select [items]="categoryDatas" bindLabel="name" bindValue="id"
+                            formControlName="category"></ng-select>
+                        </div>
+                        <!-- <div class="col-md-1 col-1">
+                          <button type="button" class="btn btn-success">
+                            <i class="mdi mdi-plus"></i>
+                          </button>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-5 col-md-12 col-12">
+                  <div class="row mb-3">
+                    <label class="col-md-3 col-form-label fw-bold">Giá bán</label>
+                    <div class="col-md-9">
+                      <!-- <input
+                      class="form-control input-custom text-end"
+                      name="price"
+                      formControlName="price"
+                      type="text"
+                      [mask]="'000,000,000,000'"
+                    /> -->
+                      <input class="form-control input-custom text-end" name="price" formControlName="price"
+                        type="text" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-md-3 col-form-label fw-bold">Trọng lượng</label>
+                    <div class="col-md-9">
+                      <input class="form-control input-custom text-end" name="weight" formControlName="weight"
+                        type="number" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-md-3 col-form-label fw-bold">Thiết kế</label>
+                    <div class="col-md-8">
+                      <div class="row">
+                        <div class="col-md-10 col-10">
+                          <ng-select [items]="designDatas" bindLabel="name" bindValue="id"
+                            formControlName="design"></ng-select>
+                        </div>
+                        <div class="col-md-1 col-1">
+                          <button type="button" class="btn btn-success" (click)="openDesignModal()">
+                            <i class="mdi mdi-plus"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-md-3 col-form-label fw-bold">Kiểu dáng</label>
+                    <div class="col-md-8">
+                      <div class="row">
+                        <div class="col-md-10 col-10">
+                          <ng-select [items]="formDatas" bindLabel="name" bindValue="id"
+                            formControlName="form"></ng-select>
+                        </div>
+                        <div class="col-md-1 col-1">
+                          <button type="button" class="btn btn-success" (click)="openFormModal()">
+                            <i class="mdi mdi-plus"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-md-3 col-form-label fw-bold">Chất liệu</label>
+                    <div class="col-md-8">
+                      <div class="row">
+                        <div class="col-md-10 col-10">
+                          <ng-select [items]="materialDatas" bindLabel="name" bindValue="id"
+                            formControlName="material"></ng-select>
+                        </div>
+                        <div class="col-md-1 col-1">
+                          <button type="button" class="btn btn-success" (click)="openMaterialModal()">
+                            <i class="mdi mdi-plus"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-md-3 col-form-label fw-bold">Kiểu tay</label>
+                    <div class="col-md-8">
+                      <div class="row">
+                        <div class="col-md-10 col-10">
+                          <ng-select [items]="sleeveDatas" bindLabel="name" bindValue="id"
+                            formControlName="sleeve"></ng-select>
+                        </div>
+                        <div class="col-md-1 col-1">
+                          <button type="button" class="btn btn-success" (click)="openSleeveModal()">
+                            <i class="mdi mdi-plus"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-md-3 col-form-label fw-bold">Cổ áo</label>
+                    <div class="col-md-8">
+                      <div class="row">
+                        <div class="col-md-10 col-10">
+                          <ng-select [items]="collarDatas" bindLabel="name" bindValue="id"
+                            formControlName="collar"></ng-select>
+                        </div>
+                        <div class="col-md-1 col-1">
+                          <button type="button" class="btn btn-success" (click)="openCollarModal()">
+                            <i class="mdi mdi-plus"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2" [ngStyle]="{ display: productEdit == true ? 'none' : 'block' }">
+            <a ngbNavLink>
+              <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+              <span class="d-none d-sm-block">Thuộc tính</span>
+            </a>
+            <ng-template ngbNavContent>
+              <div class="row mt-5">
+                <label class="col-md-2 col-form-label fw-bold">Màu</label>
+                <div class="col-md-10">
+                  <div class="row">
+                    <div class="col-md-10 col-10">
+                      <ng-select [items]="colorDatas" bindLabel="name" bindValue="id" [multiple]="true"
+                        (change)="onChange()" formControlName="colors"></ng-select>
+                    </div>
+                    <div class="col-md-1 col-1">
+                      <button type="button" class="btn btn-success" (click)="openColorModal()">
+                        <i class="mdi mdi-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-5">
+                <label class="col-md-2 col-form-label fw-bold">Size</label>
+                <div class="col-md-10">
+                  <div class="row">
+                    <div class="col-md-10 col-10">
+                      <ng-select [items]="sizeDatas" bindLabel="code" bindValue="id" [multiple]="true"
+                        (change)="onChange()" formControlName="sizes"></ng-select>
+                    </div>
+                    <div class="col-md-1 col-1">
+                      <button type="button" class="btn btn-success" (click)="openSizeModal()">
+                        <i class="mdi mdi-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table align-middle table-nowrap table-hover mt-5" *ngIf="products && products.length > 0">
+                  <thead>
+                    <tr>
+                      <th colspan="5" scope="row">
+                        Danh sách sản phẩm cùng loại
+                      </th>
+                    </tr>
+                    <tr>
+                      <th scope="col">Tên</th>
+                      <th scope="col">Mã vạch</th>
+                      <th scope="col">Số lượng</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let product of products; let i = index" [formGroup]="formProductDetail[i]"
+                      (ngSubmit)="saveProduct()">
+                      <td>{{ product.name }}</td>
+                      <td>
+                        <input style="background-color: transparent" class="form-control input-custom" type="number"
+                          formControlName="barCode" placeholder="Mã vạch tự động" disabled="true" />
+                      </td>
+                      <td>
+                        <input style="background-color: transparent" class="form-control input-custom" type="number"
+                          formControlName="quantity" />
+                      </td>
+                      <td>
+                        <i class="fas fa-trash-alt" (click)="deleteProductDetail(product)"></i>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="3">
+            <a ngbNavLink>
+              <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
+              <span class="d-none d-sm-block">Hình ảnh</span>
+            </a>
+            <ng-template ngbNavContent>
+              <div *ngFor="let color of selectedColors">
+                <div class="row mt-5">
+                  <h3>{{ color.name }}</h3>
+                  <div class="col-12">
+                    <div class="upload__box">
+                      <div class="upload__btn-box">
+                        <label class="upload__btn">
+                          <span>Chọn hình</span>
+                          <input class="upload__inputfile" type="file" multiple
+                            (change)="onFileSelected($event, color.id)" />
+                        </label>
+                      </div>
+                      <div class="row">
+                        <div *ngFor="let image of imagesByColor[color.id]"
+                          class="upload__img-box col-sm-6 col-md-4 col-lg-3 col-6">
+                          <div class="img-bg" [style.background-image]="'url(' + image?.url + ')'">
+                            <div class="upload__img-close" (click)="removeImage(image)"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="4" [ngStyle]="{
+              display: productDetailCreate == true ? 'none' : 'block'
+            }">
+            <a ngbNavLink>
+              <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+              <span class="d-none d-sm-block">Mô tả</span>
+            </a>
+            <ng-template ngbNavContent>
+              <ckeditor class="form-control" [editor]="Editor" formControlName="description"></ckeditor>
+            </ng-template>
+          </li>
+        </ul>
+        <div [ngbNavOutlet]="customNav"></div>
+        <div class="mt-5 text-end">
+          <button *ngIf="product?.status == 1" type="button" class="btn btn-danger me-3"
+            (click)="updateStatusXoaVinhVien(product)">
+            <i class="mdi mdi-close me-1"></i>
+            Xóa sản phẩm
+          </button>
+          <button *ngIf="product?.status == 1" type="button" class="btn btn-success me-3"
+            (click)="updateStatusHoatDong(product)">
+            <i class="bx bx-rotate-left me-1"></i>
+            Kích hoạt lại
+          </button>
+          <button *ngIf="product?.status == 0 && productEdit" type="button" (click)="deleteProduct(product)"
+            class="btn btn-danger me-3">
+            <i class="bx bx-no-entry me-1"></i>
+            Ngừng hoạt động
+          </button>
+          <ng-template [ngIf]="!isLoading">
+            <button type="submit" class="btn btn-success me-3">
+              <i class="bx bx-save me-1"></i>
+              Lưu
+            </button>
+          </ng-template>
+          <ng-template [ngIf]="isLoading">
+            <button type="button" [disabled]="isLoading" class="btn btn-success me-3">
+              <i class="fa fa-spinner fa-spin me-2"></i>Đang lưu...
+            </button>
+          </ng-template>
+          <button class="btn btn-secondary" type="button" aria-hidden="true" (click)="modal.dismiss('Cross click')">
+            <i class="bx bx-block me-1"></i> Bỏ qua
+          </button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+  <ng-template #designModal role="document" let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">Thêm thiết kế</h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="saveDesign()" [formGroup]="formDesign">
+        <div class="row">
+          <div class="col-12">
+            <div class="mb-3">
+              <label class="control-label">Thiết kế</label>
+              <input class="form-control" placeholder="Nhập thiết kế" type="text" name="title" autocomplete="off"
+                formControlName="name" [ngClass]="{
+                  'is-invalid': submittedDesign && formValueDesign.name.errors
+                }" />
+              <div *ngIf="submittedDesign && formValueDesign.name.errors" class="invalid-feedback">
+                <span *ngIf="formValueDesign.name.errors.required">Dữ liệu trống</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success" id="btn-save-event">
+          Lưu
+        </button>
+      </form>
+    </div>
+  </ng-template>
+  <ng-template #formModal role="document" let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">Thêm kiểu dáng</h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="saveForm()" [formGroup]="formForm">
+        <div class="row">
+          <div class="col-12">
+            <div class="mb-3">
+              <label class="control-label">Kiểu dáng</label>
+              <input class="form-control" placeholder="Nhập hình dáng" type="text" name="title" autocomplete="off"
+                formControlName="name" [ngClass]="{
+                  'is-invalid': submittedForm && formValueForm.name.errors
+                }" />
+              <div *ngIf="submittedForm && formValueForm.name.errors" class="invalid-feedback">
+                <span *ngIf="formValueForm.name.errors.required">Dữ liệu trống</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success" id="btn-save-event">
+          Lưu
+        </button>
+      </form>
+    </div>
+  </ng-template>
+  <ng-template #materialModal role="document" let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">Thêm Chất Liệu</h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="saveMaterial()" [formGroup]="formMaterial">
+        <div class="row">
+          <div class="col-12">
+            <div class="mb-3">
+              <label class="control-label">Tên Chất liệu</label>
+              <input class="form-control" placeholder="Nhập chất liệu" type="text" name="title" autocomplete="off"
+                formControlName="name" [ngClass]="{
+                  'is-invalid':
+                    submittedMaterial && formValueMaterial.name.errors
+                }" />
+              <div *ngIf="submittedMaterial && formValueMaterial.name.errors" class="invalid-feedback">
+                <span *ngIf="formValueMaterial.name.errors.required">Dữ liệu trống</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success" id="btn-save-event">
+          Lưu
+        </button>
+      </form>
+    </div>
+  </ng-template>
+  <ng-template #sleeveModal role="document" let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">Thêm tay áo</h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="saveSleeve()" [formGroup]="formSleeve">
+        <div class="row">
+          <div class="col-12">
+            <div class="mb-3">
+              <label class="control-label">Tên ống tay</label>
+              <input class="form-control" placeholder="Nhập tay áo" type="text" name="title" autocomplete="off"
+                formControlName="name" [ngClass]="{
+                  'is-invalid': submittedSleeve && formValueSleeve.name.errors
+                }" />
+              <div *ngIf="submittedSleeve && formValueSleeve.name.errors" class="invalid-feedback">
+                <span *ngIf="formValueSleeve.name.errors.required">Dữ liệu trống</span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="control-label">Đường kính tay áo</label>
+              <input class="form-control" placeholder="Nhập đường kính" type="number" name="title" autocomplete="off"
+                formControlName="diameter" [ngClass]="{
+                  'is-invalid':
+                    submittedSleeve && formValueSleeve.diameter.errors
+                }" />
+              <div *ngIf="submittedSleeve && formValueSleeve.diameter.errors" class="invalid-feedback">
+                <span *ngIf="formValueSleeve.diameter.errors.required">Dữ liệu trống</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success" id="btn-save-event">
+          Lưu
+        </button>
+      </form>
+    </div>
+  </ng-template>
+  <ng-template #collarModal role="document" let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">Thêm cổ áo</h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="saveCollar()" [formGroup]="formCollar">
+        <div class="row">
+          <div class="col-12">
+            <div class="mb-3">
+              <label class="control-label">Tên cổ áo</label>
+              <input class="form-control" placeholder="Nhập cổ áo" type="text" name="title" autocomplete="off"
+                formControlName="name" [ngClass]="{
+                  'is-invalid': submittedCollar && formValueCollar.name.errors
+                }" />
+              <div *ngIf="submittedCollar && formValueCollar.name.errors" class="invalid-feedback">
+                <span *ngIf="formValueCollar.name.errors.required">Dữ liệu trống</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success" id="btn-save-event">
+          Save
+        </button>
+      </form>
+    </div>
+  </ng-template>
+  <ng-template #colorModal role="document" let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">Thêm màu sắc</h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="saveColor()" [formGroup]="formColor">
+        <div class="row">
+          <div class="col-12">
+            <div class="mb-3">
+              <label class="control-label">Tên màu</label>
+              <input class="form-control" placeholder="Nhập tên màu" type="text" name="title" autocomplete="off"
+                formControlName="name" [ngClass]="{
+                  'is-invalid': submittedColor && formValueColor.name.errors
+                }" />
+              <div *ngIf="submittedColor && formValueColor.name.errors" class="invalid-feedback">
+                <span *ngIf="formValueColor.name.errors.required">Dữ liệu trống</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success" id="btn-save-event">
+          Lưu
+        </button>
+      </form>
+    </div>
+  </ng-template>
+  <ng-template #sizeModal role="document" let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">Thêm kích cỡ</h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="saveSize()" [formGroup]="formSize">
+        <div class="row">
+          <div class="col-12">
+            <div class="mb-3">
+              <label class="control-label">Kích cỡ</label>
+              <input class="form-control" placeholder="Nhập kích cỡ" type="text" name="title" autocomplete="off"
+                formControlName="code" [ngClass]="{
+                  'is-invalid': submittedSize && formValueSize.code.errors
+                }" />
+              <div *ngIf="submittedSize && formValueSize.code.errors" class="invalid-feedback">
+                <span *ngIf="formValueSize.code.errors.required">Dữ liệu trống</span>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="control-label">Mô tả</label>
+              <input class="form-control" placeholder="Nhập mô tả" type="text" name="title" autocomplete="off"
+                formControlName="description" [ngClass]="{
+                  'is-invalid':
+                    submittedSize && formValueSize.description.errors
+                }" />
+              <div *ngIf="submittedSize && formValueSize.description.errors" class="invalid-feedback">
+                <span *ngIf="formValueSize.description.errors.required">Dữ liệu trống</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success" id="btn-save-event">
+          Lưu
+        </button>
+      </form>
+    </div>
+  </ng-template>
+  <ng-template #productDetail role="document" let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">{{ titleProductDetail }}</h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="updateProductDetail()" [formGroup]="formDetail">
+        <div class="row mb-3">
+          <label class="col-md-3 col-form-label fw-bold">Mã vạch</label>
+          <div class="col-md-9">
+            <input class="form-control input-custom" name="barCode" formControlName="barCode"
+              placeholder="Mã hàng tự động" disabled="true" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-md-3 col-form-label fw-bold">Trạng thái</label>
+          <div class="col-md-9">
+            <input class="form-control input-custom" name="status" formControlName="status"
+              placeholder="Mã hàng tự động" disabled="true" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-md-3 col-form-label fw-bold">Số lượng</label>
+          <div class="col-md-9">
+            <input class="form-control input-custom" name="quantity" formControlName="quantity" type="number"
+              placeholder="Số lượng" [ngClass]="{
+                'is-invalid': submittedDetail && formValueDetail.quantity.errors
+              }" />
+            <div *ngIf="submittedDetail && formValueDetail.quantity.errors" class="invalid-feedback">
+              <span *ngIf="formValueDetail.quantity.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-5 text-end">
+          <button *ngIf="productDetailUpdate?.status == 1" (click)="updateDetailStatusXoaMem(productDetailUpdate)"
+            type="button" class="btn btn-danger me-3">
+            <i class="mdi mdi-close me-1"></i>
+            Xóa dữ liệu
+          </button>
+          <button *ngIf="productDetailUpdate?.status == 1" (click)="updateDetailStatusHoatDong(productDetailUpdate)"
+            type="button" class="btn btn-success me-3">
+            <i class="bx bx-rotate-left me-1"></i>
+            Kích hoạt lại
+          </button>
+          <button *ngIf="productDetailUpdate?.status == 0" type="button"
+            (click)="deleteProductDetailDB(productDetailUpdate)" class="btn btn-danger me-3">
+            <i class="bx bx-no-entry me-1"></i>
+            Ngừng hoạt động
+          </button>
+          <ng-template [ngIf]="!isLoading">
+            <button type="submit" class="btn btn-success me-3">
+              <i class="bx bx-save me-1"></i>
+              Lưu
+            </button>
+          </ng-template>
+          <ng-template [ngIf]="isLoading">
+            <button type="button" [disabled]="isLoading" class="btn btn-success me-3">
+              <i class="fa fa-spinner fa-spin me-2"></i>Đang lưu...
+            </button>
+          </ng-template>
+          <button class="btn btn-secondary" type="button" aria-hidden="true" (click)="modal.dismiss('Cross click')">
+            <i class="bx bx-block me-1"></i> Bỏ qua
+          </button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+  <ng-template #importModal role="document" let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">Import</h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="row mb-3">
+          <label class="col-md-3 col-form-label fw-bold">File mẫu</label>
+          <div class="col-md-9">
+            <button type="button" class="btn btn-success mb-2 mr-2 me-2" (click)="getTemplateExcelProduct()">
+              <i class="mdi mdi-microsoft-excel me-1"></i> Tải file mẫu
+            </button>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-md-3 col-form-label fw-bold">Chọn file</label>
+          <div class="col-md-9">
+            <input type="file" (change)="onFileChange($event)" />
+          </div>
+        </div>
+        <div class="mt-5 text-end">
+          <ng-template [ngIf]="!isLoading">
+            <button type="button" class="btn btn-success me-3" (click)="importExcel()">
+              <i class="bx bx-save me-1"></i>
+              Lưu
+            </button>
+          </ng-template>
+          <ng-template [ngIf]="isLoading">
+            <button type="button" [disabled]="isLoading" class="btn btn-success me-3">
+              <i class="fa fa-spinner fa-spin me-2"></i>Đang lưu...
+            </button>
+          </ng-template>
+          <button class="btn btn-secondary" type="button" aria-hidden="true" (click)="modal.dismiss('Cross click')">
+            <i class="bx bx-block me-1"></i> Bỏ qua
+          </button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</div>

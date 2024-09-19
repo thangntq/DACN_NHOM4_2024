@@ -1,0 +1,53 @@
+input {
+  display: none;
+}
+input[type="checkbox"] {
+  display: none;
+}
+.custom-control-label {
+  display: inline-block;
+  background: #f2f2f2;
+  border-radius: 4px;
+  color: #7a7a9d;
+  padding: 0 12px;
+  line-height: 33px;
+  border: 1px #f2f2f2 solid;
+  position: relative;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+}
+.custom-control {
+  padding-left: 0;
+}
+.collection-collapse-block
+  .collection-collapse-block-content
+  .collection-brand-filter
+  .collection-filter-checkbox
+  label:before {
+  display: none !important;
+}
+.collection-collapse-block
+  .collection-collapse-block-content
+  .collection-brand-filter
+  .collection-filter-checkbox
+  .custom-control-input:checked
+  ~ .custom-control-label:after {
+  display: none !important;
+}
+.collection-collapse-block
+  .collection-collapse-block-content
+  .collection-brand-filter.color-filter
+  .collection-filter-checkbox
+  label {
+  padding-left: 12px;
+}
+.checked {
+  border: 1px #357ebd solid !important;
+  background: #357ebd !important;
+  color: #fff !important;
+}
+.collection-filter-checkbox li {
+  margin-right: 10px !important;
+  margin-bottom: 10px;
+}

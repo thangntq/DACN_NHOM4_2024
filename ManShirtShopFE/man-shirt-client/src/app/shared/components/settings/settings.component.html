@@ -1,0 +1,224 @@
+<div class="icon-nav">
+  <ul>
+    <li class="onhover-div mobile-search search-widgets" id="search-widgets">
+      <div (click)="searchToggle()">
+        <img src="assets/images/icon/search.png" class="img-fluid" alt="" />
+        <!-- <i class="ti-search"></i> -->
+      </div>
+      <div
+        id="search-overlay"
+        class="search-overlay"
+        [ngStyle]="{ display: search ? 'block' : 'none' }"
+      >
+        <div>
+          <span class="closebtn" title="Close Overlay" (click)="searchToggle()"
+            >×</span
+          >
+          <div class="overlay-content">
+            <div class="container">
+              <div class="row">
+                <div class="col-xl-12">
+                  <form>
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="exampleInputPassword1"
+                        placeholder="Search a Product"
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="onhover-div mobile-setting">
+      <div>
+        <img
+          src="assets/images/icon/setting.png"
+          class="img-fluid"
+          alt="settong"
+        />
+        <i class="ti-settings"></i>
+      </div>
+      <div class="show-div setting">
+        <h6>Ngôn ngữ</h6>
+        <ul>
+          <li *ngFor="let language of languages">
+            <a
+              href="javascript:void(0)"
+              (click)="changeLanguage(language.code)"
+              >{{ language.name }}</a
+            >
+          </li>
+        </ul>
+        <h6>Tiền tệ</h6>
+        <ul class="list-inline">
+          <li *ngFor="let currency of currencies">
+            <a href="javascript:void(0)" (click)="changeCurrency(currency)">{{
+              currency.name
+            }}</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="onhover-div mobile-cart">
+      <div>
+        <a [routerLink]="['/shop/cart']">
+          <img src="assets/images/icon/cart.png" class="img-fluid" alt="" />
+        </a>
+      </div>
+      <span class="cart_qty_cls">{{ productDetails.length }}</span>
+      <ul
+        class="show-div shopping-cart text-center cart"
+        *ngIf="!productDetails.length"
+      >
+        <div class="CartHeaderContainer" style="padding: 10px">
+          <img
+            src="//bizweb.dktcdn.net/100/438/408/themes/904142/assets/blank_cart.svg?1685072939982"
+            alt="cart"
+          />
+          <p>Giỏ hàng của bạn trống</p>
+          <a *ngIf="!isLogin" routerLink="/account" class="logincart"
+            >Đăng nhập/Đăng ký</a
+          ><span class="clearfix"></span
+          ><a class="buy-now" routerLink="/shop">Mua ngay</a>
+        </div>
+      </ul>
+      <ul
+        class="show-div shopping-cart d-sm-block d-none"
+        *ngIf="productDetails.length"
+      >
+        <div class="CartHeaderContainer">
+          <form method="post" novalidate="" class="cart ajaxcart cartheader">
+            <div
+              *ngFor="let productDetail of productDetails"
+              class="ajaxcart__inner ajaxcart__inner--has-fixed-footer cart_body items"
+            >
+              <ng-container
+                *ngIf="getProduct(products, productDetail) as product"
+              >
+                <div class="ajaxcart__row" data-id="29505372">
+                  <div class="ajaxcart__product cart_product" data-line="1">
+                    <a
+                      [routerLink]="[
+                        '/shop/product/',
+                        product.name.replace(' ', '-')
+                      ]"
+                      class="ajaxcart__product-image cart_image"
+                      ><img
+                        width="83"
+                        height="111"
+                        [src]="
+                          getImageProductDetail(products, productDetail)[0]
+                            .urlImage
+                        "
+                    /></a>
+                    <div class="grid__item cart_info">
+                      <div class="ajaxcart__product-name-wrapper cart_name">
+                        <a
+                          [routerLink]="[
+                            '/shop/product/',
+                            product.name.replace(' ', '-')
+                          ]"
+                          class="ajaxcart__product-name"
+                          >{{ product?.name }}</a
+                        >
+                        <span class="cart-price"
+                          >{{
+                            (
+                              product?.price | discount : product
+                            ).toLocaleString("vi-VN")
+                          }}đ</span
+                        >
+                        <span class="ajaxcart__product-meta variant-title"
+                          >{{ productDetail?.color.name }} /
+                          {{ productDetail?.size.code }}</span
+                        >
+                        <a
+                          class="cart__btn-remove remove-item-cart ajaxifyCart--remove"
+                          (click)="removeItem(productDetail)"
+                          data-line=" 1"
+                        ></a>
+                      </div>
+                      <div class="grid grid-gift">
+                        <div
+                          class="grid__item one-half cart_select cart_item_name"
+                        >
+                          <div class="ajaxcart__qty input-group-btn">
+                            <button
+                              type="button"
+                              (click)="decrement(productDetail)"
+                              class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count"
+                            >
+                              -
+                            </button>
+                            <input
+                              type="text"
+                              [name]="productDetail.id"
+                              class="ajaxcart__qty-num number-sidebar"
+                              disabled
+                              [(ngModel)]="productDetail.quantity"
+                            />
+                            <button
+                              type="button"
+                              (click)="increment(productDetail)"
+                              class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count"
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                        <div class="grid__item one-half text-right cart_prices">
+                          Tổng cộng:
+                          <span class="cart-price"
+                            >{{
+                              (
+                                (product?.price | discount : product) *
+                                productDetail.quantity *
+                                productService?.Currency.price
+                              ).toLocaleString("vi-VN")
+                            }}đ</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </form>
+          <div class="ajaxcart__footer">
+            <div class="ajaxcart__subtotal">
+              <div class="cart__subtotal">
+                <div class="text-right cart__totle">
+                  Tổng cộng:
+                  <span class="total-price"
+                    >{{ (getTotal | async).toLocaleString("vi-VN") }}đ</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="cart__btn-proceed-checkout-dt">
+              <button
+                [routerLink]="['/shop/cart']"
+                type="button"
+                class="button btn btn-default cart__btn-proceed-checkout"
+                id="btn-proceed-checkout"
+                title="Xem giỏ hàng"
+              >
+                Xem giỏ hàng
+              </button>
+            </div>
+          </div>
+        </div>
+      </ul>
+    </li>
+  </ul>
+</div>

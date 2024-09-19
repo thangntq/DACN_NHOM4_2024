@@ -1,0 +1,16 @@
+<div class="collection-collapse-block" [class.open]="collapse" *ngIf="filterBySleeve.length">
+    <h3 [ngClass]="'collapse-block-title ' + (collapse ? 'arrowup' : '')" (click)="collapse = !collapse">Cổ tay</h3>
+    <div class="collection-collapse-block-content">
+        <div class="collection-brand-filter color-filter">
+            <div class="custom-control custom-checkbox collection-filter-checkbox">
+                <li *ngFor="let form of filterBySleeve">
+                    <input type="checkbox" [value]="form" [checked]="checked(form)" [id]="form"
+                        (change)="appliedFilter($event)" class="custom-control-input" />
+                    <label class="custom-control-label" [ngClass]="{'checked': checked(form)}" for="{{form}}">
+                        {{form}}
+                    </label>
+                </li>
+            </div>
+        </div>
+    </div>
+</div>

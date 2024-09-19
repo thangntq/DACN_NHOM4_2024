@@ -1,0 +1,819 @@
+<header class="banner" style="background-image: none;">
+  <div class="wrap">
+    <div class="logo logo--center">
+      <a href="/">
+        <img class="logo__image  logo__image--small " alt="YODY - Mặc Mỗi Ngày, Thoải Mái Mỗi Ngày"
+          src="../../../assets/images/logos/logo.png">
+      </a>
+    </div>
+  </div>
+</header>
+<div *ngIf="checkoutData" data-tg-refresh="checkout" id="checkout" class="content">
+  <form (ngSubmit)="checkout()">
+    <input type="hidden" name="_method" value="patch">
+    <div class="wrap" style="min-height: 100vh;">
+      <main class="main">
+        <header class="main__header" style="background-image: none;">
+          <div class="logo logo--center">
+            <a href="/">
+              <img class="logo__image  logo__image--small " alt="YODY - Mặc Mỗi Ngày, Thoải Mái Mỗi Ngày"
+                src="../../../assets/images/logos/logo.png">
+            </a>
+          </div>
+        </header>
+        <div class="main__content">
+          <article class="animate-floating-labels row">
+            <div class="col col--two">
+              <section class="section">
+                <div class="section__header">
+                  <div class="layout-flex">
+                    <h2 class="section__title layout-flex__item layout-flex__item--stretch">
+                      <i class="fa fa-id-card-o fa-lg section__title--icon hide-on-desktop"></i>
+                      Thông tin giao hàng
+                    </h2>
+                    <!-- <a href="/account/login?returnUrl=/checkout/5e2120bd3c2b4b9f84b424dcb040e4a0">
+                      <i class="fa fa-user-circle-o fa-lg"></i>
+                      <span>Đăng nhập </span>
+                    </a> -->
+                  </div>
+                </div>
+                <div class="section__content">
+                  <div class="fieldset">
+                    <div class="field field--show-floating-label">
+                      <div class="field__input-wrapper">
+                        <label for="customer-address" class="field__label">Sổ địa chỉ</label>
+                        <select size="1" class="field__input field__input--select" id="customer-address"
+                          [formControl]="checkoutForm.controls['addressNode']" (change)="onAddressChange()">
+                          <option value="0">Địa chỉ khác...</option>
+                          <option *ngFor="let address of addresss" [value]="address.id">
+                            {{
+                            address.address +
+                            ", " +
+                            address.wardName +
+                            ", " +
+                            address.districtName +
+                            ", " +
+                            address.cityName
+                            }}
+                          </option>
+                        </select>
+                        <div class="field__caret">
+                          <i class="fa fa-caret-down"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="field__input-wrapper">
+                        <label for="billingName" class="field__label">Họ và tên</label>
+                        <input name="billingName" id="billingName" type="text" class="field__input"
+                          [formControl]="checkoutForm.controls['name']">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="field__input-wrapper">
+                        <label for="billingPhone" class="field__label">
+                          Số điện thoại
+                        </label>
+                        <input name="billingPhone" id="billingPhone" type="tel" class="field__input"
+                          [formControl]="checkoutForm.controls['phone']">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="field__input-wrapper">
+                        <label for="billingAddress" class="field__label">
+                          Địa chỉ
+                        </label>
+                        <input name="billingAddress" id="billingAddress" type="text" class="field__input"
+                          [formControl]="checkoutForm.controls['address']">
+                      </div>
+                    </div>
+                    <div class="field field--show-floating-label ">
+                      <div class="field__input-wrapper field__input-wrapper--select2">
+                        <label for="billingProvince" class="field__label">Tỉnh thành</label>
+                        <select name="billingProvince" id="billingProvince" size="1"
+                          class="field__input field__input--select select2-hidden-accessible"
+                          [formControl]="checkoutForm.controls['province']"
+                          (change)="onProvinceChange($event.target.value)" aria-hidden="true">
+                          <option *ngFor="let province of provinces" [value]="province.ProvinceID">
+                            {{ province.ProvinceName }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="field field--show-floating-label ">
+                      <div class="field__input-wrapper field__input-wrapper--select2">
+                        <label for="billingDistrict" class="field__label">
+                          Quận huyện
+                        </label>
+                        <select name="billingDistrict"
+                          class="field__input field__input--select select2-hidden-accessible"
+                          [formControl]="checkoutForm.controls['district']" id="billingDistrict"
+                          (change)="onDistrictChange($event.target.value)">
+                          <option *ngFor="let district of districts" [value]="district.DistrictID">
+                            {{ district.DistrictName }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="field field--show-floating-label ">
+                      <div class="field__input-wrapper field__input-wrapper--select2">
+                        <label for="billingWard" class="field__label">
+                          Phường xã
+                        </label>
+                        <select name="billingWard" id="billingWard" size="1"
+                          class="field__input field__input--select select2-hidden-accessible"
+                          [formControl]="checkoutForm.controls['ward']" id="ward"
+                          (change)="onWardChange($event.target.value)">
+                          <option *ngFor="let ward of wards" [value]="ward.WardCode">
+                            {{ ward.WardName }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <div class="fieldset">
+                <h3 class="visually-hidden">Ghi chú</h3>
+                <div class="field ">
+                  <div class="field__input-wrapper">
+                    <label for="note" class="field__label">
+                      Ghi chú (tùy chọn)
+                    </label>
+                    <textarea [rows]="2" name="note" id="note" class="field__input" style="padding-top: 20px;"
+                      [formControl]="checkoutForm.controls['note']"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col col--two">
+              <section class="section">
+                <div class="section__header">
+                  <div class="layout-flex">
+                    <h2 class="section__title layout-flex__item layout-flex__item--stretch">
+                      <i class="fa fa-truck fa-lg section__title--icon hide-on-desktop"></i>
+                      Vận chuyển
+                    </h2>
+                  </div>
+                </div>
+                <div class="section__content" data-define="{isAddressSelecting: true, shippingMethods: []}">
+                  <div class="alert alert--loader spinner spinner--active hide">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="spinner-loader">
+                      <use href="#spinner"></use>
+                    </svg>
+                  </div>
+                  <div *ngIf="costShipError" class="alert alert-retry alert--danger">
+                    <span>Không thể load phí vận chuyển. Vui lòng thử lại</span>
+                    <i class="fa fa-refresh"></i>
+                  </div>
+                  <div *ngIf="costShip" class="content-box">
+                    <div class="content-box__row">
+                      <div class="radio-wrapper">
+                        <label for="shippingMethod-648392_0" class="radio__label">
+                          <span class="radio__label__primary">
+                            <span>Phí vận chuyển</span>
+                          </span>
+                          <span class="radio__label__accessory">
+                            <span class="content-box__emphasis price">
+                              {{
+                              checkoutForm.controls["ward"].value
+                              ? costShip?.toLocaleString("vi-VN")
+                              : 0
+                              }}đ
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="(!costShip || costShip === 0) && !costShipError" class=" alert alert--info">
+                    Vui lòng nhập thông tin giao hàng
+                  </div>
+                </div>
+              </section>
+              <section class="section">
+                <div class="section__header">
+                  <div class="layout-flex">
+                    <h2 class="section__title layout-flex__item layout-flex__item--stretch">
+                      <i class="fa fa-credit-card fa-lg section__title--icon hide-on-desktop"></i>
+                      Thanh toán
+                    </h2>
+                  </div>
+                </div>
+                <div class="section__content">
+                  <div class="content-box" data-define="{paymentMethod: undefined}">
+                    <div class="content-box__row">
+                      <div class="radio-wrapper">
+                        <div class="radio__input">
+                          <input name="paymentMethod" id="paymentMethod-551438" type="radio" class="input-radio"
+                            [formControl]="checkoutForm.controls['payment']" value="VNPAY">
+                        </div>
+                        <label for="paymentMethod-551438" class="radio__label">
+                          <span class="radio__label__primary">Thanh toán qua thẻ thanh toán, ứng dụng ngân hàng
+                            VNPAY</span>
+                          <span class="radio__label__accessory">
+                            <span class="radio__label__icon">
+                              <i class="payment-icon payment-icon--16"></i>
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="content-box__row">
+                      <div class="radio-wrapper">
+                        <div class="radio__input">
+                          <input name="paymentMethod" id="paymentMethod-516910" type="radio" class="input-radio"
+                            [formControl]="checkoutForm.controls['payment']" value="COD">
+                        </div>
+                        <label for="paymentMethod-516910" class="radio__label">
+                          <span class="radio__label__primary">Thanh toán khi nhận hàng (COD)</span>
+                          <span class="radio__label__accessory">
+                            <span class="radio__label__icon">
+                              <img src="../../../assets/images/pay.png" alt="">
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                      <div class="content-box__row__desc hide">
+                        <p>Bạn chỉ phải thanh toán khi nhận được hàng</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </article>
+          <div class="field__input-btn-wrapper field__input-btn-wrapper--vertical hide-on-desktop">
+            <button type="submit" class="btn btn-checkout spinner" [ngClass]="{'spinner--active': isSubmitting}"
+              [disabled]="isSubmitting">
+              <span class="spinner-label">ĐẶT HÀNG</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="spinner-loader">
+                <use href="#spinner"></use>
+              </svg>
+            </button>
+            <a routerLink="/shop/cart" class="previous-link">
+              <i class="previous-link__arrow">❮</i>
+              <span class="previous-link__content">Quay về giỏ hàng</span>
+            </a>
+          </div>
+          <div id="common-alert" data-tg-refresh="refreshError">
+            <div class="alert alert--danger hide-on-desktop hide">
+              <!-- data-bind-show="!isSubmitingCheckout &amp;&amp; isSubmitingCheckoutError"
+              data-bind="submitingCheckoutErrorMessage" -->
+              Có lỗi xảy ra khi xử lý. Vui lòng thử lại
+            </div>
+          </div>
+        </div>
+        <div class="main__footer unprintable">
+          <ul class="main__policy" style="display: none;">
+            <li>
+            </li>
+            <li>
+            </li>
+            <li>
+              <a data-toggle="#service_term" data-toggle-class="hide">Điều khoản sử dụng</a>
+            </li>
+          </ul>
+          <p>Sau khi <b>hoàn tất đơn hàng</b> khoảng 60-90 phút (trong giờ hành chính), NEWMEN sẽ nhanh chóng gọi điện
+            xác
+            nhận lại thời gian giao hàng với bạn. NEWMEN xin cảm ơn!</p>
+          <div class="modal-wrapper hide" id="refund_term">
+            <div class="modal" style="display: inline-block;">
+              <div class="modal-header">
+                <h2 class="modal-title">Chính sách hoàn trả</h2>
+                <span class="close" data-toggle="#refund_term" data-toggle-class="hide">×</span>
+              </div>
+              <div class="modal-body">
+                <pre class="term-preview"></pre>
+              </div>
+            </div>
+          </div>
+          <div class="modal-wrapper hide" id="privacy_term">
+            <div class="modal" style="display: inline-block;">
+              <div class="modal-header">
+                <h2 class="modal-title">Chính sách bảo mật</h2>
+                <span class="close" data-toggle="#privacy_term" data-toggle-class="hide">×</span>
+              </div>
+              <div class="modal-body">
+                <pre class="term-preview"></pre>
+              </div>
+            </div>
+          </div>
+          <div class="modal-wrapper hide" id="service_term">
+            <div class="modal" style="display: inline-block;">
+              <div class="modal-header">
+                <h2 class="modal-title">Điều khoản sử dụng</h2>
+                <span class="close" data-toggle="#service_term" data-toggle-class="hide">×</span>
+              </div>
+              <div class="modal-body">
+                <pre class="term-preview"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <aside class="sidebar">
+        <div class="sidebar__header">
+          <h2 class="sidebar__title">
+            Đơn hàng ({{productDetailsCheckout.length}} sản phẩm)
+          </h2>
+        </div>
+        <div class="sidebar__content">
+          <div id="order-summary" class="order-summary order-summary--is-collapsed">
+            <div class="order-summary__sections">
+              <div
+                class="order-summary__section order-summary__section--product-list order-summary__section--is-scrollable order-summary--collapse-element">
+                <table class="product-table">
+                  <caption class="visually-hidden">Chi tiết đơn hàng</caption>
+                  <thead class="product-table__header">
+                    <tr>
+                      <th>
+                        <span class="visually-hidden">Ảnh sản phẩm</span>
+                      </th>
+                      <th>
+                        <span class="visually-hidden">Mô tả</span>
+                      </th>
+                      <th>
+                        <span class="visually-hidden">Sổ lượng</span>
+                      </th>
+                      <th>
+                        <span class="visually-hidden">Đơn giá</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let productDetail of checkoutData.checkOutDetails" class="product">
+                      <td class="product__image">
+                        <div class="product-thumbnail">
+                          <div class="product-thumbnail__wrapper" data-tg-static="">
+                            <img style="height: 100%;
+                            object-fit: cover;
+                            width: 100%;" [src]="productDetail.productDetail.url
+                              " alt="" class="product-thumbnail__image">
+                          </div>
+                          <span class="product-thumbnail__quantity">{{productDetail.quantity}}</span>
+                        </div>
+                      </td>
+                      <th class="product__description">
+                        <span class="product__description__name">
+                          {{ productDetail.productDetail.nameProduct | titlecase }}
+                        </span>
+                        <span class="product__description__property">
+                          {{ productDetail.productDetail?.color.name }} / {{ productDetail.productDetail?.size.code }}
+                        </span>
+                        <span *ngIf="productDetail.productDetail.discountSp" class="product__description__property">
+                          Khuyến mãi: -{{(productDetail.productDetail.giaSp*
+                          productDetail.productDetail.discountSp / 100 ).toLocaleString("vi-VN")
+                          }}đ({{productDetail.productDetail.discountSp}}%)
+                        </span>
+                      </th>
+                      <td class="product__quantity visually-hidden"><em>Số lượng:</em> {{
+                        productDetail?.quantity
+                        }}</td>
+                      <td class="product__price">
+                        {{
+                        (
+                        (productDetail.productDetail?.giaSp -( productDetail.productDetail?.giaSp *
+                        productDetail.productDetail.discountSp /100) ) *
+                        productDetail.quantity *
+                        productService?.Currency.price
+                        ).toLocaleString("vi-VN")
+                        }}đ
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div *ngIf="selectedVoucher" class="row" style="display: flex;padding-left: 13px;padding-right: 13px;">
+                <div class="item-ecode col-12">
+                  <div class="row" style="display: flex;">
+                    <div class="col-8 pe-0">{{selectedVoucher.code + " - " + selectedVoucher.description}}</div>
+                    <div class="col-4 "><span class="promo-ecode">{{selectedVoucher.type == true ?
+                        (selectedVoucher.discount.toLocaleString("vi-VN") + "đ") :
+                        (selectedVoucher.discount +"%")}}</span></div>
+                  </div>
+                  <div class="row" style="display: flex; min-height: 50px;">
+                    <div class="col-12">
+                      <p *ngIf="selectedVoucher.min" class="mb-2">-Áp dụng cho đơn hàng tối thiểu
+                        {{selectedVoucher.min.toLocaleString("vi-VN") + "đ"}}</p>
+                      <p *ngIf="selectedVoucher.max">-Giảm tối đa {{selectedVoucher.max.toLocaleString("vi-VN") + "đ"}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row row-bottom" style="display: flex;">
+                    <div class="col-9"><span class="hsd-epro">Hết hạn: {{selectedVoucher.endDate | date:
+                        "dd/MM/yyyy"}}</span>
+                    </div>
+                    <div class="col-3"><span class="btn-getcode" id="getcode" (click)="openModal()">Thay đổi</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="!selectedVoucher" class="order-summary__section order-summary__section--discount-code"
+                data-tg-refresh="refreshDiscount" id="discountCode">
+                <h3 class="visually-hidden">Mã khuyến mại</h3>
+                <div class="edit_checkout animate-floating-labels">
+                  <div class="fieldset">
+                    <div class="field ">
+                      <div class="field__input-btn-wrapper">
+                        <button (click)="openModal()" class="field__input-btn btn spinner" type="button">
+                          <i class="fa fa-gift mr-3" style="font-size: 20px;"></i><span class="spinner-label">Áp dụng
+                            khuyến mãi</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="spinner-loader">
+                            <use href="#spinner"></use>
+                          </svg>
+                        </button>
+                      </div>
+                      <p class="field__message field__message--error field__message--error-always-show hide">Có lỗi xảy
+                        ra khi áp dụng khuyến mãi. Vui lòng thử
+                        lại</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="order-summary__section order-summary__section--total-lines order-summary--collapse-element"
+                data-define="{subTotalPriceText: '199.000đ'}" data-tg-refresh="refreshOrderTotalPrice"
+                id="orderSummary">
+                <table class="total-line-table">
+                  <caption class="visually-hidden">Tổng giá trị</caption>
+                  <thead>
+                    <tr>
+                      <td><span class="visually-hidden">Mô tả</span></td>
+                      <td><span class="visually-hidden">Giá tiền</span></td>
+                    </tr>
+                  </thead>
+                  <tbody class="total-line-table__tbody">
+                    <tr class="total-line total-line--subtotal">
+                      <th class="total-line__name">
+                        Tạm tính
+                      </th>
+                      <td class="total-line__price">{{ (getTotal | async).toLocaleString("vi-VN") }}đ</td>
+                    </tr>
+                    <tr *ngIf="selectedVoucher" class="total-line total-line--subtotal">
+                      <th class="total-line__name">
+                        Khuyến mãi
+                      </th>
+                      <td class="total-line__price">- {{ onChangeVoucher().toLocaleString("vi-VN") }}đ</td>
+                    </tr>
+                    <tr class="total-line total-line--shipping-fee">
+                      <th class="total-line__name">
+                        Phí vận chuyển
+                      </th>
+                      <td class="total-line__price"> {{
+                        checkoutForm.controls["ward"].value
+                        ? costShip?.toLocaleString("vi-VN") +"đ"
+                        : '-'
+                        }}</td>
+                    </tr>
+                  </tbody>
+                  <tfoot class="total-line-table__footer">
+                    <tr class="total-line payment-due">
+                      <th class="total-line__name">
+                        <span class="payment-due__label-total">
+                          Tổng cộng
+                        </span>
+                      </th>
+                      <td class="total-line__price">
+                        <span class="payment-due__price">{{total.toLocaleString("vi-VN") }}đ</span>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <div class="order-summary__nav field__input-btn-wrapper hide-on-mobile layout-flex--row-reverse">
+                <button type="submit" class="btn btn-checkout spinner" [ngClass]="{'spinner--active': isSubmitting}"
+                  [disabled]="isSubmitting">
+                  <span class="spinner-label">ĐẶT HÀNG</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="spinner-loader">
+                    <use href="#spinner"></use>
+                  </svg>
+                </button>
+                <a routerLink="/shop/cart" class="previous-link">
+                  <i class="previous-link__arrow">❮</i>
+                  <span class="previous-link__content">Quay về giỏ hàng</span>
+                </a>
+              </div>
+              <div id="common-alert-sidebar" data-tg-refresh="refreshError">
+                <div class="alert alert--danger hide-on-mobile hide">
+                  <!-- data-bind-show="!isSubmitingCheckout &amp;&amp; isSubmitingCheckoutError"
+                  data-bind="submitingCheckoutErrorMessage" -->
+                  Có lỗi xảy ra khi xử lý. Vui lòng thử lại
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </form>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="spinner">
+      <svg viewBox="0 0 30 30">
+        <circle stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="85%"
+          cx="50%" cy="50%" r="40%">
+          <animateTransform attributeName="transform" type="rotate" from="0 15 15" to="360 15 15" dur="0.7s"
+            repeatCount="indefinite"></animateTransform>
+        </circle>
+      </svg>
+    </symbol>
+  </svg>
+</div>
+
+<div *ngIf="order" class="content" style="min-height: 100vh;">
+  <div class="wrap">
+    <main class="main">
+      <header class="main__header" style="background-image: none;">
+        <div class="logo logo--center">
+          <a href="/">
+            <img class="logo__image  logo__image--small " alt="YODY - Mặc Mỗi Ngày, Thoải Mái Mỗi Ngày"
+              src="../../../assets/images/logos/logo.png">
+          </a>
+        </div>
+      </header>
+      <div class="main__content">
+        <form (ngSubmit)="checkout()">
+          <article class="step animate-floating-labels">
+            <div class="step__sections">
+
+              <section class="section">
+                <div class="content-box">
+                  <div class="content-box__row">
+                    <div class="review-block">
+                      <div class="review-block__body">
+                        <div class="review-block__label">
+                          Thông tin nhận hàng
+                        </div>
+                        <div class="review-block__content">
+                          <div>{{order.shipName}}</div>
+                          <div>{{order.shipPhone}}</div>
+                          <div>{{order.address}}, {{order.wardName}},
+                            {{order.districtName}}, {{order.cityName}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="review-block" data-tg-refresh="refreshShipping" id="shippingMethodReview">
+                      <div class="review-block__body">
+                        <div class="review-block__label">Phương thức vận chuyển</div>
+                        <div class="review-block__content">
+                          Phí vận chuyển
+                          <strong>·&nbsp;{{order.freight.toLocaleString("vi-VN") }}đ</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+
+              <section class="section">
+                <div class="section__header">
+                  <div class="layout-flex">
+                    <h2 class="section__title layout-flex__item layout-flex__item--stretch">
+                      <i class="fa fa-credit-card fa-lg section__title--icon hide-on-desktop"></i>
+                      Chọn phương thức thanh toán khác
+                    </h2>
+                  </div>
+                </div>
+                <div class="section__content">
+                  <div class="content-box" data-define="{paymentMethod: undefined}">
+                    <div class="content-box__row">
+                      <div class="radio-wrapper">
+                        <div class="radio__input">
+                          <input name="paymentMethod" id="paymentMethod-551438" type="radio" class="input-radio"
+                            [formControl]="checkoutForm.controls['payment']" value="VNPAY">
+                        </div>
+                        <label for="paymentMethod-551438" class="radio__label">
+                          <span class="radio__label__primary">Thanh toán qua thẻ thanh toán, ứng dụng ngân hàng
+                            VNPAY</span>
+                          <span class="radio__label__accessory">
+                            <span class="radio__label__icon">
+                              <i class="payment-icon payment-icon--16"></i>
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="content-box__row">
+                      <div class="radio-wrapper">
+                        <div class="radio__input">
+                          <input name="paymentMethod" id="paymentMethod-516910" type="radio" class="input-radio"
+                            [formControl]="checkoutForm.controls['payment']" value="VNPAY" value="COD">
+                        </div>
+                        <label for="paymentMethod-516910" class="radio__label">
+                          <span class="radio__label__primary">Thanh toán khi nhận hàng (COD)</span>
+                          <span class="radio__label__accessory">
+                            <span class="radio__label__icon">
+                              <img src="../../../assets/images/pay.png" alt="">
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                      <div class="content-box__row__desc hide">
+                        <p>Bạn chỉ phải thanh toán khi nhận được hàng</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+            </div>
+            <div class="step__footer">
+              <div id="common-alert" data-tg-refresh="refreshError">
+              </div>
+              <div class="step__btn-group">
+                <button type="submit" class="btn btn-checkout spinner" [ngClass]="{'spinner--active': isSubmitting}"
+                  [disabled]="isSubmitting">
+                  <span class="spinner-label">THANH TOÁN</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="spinner-loader">
+                    <use href="#spinner"></use>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+        </form>
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+          <symbol id="spinner">
+            <svg viewBox="0 0 30 30">
+              <circle stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="85%"
+                cx="50%" cy="50%" r="40%">
+                <animateTransform attributeName="transform" type="rotate" from="0 15 15" to="360 15 15" dur="0.7s"
+                  repeatCount="indefinite"></animateTransform>
+              </circle>
+            </svg>
+          </symbol>
+        </svg>
+      </div>
+    </main>
+    <aside class="sidebar">
+      <div class="sidebar__header">
+        <h2 class="sidebar__title">
+          Đơn hàng ({{order.orderDetail.length}} sản phẩm)
+        </h2>
+      </div>
+      <div class="sidebar__content">
+        <div id="order-summary" class="order-summary order-summary--is-collapsed">
+          <div class="order-summary__sections">
+            <div
+              class="order-summary__section order-summary__section--product-list order-summary__section--is-scrollable order-summary--collapse-element">
+              <table class="product-table">
+                <caption class="visually-hidden">Chi tiết đơn hàng</caption>
+                <thead class="product-table__header">
+                  <tr>
+                    <th>
+                      <span class="visually-hidden">Ảnh sản phẩm</span>
+                    </th>
+                    <th>
+                      <span class="visually-hidden">Mô tả</span>
+                    </th>
+                    <th>
+                      <span class="visually-hidden">Sổ lượng</span>
+                    </th>
+                    <th>
+                      <span class="visually-hidden">Đơn giá</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let orderDetail of order.orderDetail" class="product">
+                    <td class="product__image">
+                      <div class="product-thumbnail">
+                        <div class="product-thumbnail__wrapper" data-tg-static="">
+                          <img style="height: 100%;
+                          object-fit: cover;
+                          width: 100%;"
+                            [src]="getImageProductDetail(orderDetail?.productDetailId?.product,orderDetail?.productDetailId)[0].urlImage"
+                            alt="" class="product-thumbnail__image">
+                        </div>
+                        <span class="product-thumbnail__quantity">{{orderDetail.quantity}}</span>
+                      </div>
+                    </td>
+                    <th class="product__description">
+                      <span class="product__description__name">
+                        {{orderDetail.productDetailId.product.name}}
+                      </span>
+                      <span class="product__description__property">
+                        {{orderDetail?.productDetailId?.color?.name}}
+                        /
+                        {{orderDetail?.productDetailId?.size?.code}}
+                      </span>
+                      <span *ngIf="orderDetail?.discount" class="product__description__property">
+                        Khuyến mãi: -{{(orderDetail?.unitprice *
+                        orderDetail?.discount
+                        /100).toLocaleString("vi-VN")
+                        }}đ({{orderDetail.discount}}%)
+                      </span>
+                    </th>
+                    <td class="product__quantity visually-hidden"><em>Số lượng:</em> {{orderDetail.quantity}}</td>
+                    <td class="product__price">
+                      {{((orderDetail?.unitprice -
+                      (orderDetail?.unitprice *
+                      orderDetail?.discount
+                      /100)) *
+                      orderDetail.quantity).toLocaleString("vi-VN")
+                      + "đ "
+                      }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="order-summary__section order-summary__section--total-lines order-summary--collapse-element"
+              data-define="{subTotalPriceText: '229.000đ'}" data-tg-refresh="refreshOrderTotalPrice" id="orderSummary">
+              <table class="total-line-table">
+                <caption class="visually-hidden">Tổng giá trị</caption>
+                <thead>
+                  <tr>
+                    <td><span class="visually-hidden">Mô tả</span></td>
+                    <td><span class="visually-hidden">Giá tiền</span></td>
+                  </tr>
+                </thead>
+                <tbody class="total-line-table__tbody">
+                  <tr class="total-line total-line--subtotal">
+                    <th class="total-line__name">
+                      Tạm tính
+                    </th>
+                    <td class="total-line__price">{{ (getTotalOrder | async).toLocaleString("vi-VN") }}đ</td>
+                  </tr>
+                  <tr *ngIf="order.voucher" class="total-line total-line--subtotal">
+                    <th class="total-line__name">
+                      Khuyến mãi
+                    </th>
+                    <td class="total-line__price">- {{ voucherOrder().toLocaleString("vi-VN") }}đ</td>
+                  </tr>
+                  <tr class="total-line total-line--shipping-fee">
+                    <th class="total-line__name">
+                      Phí vận chuyển
+                    </th>
+                    <td class="total-line__price">
+                      {{order.freight.toLocaleString("vi-VN") }}đ
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot class="total-line-table__footer">
+                  <tr class="total-line payment-due">
+                    <th class="total-line__name">
+                      <span class="payment-due__label-total">
+                        Tổng cộng
+                      </span>
+                    </th>
+                    <td class="total-line__price">
+                      <span class="payment-due__price">
+                        {{order.total.toLocaleString("vi-VN") }}đ
+                      </span>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+<ng-template class="theme-modal" #voucher let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Danh sách khuyến mãi</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div *ngIf="listVoucher" class="modal-body p-3">
+      <div class="box-2 box-code-lst">
+        <div class="row" style="display: flex; height: 300px;
+        padding: 5px;
+        overflow: auto;">
+          <div *ngFor="let voucher of listVoucher" class="item-ecode col-lg-6">
+            <div class="row" style="display: flex;">
+              <div class="col-9">{{voucher.code + " - " + voucher.description}}</div>
+              <div class="col-3"><span class="promo-ecode">{{voucher.type == true ?
+                  (voucher.discount.toLocaleString("vi-VN") + "đ") :
+                  (voucher.discount +"%")}}</span></div>
+            </div>
+            <div class="row" style="display: flex; min-height: 50px;">
+              <div class="col-12">
+                <p *ngIf="voucher.min" class="mb-2">-Áp dụng cho đơn hàng tối thiểu
+                  {{voucher.min.toLocaleString("vi-VN") + "đ"}}</p>
+                <p *ngIf="voucher.max">-Giảm tối đa {{voucher.max.toLocaleString("vi-VN") + "đ"}}</p>
+              </div>
+            </div>
+            <div class="row row-bottom" style="display: flex;">
+              <div class="col-9"><span class="hsd-epro">Hết hạn: {{voucher.endDate | date: "dd/MM/yyyy"}}</span>
+              </div>
+              <div *ngIf="!selectedVoucher || (selectedVoucher && selectedVoucher.id !== voucher.id)" class="col-3">
+                <span class="btn-getcode" id="getcode" (click)="addVoucher(voucher)">Áp dụng</span>
+              </div>
+              <div *ngIf="selectedVoucher && selectedVoucher.id === voucher.id" class="col-3"><span
+                  style="background-color: #6c757d;" class="btn-getcode" id="getcode"
+                  (click)="removeVoucher(voucher)">Hủy áp dụng</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

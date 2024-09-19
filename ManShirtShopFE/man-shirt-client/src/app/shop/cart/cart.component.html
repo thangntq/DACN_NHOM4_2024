@@ -1,0 +1,275 @@
+<app-breadcrumb [title]="'GIỎ HÀNG'" [breadcrumb]="'GIỎ HÀNG'"></app-breadcrumb>
+<!-- section start -->
+<section class="cart-section section-b-space main-cart-page">
+  <div class="cart-page">
+    <div class="container">
+      <div
+        *ngIf="productDetails && productDetails.length == 0"
+        class="wrap_background_aside margin-bottom-40"
+      >
+        <div class="cart-page">
+          <div class="drawer__inner">
+            <div class="CartPageContainer">
+              <div class="cart--empty-message">
+                <img
+                  src="//bizweb.dktcdn.net/100/438/408/themes/916476/assets/blank_cart.svg?1692586888011"
+                  alt="cart"
+                />
+                <p>Giỏ hàng của bạn trống</p>
+                <a *ngIf="!isLogin" class="logincart"
+                  ><span style="cursor: pointer" routerLink="/login"
+                    >Đăng nhập</span
+                  >/<span style="cursor: pointer" routerLink="/register"
+                    >Đăng ký</span
+                  ></a
+                ><span class="clearfix"></span
+                ><a class="buy-now" routerLink="/shop">Mua ngay</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form *ngIf="productDetails && productDetails.length > 0">
+        <div class="row">
+          <div class="col-12 col-xl-8 order-1 order-xl-1">
+            <div
+              class="ajaxcart__inner ajaxcart__inner--has-fixed-footer cart_body items"
+            >
+              <p
+                class="title"
+                style="display: flex; justify-content: space-between"
+              >
+                <span class="text-uppercase"
+                  >Giỏ hàng
+                  <span class="total-cart"
+                    >(<span class="count_item_pr">{{
+                      productDetails.length
+                    }}</span
+                    >) Sản phẩm<span></span></span
+                ></span>
+                <span
+                  (click)="selectAll()"
+                  style="text-align: end; color: #357ebd; cursor: pointer"
+                  >{{ selectAllChecked ? "Bỏ chọn" : "Chọn tất cả" }}</span
+                >
+              </p>
+              <div class="buymore_notification-wrapper d-none">
+                <div
+                  id="buymore_notification"
+                  class="buymore_notification d-none"
+                ></div>
+              </div>
+              <div class="cart-header-info d-none d-md-flex">
+                <div style="padding-left: 50px">Sản phẩm</div>
+                <div style="text-align: end">Đơn giá</div>
+                <div>Số lượng</div>
+                <div>Tổng tiền</div>
+              </div>
+              <div class="items-available">
+                <div
+                  class="ajaxcart__row cart-item"
+                  *ngFor="let productDetail of productDetails"
+                >
+                  <ng-container
+                    *ngIf="getProduct(products, productDetail) as product"
+                  >
+                    <div class="ajaxcart__product cart_product" data-line="1">
+                      <input
+                        type="checkbox"
+                        name="selectedProducts"
+                        [checked]="selectAllChecked"
+                        (change)="onProductSelected($event, productDetail)"
+                      />
+                      <a
+                        [routerLink]="[
+                          '/shop/product/',
+                          product.name.replace(' ', '-')
+                        ]"
+                        class="ajaxcart__product-image cart_image"
+                        [title]="product.name | titlecase"
+                        ><img
+                          [src]="
+                            getImageProductDetail(products, productDetail)[0]
+                              .urlImage
+                          "
+                      /></a>
+                      <div class="grid__item cart_info">
+                        <div class="ajaxcart__product-name-wrapper cart_name">
+                          <a
+                            [routerLink]="[
+                              '/shop/product/',
+                              product?.name.replace(' ', '-')
+                            ]"
+                            class="ajaxcart__product-name h4"
+                            [title]="product?.name | titlecase"
+                            >{{ product?.name | titlecase }}</a
+                          >
+                          <span
+                            class="ajaxcart__product-meta variant-title d-none d-md-block"
+                            >{{ productDetail?.color.name }}
+                            /
+                            {{ productDetail?.size.code }}</span
+                          >
+                        </div>
+                        <div class="grid grid-price-1">
+                          <div
+                            class="grid__item one-half text-center cart_prices"
+                          >
+                            <span class="cart-price" style="text-align: right"
+                              >{{
+                                (
+                                  (product?.price | discount : product) *
+                                  productService?.Currency.price
+                                ).toLocaleString("vi-VN")
+                              }}đ</span
+                            >
+                            <span
+                              *ngIf="product?.discount"
+                              style="
+                                text-decoration: line-through;
+                                color: #a9a9a9;
+                                display: block;
+                                text-align: right;
+                              "
+                            >
+                              {{
+                                product?.price.toLocaleString("vi-VN") + "đ "
+                              }}</span
+                            >
+                          </div>
+                        </div>
+                        <div class="grid grid-qty">
+                          <span
+                            class="ajaxcart__product-meta variant-title-mobile d-md-none"
+                            >{{ productDetail?.color.name }}
+                            /
+                            {{ productDetail?.size.code }}</span
+                          >
+                          <div class="grid__item one-half cart_select">
+                            <div class="ajaxcart__qty input-group-btn">
+                              <button
+                                type="button"
+                                (click)="decrement(productDetail)"
+                                class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count"
+                              >
+                                -
+                              </button>
+                              <input
+                                type="text"
+                                [name]="productDetail.id"
+                                class="ajaxcart__qty-num number-sidebar"
+                                disabled
+                                [(ngModel)]="productDetail.quantity"
+                              />
+                              <button
+                                type="button"
+                                (click)="increment(productDetail)"
+                                class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count"
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="grid grid-price grid-price-2">
+                          <div
+                            class="grid__item one-half text-center cart_prices d-none d-md-block"
+                          >
+                            <span class="cart-price">
+                              {{
+                                (
+                                  (product?.price | discount : product) *
+                                  productDetail.quantity *
+                                  productService?.Currency.price
+                                ).toLocaleString("vi-VN")
+                              }}đ</span
+                            >
+                          </div>
+                          <p class="remove-cart">
+                            <a
+                              (click)="removeItem(productDetail)"
+                              class="cart__btn-remove remove-item-cart ajaxifyCart--remove"
+                              href="javascript:;"
+                              data-line="1"
+                            ></a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-xl-4 order-3 order-xl-2 ajaxcart__wrap-footer">
+            <div class="ajaxcart__footer_noti">
+              Dùng mã giảm giá của SHOP trong bước tiếp theo
+            </div>
+            <div class="ajaxcart__footer ajaxcart__footer--fixed cart-footer">
+              <div class="ajaxcart__subtotal">
+                <div class="cart__subtotal">
+                  <div class="cart__col-6">Tổng đơn hàng (Tạm tính) :</div>
+                  <div class="text-right cart__totle">
+                    <span class="total-price"
+                      >{{ (getTotal | async).toLocaleString("vi-VN") }}đ</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="cart__btn-proceed-checkout-dt">
+                <button
+                  style="line-height: 20px"
+                  type="button"
+                  (click)="checkout()"
+                  class="btn btn-checkout spinner"
+                  [ngClass]="{ 'spinner--active': isCheckout }"
+                  [disabled]="isCheckout"
+                >
+                  <span class="spinner-label"
+                    >Đặt hàng{{
+                      selectedProductDetail.length > 0
+                        ? "(" + selectedProductDetail.length + ")"
+                        : ""
+                    }}</span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="spinner-loader"
+                  >
+                    <use href="#spinner"></use>
+                  </svg>
+                </button>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+                <symbol id="spinner">
+                  <svg viewBox="0 0 30 30">
+                    <circle
+                      stroke="currentColor"
+                      stroke-width="2"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-dasharray="85%"
+                      cx="50%"
+                      cy="50%"
+                      r="40%"
+                    >
+                      <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="0 15 15"
+                        to="360 15 15"
+                        dur="0.7s"
+                        repeatCount="indefinite"
+                      ></animateTransform>
+                    </circle>
+                  </svg>
+                </symbol>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<!--section end-->

@@ -1,0 +1,52 @@
+.fs-mnlTop {
+  height: 48px;
+  line-height: 48px;
+  background: #cd1918;
+}
+.fs-lgleft {
+  margin: 0 0 0 10px;
+  width: 78px;
+  height: 28px;
+  display: inline-block;
+}
+.fs-close {
+  color: #fff;
+  font-weight: 700;
+  text-align: right;
+  position: absolute;
+  right: 15px;
+  font-size: 14px;
+}
+.fs-close .demo-icon {
+  color: #fff;
+}
+.icon-wrap .cs-ic-circle {
+  width: 24px;
+  height: 24px;
+  font-size: 15px;
+  color: #939ca3;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+}
+.fs--mnul {
+  padding: 10px 25px;
+}
+.fs--mnul.fs-login {
+  margin: 0 0 12px;
+}
+.fs-login li a {
+  padding: 12px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.icon-wrap {
+  text-align: center;
+  margin-right: 8px;
+}

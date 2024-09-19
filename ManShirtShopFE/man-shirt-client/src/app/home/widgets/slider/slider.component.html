@@ -1,0 +1,9 @@
+<div class="home-slider" [ngClass]="class">
+  <ng-container *ngFor="let slider of sliders">
+    <div
+      class="home"
+      [ngClass]="textClass"
+      [ngStyle]="{ 'background-image': 'url(' + slider.image + ')' }"
+    ></div>
+  </ng-container>
+</div>

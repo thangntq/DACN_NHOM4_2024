@@ -1,0 +1,127 @@
+<app-breadcrumb
+  [title]="'Tài khoản'"
+  [breadcrumb]="'Tài khoản'"
+></app-breadcrumb>
+<!-- section start -->
+<section class="section-b-space">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="account-sidebar" (click)="ToggleDashboard()">
+          <a style="color: white" hre="javascript:void(0)" class="popup-btn">
+            my account
+          </a>
+        </div>
+        <div class="dashboard-left" [class.open]="openDashboard">
+          <div class="collection-mobile-back" (click)="ToggleDashboard()">
+            <span class="filter-back">
+              <i class="fa fa-angle-left" aria-hidden="true"></i> back
+            </span>
+          </div>
+          <div class="block-content">
+            <div class="info info-1">
+              <img
+                style="margin-bottom: 15px"
+                src="https://cdn-icons-png.flaticon.com/128/149/149071.png"
+                alt="15th of August"
+              />
+              <p>{{ userInfo?.fullname }}</p>
+            </div>
+            <ul>
+              <li>
+                <a routerLink="/account" class="title-info"
+                  >Thông tin tài khoản</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/orders" class="title-info"
+                  >Đơn hàng của tôi</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/address" class="title-info"
+                  >Địa chỉ của tôi</a
+                >
+              </li>
+              <li>
+                <a routerLink="/account/history" class="title-info active"
+                  >Đã xem gần đây</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="dashboard-right">
+          <div class="dashboard">
+            <!-- <div class="page-title">
+                            <h2>My Dashboard</h2>
+                        </div>
+                        <div class="welcome-msg">
+                            <p>Hello, MARK JECNO !</p>
+                            <p>From your My Account Dashboard you have the ability to view a snapshot of your recent
+                                account activity and update your account information. Select a link below to view or
+                                edit information.</p>
+                        </div> -->
+            <div class="box-account box-info">
+              <div class="row mb-2">
+                <div class="col-sm-12">
+                  <div class="box">
+                    <div class="box-title">
+                      <h3 style="font-size: 18px; font-weight: 700">
+                        Đã xem gần đây
+                      </h3>
+                    </div>
+                    <div class="box-content">
+                      <div class="row" *ngIf="products.length > 0">
+                        <div
+                          class="col-grid-box col-xl-3 col-md-6 col-sm-6"
+                          *ngFor="let product of products"
+                        >
+                          <div class="product-box">
+                            <app-product-box-one
+                              [product]="product"
+                              [currency]="productService?.Currency"
+                              [onHowerChangeImage]="true"
+                              [cartModal]="true"
+                              [loader]="true"
+                            >
+                            </app-product-box-one>
+                          </div>
+                        </div>
+                        <div
+                          class="col-sm-12 text-center section-b-space mt-5 no-found"
+                          *ngIf="!products.length"
+                        >
+                          <img
+                            src="assets/images/empty-search.jpg"
+                            class="img-fluid mb-4"
+                          />
+                          <h3>
+                            Lấy làm tiếc! Không thể tìm thấy sản phẩm bạn đang
+                            tìm kiếm!!!
+                          </h3>
+                          <p>
+                            Vui lòng kiểm tra xem bạn có viết sai chính tả nào
+                            không hoặc thử tìm kiếm bằng các từ khác.
+                          </p>
+                          <a
+                            [routerLink]="['/shop/collection/left/sidebar']"
+                            class="btn btn-solid"
+                            >continue shopping</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- section end -->

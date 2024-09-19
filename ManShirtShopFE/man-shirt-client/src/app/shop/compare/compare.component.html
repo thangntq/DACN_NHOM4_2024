@@ -1,0 +1,142 @@
+<app-breadcrumb [title]="'So sánh'" [breadcrumb]="'So sánh'"></app-breadcrumb>
+<!-- section start -->
+<section class="compare-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="compare-page">
+          <div
+            class="col-sm-12 empty-cart-cls text-center"
+            *ngIf="!products.length"
+          >
+            <img src="assets/images/empty-compare.png" class="img-fluid mb-4" />
+            <h3><strong>Danh sách so sánh trống</strong></h3>
+          </div>
+          <div class="table-wrapper table-responsive" *ngIf="products.length">
+            <table class="table">
+              <thead>
+                <tr class="th-compare">
+                  <td></td>
+                  <th class="item-row" *ngFor="let product of products">
+                    <button
+                      type="button"
+                      (click)="removeItem(product)"
+                      class="remove-compare"
+                    >
+                      Xóa
+                    </button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="table-compare">
+                <!-- Product Name -->
+                <tr>
+                  <th class="product-name">Tên sản phẩm</th>
+                  <td class="grid-link__title" *ngFor="let product of products">
+                    {{ product.name | titlecase }}
+                  </td>
+                </tr>
+                <!-- Product Image -->
+                <tr>
+                  <th class="product-name">Ảnh</th>
+                  <td class="item-row" *ngFor="let product of products">
+                    <img
+                      [src]="product?.productImage[0]?.urlImage"
+                      [alt]="product.name"
+                      width="185"
+                      class="featured-image"
+                    />
+                  </td>
+                </tr>
+                <!-- Product Description -->
+                <tr>
+                  <th class="product-name">Giá</th>
+                  <td class="item-row" *ngFor="let product of products">
+                    <p class="description-compare">
+                      {{
+                        (product?.price | discount : product).toLocaleString(
+                          "vi-VN"
+                        )
+                      }}đ
+                      <del *ngIf="product?.discount"
+                        ><span class="money">
+                          {{ (product?.price).toLocaleString("vi-VN") }}đ</span
+                        ></del
+                      >
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="product-name">Thể loại</th>
+                  <td class="item-row" *ngFor="let product of products">
+                    <p class="description-compare">
+                      {{ product.category }}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="product-name">Chất liệu</th>
+                  <td class="item-row" *ngFor="let product of products">
+                    <p class="description-compare">
+                      {{ product.material }}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="product-name">Kiểu dáng</th>
+                  <td class="item-row" *ngFor="let product of products">
+                    <p class="description-compare">
+                      {{ product.form }}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="product-name">Thiết kế</th>
+                  <td class="item-row" *ngFor="let product of products">
+                    <p class="description-compare">
+                      {{ product.design }}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="product-name">Cổ áo</th>
+                  <td class="item-row" *ngFor="let product of products">
+                    <p class="description-compare">
+                      {{ product.collar }}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="product-name">Tay áo</th>
+                  <td class="item-row" *ngFor="let product of products">
+                    <p class="description-compare">
+                      {{ product.sleeve }}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="product-name"></th>
+                  <td class="available-stock" *ngFor="let product of products">
+                    <form class="variants clearfix">
+                      <button
+                        title="Add to Cart"
+                        [routerLink]="[
+                          '/shop/product/',
+                          product?.name.replace(' ', '-')
+                        ]"
+                        class="add-to-cart btn btn-solid"
+                      >
+                        Xem chi tiết
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Section ends -->

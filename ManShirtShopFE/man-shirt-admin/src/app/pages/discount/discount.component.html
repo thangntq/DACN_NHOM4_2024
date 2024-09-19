@@ -1,0 +1,304 @@
+<app-loader></app-loader>
+<div class="container-fluid">
+  <app-page-title title="Khuyến mãi" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term" />
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="text-sm-end">
+                <button type="button" class="btn btn-success btn-rounded mb-2 mr-2 me-2" (click)="openModal()">
+                  <i class="mdi mdi-plus me-1"></i> Thêm mới khuyến mãi
+                </button>
+
+              </div>
+            </div>
+            <!-- end col-->
+          </div>
+          <div class="table-responsive">
+            <table class="table align-middle table-nowrap">
+              <thead>
+                <tr>
+                  <th>Tên</th>
+                  <th>Mô tả</th>
+                  <th>Ngày bắt đầu</th>
+                  <th>Ngày kết thúc</th>
+                  <th>Thông tin tạo</th>
+                  <th>Thông tin sửa</th>
+                  <th>Trạng thái</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-template #noData>
+                  <tr>
+                    <td colspan="12" class="text-center">Chưa có dữ liệu</td>
+                  </tr>
+                </ng-template>
+                <ng-container *ngIf="(discountData | filter : term)?.length; else noData">
+                  <tr *ngFor="
+                      let mateRial of osTypeDataPage | filter : term;
+                      let i = index
+
+                    ">
+                    <td>{{ mateRial.name }}</td>
+                    <td>{{ mateRial.description }}</td>
+                    <td>{{ mateRial.startDate | date : "dd/MM/yyyy" }}</td>
+                    <td>{{ mateRial.endDate | date : "dd/MM/yyyy" }}</td>
+                    <td>
+                      <p class="mb-1">{{ mateRial.createBy }}</p>
+                      <p class="mb-0">
+                        {{ mateRial.createTime | date : "dd/MM/yyyy HH:mm" }}
+                      </p>
+                    </td>
+                    <td>
+                      <p class="mb-1">{{ mateRial.updateBy }}</p>
+                      <p class="mb-0">
+                        {{ mateRial.updateTime | date : "dd/MM/yyyy HH:mm" }}
+                      </p>
+                    </td>
+                    <td *ngIf="mateRial.status == 0">
+                      <span class="badge bg-success">Đang hoạt động</span>
+                    </td>
+                    <td *ngIf="mateRial.status != 0">
+                      <span class="badge bg-danger">Xóa</span>
+                    </td>
+                    <td>
+                      <div class="dropdown" ngbDropdown placement="bottom-right">
+                        <a href="javascript: void(0);" class="dropdown-toggle card-drop" data-toggle="dropdown"
+                          ngbDropdownToggle aria-expanded="false">
+                          <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                          <li>
+                            <a (click)="editOsType(mateRial)" class="dropdown-item"><i
+                                class="fas fa-pencil-alt text-success me-1"></i>
+                              Edit</a>
+                          </li>
+                          <li>
+                            <a (click)="openTableDiscountProductModal(mateRial)" class="dropdown-item"><i
+                                class="mdi mdi-eye text-success me-1"></i>
+                              check</a>
+                          </li>
+                          <li>
+                            <a (click)="openCollarModal(mateRial)" class="dropdown-item"><i
+                                class="mdi mdi-eye text-success me-1"></i>
+                              add vào SP</a>
+                          </li>
+                          <li>
+                            <a (click)="deleteOsType(mateRial.id)" class="dropdown-item"><i
+                                class="fas fa-trash-alt text-danger me-1"></i>
+                              Delete</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <ngb-pagination [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="totalItems"
+            (pageChange)="onPageChange($event)" class="pagination pagination-rounded justify-content-end mb-2">
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #content1 role="document" let-modal>
+
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Thêm sản phẩm vào khuyến mãi</h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="saveDiscountProduct()" [formGroup]="formData1">
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="control-label">Tên khuyến mãi</label>
+            <input class="form-control" name="title" formControlName="discountId" />
+          </div>
+          <div class="mb-3">
+            <label class="control-label">Sản phẩm</label>
+            <ng-select [items]="productData" bindValue="id" bindLabel="name" [multiple]="true"
+              formControlName="productId"></ng-select>
+          </div>
+          <div class="mb-3 row">
+            <label>Phần trăm giảm</label>
+            <div class="col-md-12">
+              <input class="form-control" formControlName="percent" type="number" id="example-date-input">
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" id="btn-save-event">
+        Lưu
+      </button>
+    </form>
+  </div>
+</ng-template>
+<ng-template #content role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Thêm khuyến mãi</h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="saveOsType()" [formGroup]="formData">
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="control-label">Tên khuyến mãi</label>
+            <input class="form-control" placeholder="Nhập tên khuyến mãi" type="text" name="title" autocomplete="off"
+              formControlName="name" [ngClass]="{ 'is-invalid': submitted && form.name.errors }" />
+            <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+              <span *ngIf="form.name.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="control-label">Mô tả</label>
+            <input class="form-control" placeholder="Nhập mô tả" type="text" name="title" autocomplete="off"
+              formControlName="description" [ngClass]="{ 'is-invalid': submitted && form.description.errors }" />
+            <div *ngIf="submitted && form.description.errors" class="invalid-feedback">
+              <span *ngIf="form.description.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label>Ngày bắt đầu</label>
+            <div class="col-md-12">
+              <input class="form-control" formControlName="startDate" type="date"
+              [ngClass]="{ 'is-invalid': submitted && form.startDate.errors }" />
+            <div *ngIf="submitted && form.startDate.errors" class="invalid-feedback">
+              <span *ngIf="form.startDate.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+        </div>
+          <div class="mb-3 row">
+            <label>Ngày kết thúc</label>
+            <div class="col-md-12">
+              <input class="form-control" formControlName="endDate" type="date"
+              [ngClass]="{ 'is-invalid': submitted && form.endDate.errors }" />
+              <div *ngIf="submitted && form.endDate.errors" class="invalid-feedback">
+                <span *ngIf="form.endDate.errors.required">Dữ liệu trống</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" id="btn-save-event">
+        Lưu
+      </button>
+    </form>
+  </div>
+</ng-template>
+<ng-template #content3 role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Thêm khuyến mãi</h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="saveOsType()" [formGroup]="formData">
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="control-label">Tên khuyến mãi</label>
+            <input class="form-control" placeholder="Nhập tên khuyến mãi" type="text" name="title" autocomplete="off"
+              formControlName="name" [ngClass]="{ 'is-invalid': submitted && form.name.errors }" />
+            <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+              <span *ngIf="form.name.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="control-label">Mô tả</label>
+            <input class="form-control" placeholder="Nhập mô tả" type="text" name="title" autocomplete="off"
+              formControlName="description" [ngClass]="{ 'is-invalid': submitted && form.description.errors }" />
+            <div *ngIf="submitted && form.description.errors" class="invalid-feedback">
+              <span *ngIf="form.description.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label>Ngày bắt đầu</label>
+            <div class="col-md-12">
+              <input class="form-control" formControlName="startDate" type="date"
+              [ngClass]="{ 'is-invalid': submitted && form.startDate.errors }" />
+            <div *ngIf="submitted && form.startDate.errors" class="invalid-feedback">
+              <span *ngIf="form.startDate.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+        </div>
+          <div class="mb-3 row">
+            <label>Ngày kết thúc</label>
+            <div class="col-md-12">
+              <input class="form-control" formControlName="endDate" type="date"
+              [ngClass]="{ 'is-invalid': submitted && form.endDate.errors }" />
+              <div *ngIf="submitted && form.endDate.errors" class="invalid-feedback">
+                <span *ngIf="form.endDate.errors.required">Dữ liệu trống</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" id="btn-save-event">
+        Lưu
+      </button>
+    </form>
+  </div>
+</ng-template>
+<ng-template #content2 role="document" let-modal>
+  <div class="table-responsive">
+    <table class="table align-middle table-nowrap">
+      <thead>
+        <tr>
+          <th>Sản phẩm áp dụng</th>
+          <th>Phần trăm</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-template #noData>
+          <tr>
+            <td colspan="12" class="text-center">Chưa có dữ liệu</td>
+          </tr>
+        </ng-template>
+        <ng-container *ngIf="(discountproductData1 | filter : term)?.length; else noData">
+          <tr *ngFor="
+              let mateRial of discountproductData1 | filter : term;
+              let i = index
+            ">
+
+            <td>{{ mateRial.productId.name }}</td>
+            <td>{{ mateRial.percent }}</td>
+
+            <td>
+              <div class="dropdown" ngbDropdown placement="bottom-right">
+                <a href="javascript: void(0);" class="dropdown-toggle card-drop" data-toggle="dropdown"
+                  ngbDropdownToggle aria-expanded="false">
+                  <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                  <li>
+                    <a (click)="deleteProductDiscount(mateRial.id)" class="dropdown-item"><i
+                        class="fas fa-trash-alt text-danger me-1"></i>
+                      Delete</a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+
+</ng-template>

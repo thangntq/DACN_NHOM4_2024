@@ -1,0 +1,194 @@
+<app-breadcrumb
+  [title]="'Shop'"
+  [breadcrumb]="
+    currentPath === 2
+      ? 'Sản phẩm mới'
+      : currentPath == 1
+      ? 'Sản phẩm giảm giá nhiều nhất'
+      : currentPath == 3
+      ? 'Sản phẩm bán chạy'
+      : 'Sản phẩm NewMen'
+  "
+></app-breadcrumb>
+<!-- section start -->
+<section class="section-b-space">
+  <div class="collection-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="collection-filter" [class.openFilterbar]="mobileSidebar">
+            <!-- side-bar colleps block stat -->
+            <div class="collection-filter-block">
+              <div
+                class="collection-mobile-back"
+                (click)="toggleMobileSidebar()"
+              >
+                <span class="filter-back">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i> back
+                </span>
+              </div>
+              <!-- Category filter start -->
+              <app-category
+                [category]="category"
+                (categorysFilter)="updateFilter($event)"
+              ></app-category>
+            </div>
+            <!-- silde-bar colleps block end here -->
+            <!-- side-bar colleps block stat -->
+            <div class="collection-filter-block">
+              <!-- color filter start here -->
+              <app-colors
+                [colors]="colors"
+                (colorsFilter)="updateFilter($event)"
+              >
+              </app-colors>
+              <!-- size filter start here -->
+              <app-size [size]="size" (sizeFilter)="updateFilter($event)">
+              </app-size>
+              <!-- price filter start here -->
+              <app-price
+                [min]="minPrice"
+                [max]="maxPrice"
+                (priceFilter)="updateFilter($event)"
+              >
+              </app-price>
+              <app-design
+                [designs]="designs"
+                (designsFilter)="updateFilter($event)"
+              ></app-design>
+              <app-material
+                [materials]="materials"
+                (materialsFilter)="updateFilter($event)"
+              ></app-material>
+              <app-form
+                [forms]="forms"
+                (formsFilter)="updateFilter($event)"
+              ></app-form>
+              <app-collar
+                [collars]="collars"
+                (collarsFilter)="updateFilter($event)"
+              ></app-collar>
+              <app-sleeve
+                [sleeves]="sleeves"
+                (sleevesFilter)="updateFilter($event)"
+              ></app-sleeve>
+            </div>
+            <!-- silde-bar colleps block end here -->
+            <!-- side-bar single product slider start -->
+            <!-- <app-product-box-vertical-slider [title]="'New Products'">
+            </app-product-box-vertical-slider> -->
+            <!-- side-bar single product slider end -->
+            <!-- side-bar banner start here -->
+            <div class="collection-sidebar-banner">
+              <a [routerLink]="['/shop/collection/left/sidebar']">
+                <img
+                  src="assets/images/collection-sidebar-banner.webp"
+                  class="img-fluid"
+                  alt="banner"
+                />
+              </a>
+            </div>
+            <!-- side-bar banner end here -->
+          </div>
+        </div>
+        <div class="collection-content col-lg-9">
+          <div class="page-main-content">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="row">
+                  <div class="col-xl-12">
+                    <div
+                      class="filter-main-btn"
+                      (click)="toggleMobileSidebar()"
+                    >
+                      <span class="filter-btn btn btn-theme">
+                        <i class="fa fa-filter" aria-hidden="true"></i> Lọc
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <ul class="product-filter-tags">
+                  <li class="mr-1" *ngFor="let tag of tags">
+                    <a href="javascript:void(0)" class="filter_tag">
+                      {{ tag }}
+                      <i class="ti-close" (click)="removeTag(tag)"></i>
+                    </a>
+                  </li>
+                  <li class="clear_filter" *ngIf="tags.length > 0">
+                    <a
+                      href="javascript:void(0)"
+                      class="clear_filter"
+                      (click)="removeAllTags()"
+                    >
+                      Xóa hết
+                    </a>
+                  </li>
+                </ul>
+                <div class="collection-product-wrapper" id="products">
+                  <app-grid
+                    [products]="products"
+                    [paginate]="paginate"
+                    [sortBy]="sortBy"
+                    (setGrid)="updateGridLayout($event)"
+                    (setLayout)="updateLayoutView($event)"
+                    (sortedBy)="sortByFilter($event)"
+                  >
+                  </app-grid>
+                  <div class="product-wrapper-grid" [ngClass]="layoutView">
+                    <div class="row">
+                      <div
+                        class="col-grid-box"
+                        [ngClass]="grid"
+                        *ngFor="let product of products"
+                      >
+                        <div class="product-box">
+                          <app-product-box-one
+                            [product]="product"
+                            [currency]="productService?.Currency"
+                            [onHowerChangeImage]="true"
+                            [cartModal]="true"
+                            [loader]="true"
+                          >
+                          </app-product-box-one>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 text-center section-b-space mt-5 no-found"
+                        *ngIf="isNotProduct"
+                      >
+                        <img
+                          src="assets/images/empty-search.jpg"
+                          class="img-fluid mb-4"
+                        />
+                        <h3>
+                          Lấy làm tiếc! Không thể tìm thấy sản phẩm bạn đang tìm
+                          kiếm!!!
+                        </h3>
+                        <p>
+                          Vui lòng kiểm tra xem bạn có viết sai chính tả nào
+                          không hoặc thử tìm kiếm bằng các từ khác.
+                        </p>
+                        <a
+                          [routerLink]="['/shop/collection/left/sidebar']"
+                          class="btn btn-solid"
+                          >continue shopping</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <app-pagination
+                    [products]="products"
+                    [paginate]="paginate"
+                    (setPage)="setPage($event)"
+                  >
+                  </app-pagination>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- section End -->

@@ -1,0 +1,155 @@
+.info-1 {
+  text-align: center;
+  padding: 30px 19px;
+}
+.col-left-ac .block-account .info-1 img {
+  display: block;
+  margin: 0 auto 20px;
+}
+.info-1 p {
+  margin-bottom: 5px;
+}
+.info-1 a {
+  display: block;
+  line-height: 24px;
+  background: #357ebd;
+  color: #fff;
+  border-radius: 12px;
+}
+li:nth-child(1) .title-info,
+li:nth-child(1) .title-info.active {
+  background-image: url(../../../../assets/images/user.png);
+}
+li:nth-child(2) .title-info,
+li:nth-child(2) .title-info.active {
+  background-image: url(../../../../assets/images/clipboard.png);
+}
+li:nth-child(3) .title-info,
+li:nth-child(3) .title-info.active {
+  background-image: url(../../../../assets/images/location.png);
+}
+li:nth-child(4) .title-info,
+li:nth-child(4) .title-info.active {
+  background-image: url(../../../../assets/images/history.png);
+}
+li .title-info {
+  line-height: 20px;
+  display: block;
+  padding: 10px 10px 10px 50px;
+  background-position: 18px 10px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  width: 100%;
+}
+li:before {
+  display: none !important;
+}
+li .title-info.active {
+  background-color: #b8dcfb;
+  color: black;
+}
+li .title-info:hover {
+  background-color: #b8dcfb;
+  color: black;
+}
+
+.bubble {
+  border-radius: 50px;
+  padding: 3px 10px;
+  background-color: #357ebd;
+  color: white !important;
+}
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+.table-cart thead th:nth-child(4) {
+  text-align: right;
+}
+.table-cart thead th {
+  background: #f8f8f8;
+  border: none;
+  padding: 9px 15px;
+  text-align: left;
+  line-height: 16px;
+  vertical-align: middle;
+}
+.table-cart td{
+  vertical-align: middle;
+}
+.dashboard .box .box-title {
+  margin-bottom: 0 !important;
+}
+@media (max-width: 992px) {
+  .table-cart thead th {
+    display: none;
+  }
+}
+@media (max-width: 992px) {
+  .table-responsive-block tbody tr {
+    border-top: 0 !important;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .table-responsive-block tbody tr td:nth-child(1) {
+    padding-left: 135px !important;
+    background: #e1e1e1;
+  }
+  .table-responsive-block tbody tr td {
+    border: none !important;
+  }
+  .table-responsive-block tbody td {
+    border: none;
+    position: relative;
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: block;
+    width: 100% !important;
+  }
+  .table-responsive-block tbody td {
+    border: none !important;
+    border-top: 1px solid #dde1ef !important;
+    padding: 12px 15px;
+    line-height: 16px;
+    vertical-align: middle;
+  }
+  .table-responsive-block tbody tr td:before {
+    position: absolute;
+    top: 10px;
+    font-size: 14px;
+    left: 18px;
+    padding-right: 10px;
+    text-align: left;
+    white-space: nowrap;
+    font-weight: 400;
+    display: block;
+  }
+  .table-order td:nth-of-type(1):before {
+    content: "Đơn hàng:";
+  }
+  .table-order td:nth-of-type(2):before {
+    content: "Ngày:";
+  }
+  .table-order td:nth-of-type(3):before {
+    content: "Địa chỉ:";
+  }
+  .table-order td:nth-of-type(4):before {
+    content: "Giá trị đơn hàng:";
+  }
+  .table-order td:nth-of-type(5):before {
+    content: "TT Thanh toán:";
+  }
+  .table-order td:nth-of-type(6):before {
+    content: "TT Vận chuyển:";
+  }
+  .table-responsive-block tbody tr td:nth-child(n + 1) {
+    padding-left: 135px;
+    text-align: left;
+  }
+}
+.table-responsive-block tbody tr td .price {
+  color: #357ebd;
+}

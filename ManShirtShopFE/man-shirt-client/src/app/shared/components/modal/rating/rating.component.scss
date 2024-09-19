@@ -1,0 +1,367 @@
+.sapo-product-reviews-form {
+  position: relative;
+  text-align: center;
+}
+.sapo-product-reviews-form .title-form {
+  font-size: 18px;
+  line-height: 21px;
+  margin: 0 0 10px;
+}
+.sapo-product-reviews-form .review-product-name {
+  font-weight: bold;
+  margin: 0 0 22px;
+  font-size: 18px;
+  line-height: 21px;
+}
+.sapo-product-reviews-form .bpr-form-rating {
+  text-align: left;
+  margin: 0 0 20px;
+}
+.sapo-product-reviews-form .bpr-form-rating .form-group {
+  display: flex;
+  align-items: flex-end;
+}
+.form-group {
+  margin: 0;
+  padding: 0 10px 8px;
+  border: 0;
+}
+.sapo-product-reviews-form .bpr-form-rating label {
+  margin: 0 17px 0 0;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+}
+.sapo-product-reviews-form .bpr-form-rating .sapo-product-reviews-star {
+  // display: flex;
+  line-height: 1;
+  justify-content: center;
+  cursor: pointer;
+}
+.sapo-product-reviews-star {
+  color: #fac126;
+}
+.sapo-product-reviews-form .bpr-form-rating .sapo-product-reviews-star i {
+  font-size: 25px;
+  font-style: normal;
+}
+.close-modal {
+  position: absolute;
+  background: none;
+  text-indent: initial;
+  top: 5px;
+  right: 5px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.MultiFile-intercepted {
+  margin-top: 10px;
+}
+.sapo-product-reviews-form .bpr-form-contact {
+  text-align: left;
+  position: relative;
+}
+.sapo-product-reviews-form .bpr-form-contact .form-group__multiple {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -14px;
+  padding: 0 10px 8px;
+}
+.sapo-product-reviews-form
+  .bpr-form-contact
+  .form-group__multiple
+  .bpr-form-contact-name {
+  width: 100%;
+  margin: 0 0 11px;
+  padding: 0 14px;
+}
+.sapo-product-reviews-form .bpr-form-contact .form-group input,
+.sapo-review-reply-form .bpr-form-contact .form-group input {
+  margin: 0;
+  background: #fff;
+  border: 1px solid #c4cdd5;
+  box-sizing: border-box;
+  border-radius: 5px;
+  height: 42px;
+  line-height: 42px;
+  padding: 0 13px;
+  width: 100%;
+}
+.sapo-product-reviews-form
+  .bpr-form-contact
+  .form-group__multiple
+  .bpr-form-contact-email,
+.sapo-product-reviews-form
+  .bpr-form-contact
+  .form-group__multiple
+  .bpr-form-contact-phone,
+.sapo-review-reply-form
+  .bpr-form-contact
+  .form-group__multiple
+  .bpr-form-contact-email,
+.sapo-review-reply-form
+  .bpr-form-contact
+  .form-group__multiple
+  .bpr-form-contact-phone {
+  width: 50%;
+  margin: 0 0 11px;
+  padding: 0 14px;
+}
+.sapo-product-reviews-form .bpr-form-contact .form-group__textarea,
+.sapo-review-reply-form .bpr-form-contact .form-group__textarea {
+  box-sizing: border-box;
+  min-height: 160px;
+  margin: 0 -14px;
+  padding: 0 10px 8px;
+}
+.sapo-product-reviews-form .bpr-form-contact .form-group__textarea .form-group,
+.sapo-review-reply-form .bpr-form-contact .form-group__textarea .form-group {
+  padding: 0 14px;
+}
+.sapo-product-reviews-form .bpr-form-contact .form-group textarea,
+.sapo-review-reply-form .bpr-form-contact .form-group textarea {
+  background: #fff;
+  border: none;
+  box-sizing: border-box;
+  height: 132px;
+  padding: 16px 13px 0;
+  border: 1px solid #c4cdd5;
+  border-bottom: none;
+  resize: none;
+  border-radius: 5px 5px 0 0;
+  width: 100%;
+  vertical-align: top;
+  min-height: 100px;
+}
+.sapo-product-reviews-form .bpr-form-contact .bpr-file-attach,
+.sapo-review-reply-form .bpr-form-contact .bpr-file-attach {
+  position: relative;
+  width: 100%;
+  padding: 0 14px 8px;
+}
+.sapo-product-reviews-form .bpr-form-contact .bpr-file-attach label,
+.sapo-review-reply-form .bpr-form-contact .bpr-file-attach label {
+  display: flex !important;
+  align-items: center;
+  margin: 0;
+  font-size: 16px;
+  color: #969b9f;
+  font-weight: 400;
+  padding: 6px 15px 9px 5px;
+  border: 1px solid #c4cdd5;
+  border-radius: 0 0 5px 5px;
+  margin-bottom: 4px;
+  background: #fff;
+}
+.sapo-product-reviews-form .bpr-form-contact .bpr-file-attach label svg,
+.sapo-review-reply-form .bpr-form-contact .bpr-file-attach label svg {
+  width: 30px;
+}
+.sapo-product-reviews-form
+  .bpr-form-contact
+  .bpr-file-attach
+  .MultiFile-wrap
+  input.MultiFile-applied,
+.sapo-review-reply-form
+  .bpr-form-contact
+  .bpr-file-attach
+  .MultiFile-wrap
+  input.MultiFile-applied {
+  position: absolute;
+  height: 46px;
+  top: 0;
+  left: 0;
+  border: none;
+  padding: 0;
+  z-index: 9;
+}
+.sapo-product-reviews-form .bpr-form-contact .bpr-file-attach .MultiFile-list,
+.sapo-review-reply-form .bpr-form-contact .bpr-file-attach .MultiFile-list {
+  display: flex;
+}
+@media (max-width: 767px) {
+  .sapo-product-reviews-form
+    .bpr-form-contact
+    .form-group__multiple
+    .bpr-form-contact-email,
+  .sapo-product-reviews-form
+    .bpr-form-contact
+    .form-group__multiple
+    .bpr-form-contact-phone {
+    width: 100%;
+  }
+  .sapo-product-reviews-form .bpr-form-rating .sapo-product-reviews-star {
+    display: block;
+  }
+  .sapo-product-reviews-form .bpr-form-rating .form-group {
+    display: block;
+  }
+}
+.sapo-product-reviews-form .bpr-form-actions,
+.sapo-review-reply-form .bpr-form-actions {
+  margin-top: 20px;
+}
+.bpr-button-submit {
+  background-color: #030d78;
+  border-color: #030d78;
+  cursor: pointer;
+  display: inline-block;
+  background-clip: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px transparent solid;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 500;
+  padding: 0.98em 1.7em;
+  text-align: center;
+  position: relative;
+}
+
+.checked {
+  color: orange !important;
+}
+
+.nochecked {
+  color: #ccc !important;
+}
+.sapo-product-reviews-form
+  .bpr-form-contact
+  .bpr-file-attach
+  .MultiFile-list
+  .MultiFile-label,
+.sapo-review-reply-form
+  .bpr-form-contact
+  .bpr-file-attach
+  .MultiFile-list
+  .MultiFile-label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  margin-bottom: 15px;
+}
+.sapo-product-reviews-form
+  .bpr-form-contact
+  .bpr-file-attach
+  .MultiFile-list
+  .MultiFile-label
+  .MultiFile-remove,
+.sapo-review-reply-form
+  .bpr-form-contact
+  .bpr-file-attach
+  .MultiFile-list
+  .MultiFile-label
+  .MultiFile-remove {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  z-index: 9;
+  line-height: 1;
+}
+.sapo-product-reviews-form
+  .bpr-form-contact
+  .bpr-file-attach
+  .MultiFile-list
+  .MultiFile-label
+  svg,
+.sapo-review-reply-form
+  .bpr-form-contact
+  .bpr-file-attach
+  .MultiFile-list
+  .MultiFile-label
+  svg {
+  vertical-align: top;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+}
+.sapo-product-reviews-form .bpr-form-contact,
+.sapo-review-reply-form .bpr-form-contact {
+  text-align: left;
+  position: relative;
+}
+.sapo-product-reviews-form
+  .bpr-form-contact
+  .bpr-file-attach
+  .MultiFile-list
+  .MultiFile-label,
+.sapo-review-reply-form
+  .bpr-form-contact
+  .bpr-file-attach
+  .MultiFile-list
+  .MultiFile-label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  margin-bottom: 15px;
+}
+.sapo-product-reviews-form
+  .bpr-form-contact
+  .bpr-file-attach
+  .MultiFile-list
+  .MultiFile-label
+  .MultiFile-preview,
+.sapo-review-reply-form
+  .bpr-form-contact
+  .bpr-file-attach
+  .MultiFile-list
+  .MultiFile-label
+  .MultiFile-preview {
+  max-width: initial !important;
+  width: 100%;
+  position: relative;
+  max-height: 90px !important;
+}
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-loader {
+  height: 32px;
+  width: 32px;
+  display: none;
+}
+
+.btn.spinner .spinner-loader {
+  position: absolute;
+}
+
+.spinner--active .spinner-loader {
+  display: block;
+}
+
+.spinner--active .spinner-label {
+  opacity: 0;
+}
+.btn {
+  cursor: pointer;
+  background-color: #030d78;
+  border-color: #030d78;
+  background-clip: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px transparent solid;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 500;
+  padding: 0.5em 1.7em;
+  text-align: center;
+  position: relative;
+  margin: auto;
+}
+.step__btn-group {
+  flex-direction: column;
+  text-align: center;
+}

@@ -1,0 +1,200 @@
+<div class="table-responsive mb-0">
+  <table class="table table-centered table-nowrap">
+    <thead class="table-light">
+      <tr>
+        <th class="align-middle">MÃ ĐƠN TRẢ</th>
+        <th class="align-middle">NGƯỜI MUA</th>
+        <th class="align-middle">NGÀY</th>
+        <th class="align-middle">LÍ DO</th>
+        <th class="align-middle">TÌNH TRẠNG</th>
+        <th class="align-middle">HOẠT ĐỘNG</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template #noData>
+        <tr>
+          <td colspan="9" class="text-center">
+            <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
+              colors="primary:#405189,secondary:#0ab39c" style="width: 72px; height: 72px">
+            </lord-icon>
+            <h5 class="mt-4">Sorry! No Result Found</h5>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-container *ngIf="returns?.length; else noData">
+        <tr *ngFor="let data of returns">
+          <td>
+            <a (click)="openModal(content, data)" class="text-body fw-bold" style="cursor: pointer"><u>{{ data.code
+                }}</u></a>
+          </td>
+          <td>
+            <p class="m-0">{{ data?.createBy }}</p>
+          </td>
+          <td>
+            {{ data.createTime | date : "HH:mm dd/MM/yyyy" }}
+          </td>
+          <td style="width: 400px">
+            {{ data.reason }}
+          </td>
+          <td class="status">
+            <span class="badge text-uppercase p-2" [ngClass]="{
+                'badge-soft-warning': data.status === 0,
+                'badge-soft-primary': data.status === 1,
+                'badge-soft-success': data.status === 2,
+                'badge-soft-danger': data.status === 3,
+                'badge-soft-dark': data.status === 4
+              }">
+              {{
+              data.status === 0
+              ? "Chờ duyệt"
+              : data.status === 1
+              ? "Đang giao"
+              : data.status === 2
+              ? "Thành công"
+              : data.status === 3
+              ? "Đã hủy"
+              : "Thất bại"
+              }}</span>
+          </td>
+          <td>
+            <ul class="list-inline hstack gap-2 mb-0">
+              <li *ngIf="data.status === 0" class="list-inline-item" title="Xác nhận">
+                <a (click)="confirm(data)" style="
+                    cursor: pointer;
+                    background-color: #0093a7;
+                    padding: 5px 10px;
+                    color: white !important;
+                    border-radius: 5px;
+                  " class="d-inline-block badge-soft-success">
+                  Xác nhận
+                </a>
+              </li>
+              <li *ngIf="data.status === 1" class="list-inline-item" title="Remove">
+                <a (click)="completed(data)" class="badge-soft-success d-inline-block" style="
+                    cursor: pointer;
+                    background-color: #0093a7;
+                    color: white !important;
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                  ">
+                  Đã nhận hàng
+                </a>
+              </li>
+              <li *ngIf="data.status === 0 || data.status === 1" class="list-inline-item" title="Remove">
+                <a (click)="cancel(data)" class="badge-soft-success d-inline-block" style="
+                    cursor: pointer;
+                    background-color: #ff5d5d;
+                    padding: 5px 10px;
+                    color: white !important;
+                    border-radius: 5px;
+                  ">
+                  Hủy
+                </a>
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+<!-- end table -->
+<ng-template #content role="document" let-modal>
+  <div class="modal-header">
+    <h5 *ngIf="return" class="modal-title mt-0">Chi tiết đơn hàng trả {{return.code}} </h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div *ngIf="return" class="card-body">
+    <div *ngIf="return.status == 0" class="text-center">
+      <h5 class="fs-16 mt-2">Đơn hàng trả đang chờ duyệt</h5>
+    </div>
+    <div *ngIf="return.status == 1" class="text-center">
+      <h5 class="fs-16 mt-2">Đơn hàng trả đang giao về shop</h5>
+    </div>
+    <div *ngIf="return.status == 2" class="text-center">
+      <h5 class="fs-16 mt-2">Đơn hàng trả đã được giao về shop</h5>
+    </div>
+    <div *ngIf="return.status == 3" class="text-center">
+      <h5 class="fs-16 mt-2">Đơn hàng trả đã hủy</h5>
+    </div>
+  </div>
+  <div *ngIf="return" class="modal-body">
+    <p class="mb-2">
+      Mã đơn hàng:
+      <span class="text-primary">{{ return?.code }}</span>
+    </p>
+    <p class="mb-2">
+      Hóa đơn gốc:
+      <span class="text-primary">{{ return?.codeOrder }}</span>
+    </p>
+    <p class="mb-2">
+      Người mua:
+      <span class="text-primary">{{
+        return?.createBy
+        }}</span>
+    </p>
+    <p class="mb-2">
+      Số điện thoại:
+      <span class="text-primary">{{ return?.sdt }}</span>
+    </p>
+    <p class="mb-2">
+      Lí do:
+      <span class="text-primary"> {{ return.reason }}</span>
+    </p>
+    <p class="mb-4">
+      Video:
+      <button style="padding: 2px;" class="btn btn-success" (click)="openModalVideo(video)"><i
+          class="mdi mdi-youtube font-size-14 me-2"></i>Xem video</button>
+    </p>
+    <div class="table-responsive">
+      <table class="table table-centered table-nowrap">
+        <thead>
+          <tr>
+            <th scope="col">Sản phẩm</th>
+            <th scope="col">Số lượng</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of return.returnDetail">
+            <td>
+              <div>
+                <h5 class="text-truncate font-size-14">
+                  {{ data.oderDetailResponseAdmin.productDetailId.product.name }}
+                </h5>
+                <p class="text-muted mb-0">
+                  Màu: <strong>{{ data.oderDetailResponseAdmin.productDetailId.color.name }}</strong>
+                </p>
+                <p class="text-muted mb-3">
+                  Size: <strong>{{ data.oderDetailResponseAdmin.productDetailId.size.code }}</strong>
+                </p>
+              </div>
+            </td>
+            <td>
+              {{ data.quantity }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <!-- <button class="btn btn-success">
+      <i class="mdi mdi-printer font-size-14 me-2"></i>
+      In
+    </button> -->
+    <!-- <button class="btn btn-primary">
+      <i class="mdi mdi-pencil font-size-14 me-2"></i>
+      Sửa
+    </button> -->
+    <button class="btn btn-secondary" (click)="modal.close('Close click')">
+      Close
+    </button>
+  </div>
+</ng-template>
+<ng-template #video role="document" let-modal>
+  <div class="modal-body">
+    <video width="100%" controls>
+      <source [src]="return.video" type="video/mp4">
+    </video>
+  </div>
+</ng-template>

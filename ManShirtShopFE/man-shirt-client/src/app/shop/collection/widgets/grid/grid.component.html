@@ -1,0 +1,72 @@
+<div class="product-top-filter">
+  <div class="row">
+    <div class="col-12">
+      <div class="section_sort clearfix scroll-up clearfix" style="top: 0px; display: flex">
+        <span class="count">{{ products.length }} sản phẩm</span>
+        <div class="product-page-filter">
+          <div class="collection-grid-view" *ngIf="layoutView == 'grid-view'">
+            <ul class="d-none d-lg-block">
+              <li (click)="setGridLayout('col-lg-6')">
+                <img src="assets/images/icon/blocks.png" class="product-2-layout-view" />
+              </li>
+              <li (click)="setGridLayout('col-lg-4')">
+                <img src="assets/images/icon/menu.png" class="product-3-layout-view" />
+              </li>
+              <li style="margin-left: 3px" (click)="setGridLayout('col-lg-3')">
+                <img style="height: 22px" src="assets/images/icon/grid-lines.png" class="product-4-layout-view" />
+              </li>
+            </ul>
+          </div>
+          <label class="select" for="slct">
+            <select id="slct" (change)="sorting($event)">
+              <option value="">Mặc định</option>
+              <option value="a-z" [selected]="sortBy == 'a-z'">Từ A - Z</option>
+              <option value="z-a" [selected]="sortBy == 'z-a'">Từ Z - A</option>
+              <option value="low" [selected]="sortBy == 'low'">Rẻ nhất</option>
+              <option value="high" [selected]="sortBy == 'high'">
+                Giá giảm dần
+              </option>
+              <option value="ascending" [selected]="sortBy == 'ascending'">Mới nhất</option>
+            </select>
+            <svg>
+              <use xlink:href="#select-arrow-down"></use>
+            </svg>
+          </label>
+          <svg class="sprites">
+            <symbol id="select-arrow-down" viewbox="0 0 10 6">
+              <polyline points="1 1 5 5 9 1"></polyline>
+            </symbol>
+          </svg>
+        </div>
+      </div>
+      <!-- <div class="product-filter-content">
+                <div class="search-count">
+                    <h5>{{ products.length }} sản phẩm</h5>
+                </div>
+                <div class="collection-grid-view" *ngIf="layoutView == 'grid-view'">
+                    <ul>
+                        <li (click)="setGridLayout('col-lg-6')">
+                            <img src="assets/images/icon/2.png" class="product-2-layout-view">
+                        </li>
+                        <li (click)="setGridLayout('col-lg-4')">
+                            <img src="assets/images/icon/3.png" class="product-3-layout-view">
+                        </li>
+                        <li (click)="setGridLayout('col-lg-3')">
+                            <img src="assets/images/icon/4.png" class="product-4-layout-view">
+                        </li>
+                    </ul>
+                </div>
+                <div class="product-page-filter">
+                    <select (change)="sorting($event)">
+                        <option value="">Mặc định</option>
+                        <option value="a-z" [selected]="sortBy == 'a-z'">Từ A - Z</option>
+                        <option value="z-a" [selected]="sortBy == 'z-a'">Từ Z - A</option>
+                        <option value="low" [selected]="sortBy == 'low'">Rẻ nhất</option>
+                        <option value="high" [selected]="sortBy == 'high'">Giá giảm dần</option>
+                        <option value="NEW" [selected]="sortBy == 'new'">Mới nhất</option>
+                    </select>
+                </div>
+            </div> -->
+    </div>
+  </div>
+</div>

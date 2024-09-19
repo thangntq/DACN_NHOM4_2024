@@ -1,0 +1,76 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: "SVN-Gilroy";
+  src:
+    //  url('assets/fonts/SVNGilroy\ Light.woff') format('woff2'),
+    url("assets/fonts/SVN-Gilroy\ Medium.otf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SVN-Gilroy-Bold";
+  src: url("assets/fonts/SVN-Gilroy\ Bold.otf") format("woff");
+  font-weight: 700;
+  font-style: 700;
+}
+
+body {
+  font-family: "SVN-Gilroy", sans-serif;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #728e9d;
+}
+
+.product-description img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.product-description figure {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.product-description h2 {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.5;
+  font-size: 24px !important;
+}
+.product-description p {
+  line-height: 1.5;
+}
+.bar-rating .br {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.owl-carousel .owl-stage {
+  width: 1000px;
+}
+@media (min-width: 1430px) {
+  .col-xl-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+@media (min-width: 1430px) {
+  .col-xl-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+@media (min-width: 992px) and (max-width: 1429px) {
+  .col-lg-4 {
+    flex: 0 0 33.33333333%;
+    max-width: 33.33333333%;
+  }
+}
+.return-modal {
+  background-color: rgba(0, 0, 0, 0.5);
+}

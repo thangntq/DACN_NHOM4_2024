@@ -1,0 +1,397 @@
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading>
+<div class="container-fluid">
+  <app-page-title title="Nhân viên" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term" />
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-8">
+              <div class="text-sm-end">
+                <button type="button" class="btn btn-success btn-rounded mb-2 mr-2 me-2" (click)="openModal()">
+                  <i class="mdi mdi-plus me-1"></i> Tạo mới nhân viên
+                </button>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table align-middle table-nowrap">
+              <thead>
+                <tr>
+                  <th>ảnh</th>
+                  <th>tên </th>
+                  <th>ngày sinh</th>
+                  <th>số điện thoại</th>
+                  <th>địa chỉ</th>
+                  <th>Trạng thái</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <ng-template #noData>
+                  <tr>
+                    <td colspan="12" class="text-center">Chưa có dữ liệu</td>
+                  </tr>
+                </ng-template>
+
+                <ng-container *ngIf="(materialData | filter : term)?.length; else noData">
+                  <tr *ngFor="
+                      let mateRial of osTypeDataPage | filter : term;
+                      let i = index
+                    ">
+
+                    <td>
+                      <img src="{{ mateRial.photo }}" id="expandedImg" alt="" class="avatar-md p-1" />
+                    </td>
+                    <td>{{ mateRial.fullname }}</td>
+                    <td>{{ mateRial.birthDate | date : "dd/MM/yyyy" }}</td>
+                    <td>{{ mateRial.phone }}</td>
+                    <td>{{ mateRial.address }}</td>
+
+                    <td *ngIf="mateRial.status == 0">
+                      <span class="badge bg-success">Đang hoạt động</span>
+                    </td>
+                    <td *ngIf="mateRial.status != 0">
+                      <span class="badge bg-danger">Xóa</span>
+                    </td>
+                    <td>
+                      <div class="dropdown" ngbDropdown placement="bottom-right">
+                        <a href="javascript: void(0);" class="dropdown-toggle card-drop" data-toggle="dropdown"
+                          ngbDropdownToggle aria-expanded="false">
+                          <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                          <li>
+                            <a (click)="editOsType(mateRial)" class="dropdown-item"><i
+                                class="fas fa-pencil-alt text-success me-1"></i>
+                              Edit</a>
+                          </li>
+                          <li>
+                            <a (click)="getEmployeeById(mateRial)" class="dropdown-item"><i
+                                class="mdi mdi-eye font-size-20"></i>
+                              chi tiết nhân viên</a>
+                          </li>
+                          <li>
+                            <a (click)="deleteOsType(mateRial.id)" class="dropdown-item"><i
+                                class="fas fa-trash-alt text-danger me-1"></i>
+                              Delete</a>
+                          </li>
+
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <ngb-pagination [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="totalItems"
+            (pageChange)="onPageChange($event)" class="pagination pagination-rounded justify-content-end mb-2">
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Nhân viên</h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+
+  <div class="modal-body">
+    <form (ngSubmit)="saveOsType()" [formGroup]="formData">
+      <div class="row">
+        <div class="col-3">
+          <div class="upload__box">
+            <div class="upload__btn-box">
+              <div>
+                <label class="upload__btn">
+                  <span>Chọn hình</span>
+                  <input class="upload__inputfile" type="file" (change)="onFileSelected($event)"
+                     />
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="upload__img-box col-sm-12 ">
+                <div class="img-bg" [style.background-image]="'url(' + urlImage + ')'">
+                  <div class="upload__img-close"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <div class="mb-3">
+            <label class="control-label">Tên nhân viên</label>
+            <input class="form-control" placeholder="Nhập tên nhân viên" type="text" name="title" autocomplete="off"
+              formControlName="fullname" [ngClass]="{ 'is-invalid': submitted && form.fullname.errors }" />
+            <div *ngIf="submitted && form.fullname.errors" class="invalid-feedback">
+              <span *ngIf="form.fullname.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="control-label">email</label>
+            <input class="form-control" placeholder="Nhập email" type="email" name="title" autocomplete="off"
+              formControlName="email" [ngClass]="{ 'is-invalid': submitted && form.email.errors }" />
+            <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+              <span *ngIf="form.email.errors.required">Dữ liệu trống</span>
+              <span *ngIf="form.email.errors.email">Email không đúng </span>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="control-label">Số điện thoại</label>
+            <input class="form-control" placeholder="Nhập số điện thoại" type="text" name="title" autocomplete="off"
+              formControlName="phone" [ngClass]="{ 'is-invalid': submitted && form.phone.errors }" />
+            <div *ngIf="submitted && form.phone.errors" class="invalid-feedback">
+              <span *ngIf="form.phone.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label>Ngày sinh</label>
+            <div class="col-md-12">
+              <input class="form-control" formControlName="birthDate" type="date" id="example-date-input"
+              [ngClass]="{ 'is-invalid': submitted && form.birthDate.errors }" />
+              <div *ngIf="submitted && form.birthDate.errors" class="invalid-feedback">
+                <span *ngIf="form.birthDate.errors.required">Dữ liệu trống</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <div class="mb-3">
+            <label class="control-label">địa chỉ</label>
+            <input class="form-control" placeholder="Nhập địa chỉ" type="text" name="title" autocomplete="off"
+              formControlName="address" [ngClass]="{ 'is-invalid': submitted && form.address.errors }" />
+            <div *ngIf="submitted && form.address.errors" class="invalid-feedback">
+              <span *ngIf="form.address.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="control-label">pass</label>
+            <input class="form-control" placeholder="Nhập tên mật khẩu" type="password" name="title" autocomplete="off"
+              formControlName="password" [ngClass]="{ 'is-invalid': submitted && form.password.errors }" />
+            <div *ngIf="submitted && form.password.errors" class="invalid-feedback">
+              <span *ngIf="form.password.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="control-label">Chức vụ</label>
+            <ng-select [items]="setRole" bindValue="id" bindLabel="name" formControlName="role">
+            </ng-select>
+          </div>
+
+          <div class="mb-3">
+            <label class="control-label">Mô tả</label>
+            <input class="form-control" placeholder="Nhập mô tả" type="text" name="title" autocomplete="off"
+              formControlName="note" [ngClass]="{ 'is-invalid': submitted && form.note.errors }" />
+            <div *ngIf="submitted && form.note.errors" class="invalid-feedback">
+              <span *ngIf="form.note.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" id="btn-save-event">
+        Lưu
+      </button>
+    </form>
+  </div>
+</ng-template>
+<ng-template #content3 role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Sửa Nhân viên</h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+
+  <div class="modal-body">
+    <form (ngSubmit)="saveOsType()" [formGroup]="formData">
+      <div class="row">
+        <div class="col-3">
+          <div class="upload__box">
+            <div class="upload__btn-box">
+              <div>
+                <label class="upload__btn">
+                  <span>Chọn hình</span>
+                  <input class="upload__inputfile" type="file" (change)="onFileSelected($event)"
+                     />
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="upload__img-box col-sm-12 ">
+                <div class="img-bg" [style.background-image]="'url(' + urlImage + ')'">
+                  <div class="upload__img-close"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <div class="mb-3">
+            <label class="control-label">Tên nhân viên</label>
+            <input class="form-control" placeholder="Nhập tên nhân viên" type="text" name="title" autocomplete="off"
+              formControlName="fullname" [ngClass]="{ 'is-invalid': submitted && form.fullname.errors }" />
+            <div *ngIf="submitted && form.fullname.errors" class="invalid-feedback">
+              <span *ngIf="form.fullname.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="control-label">email</label>
+            <input class="form-control" placeholder="Nhập email" type="email" name="title" autocomplete="off"
+              formControlName="email" [ngClass]="{ 'is-invalid': submitted && form.email.errors }" />
+            <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+              <span *ngIf="form.email.errors.required">Dữ liệu trống</span>
+              <span *ngIf="form.email.errors.email">Email không đúng </span>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="control-label">Số điện thoại</label>
+            <input class="form-control" placeholder="Nhập số điện thoại" type="text" name="title" autocomplete="off"
+              formControlName="phone" [ngClass]="{ 'is-invalid': submitted && form.phone.errors }" />
+            <div *ngIf="submitted && form.phone.errors" class="invalid-feedback">
+              <span *ngIf="form.phone.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label>Ngày sinh</label>
+            <div class="col-md-12">
+              <input class="form-control" formControlName="birthDate" type="date" id="example-date-input">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <div class="mb-3">
+            <label class="control-label">địa chỉ</label>
+            <input class="form-control" placeholder="Nhập địa chỉ" type="text" name="title" autocomplete="off"
+              formControlName="address" [ngClass]="{ 'is-invalid': submitted && form.address.errors }" />
+            <div *ngIf="submitted && form.address.errors" class="invalid-feedback">
+              <span *ngIf="form.address.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="control-label">pass</label>
+            <input class="form-control" placeholder="Nhập tên mật khẩu" type="password" name="title" autocomplete="off"
+              formControlName="password" [ngClass]="{ 'is-invalid': submitted && form.password.errors }" />
+            <div *ngIf="submitted && form.password.errors" class="invalid-feedback">
+              <span *ngIf="form.password.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="control-label">Chức vụ</label>
+            <ng-select [items]="setRole" bindValue="id" bindLabel="name" formControlName="role">
+            </ng-select>
+          </div>
+
+          <div class="mb-3">
+            <label class="control-label">Mô tả</label>
+            <input class="form-control" placeholder="Nhập mô tả" type="text" name="title" autocomplete="off"
+              formControlName="note" [ngClass]="{ 'is-invalid': submitted && form.note.errors }" />
+            <div *ngIf="submitted && form.note.errors" class="invalid-feedback">
+              <span *ngIf="form.note.errors.required">Dữ liệu trống</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" id="btn-save-event">
+        Lưu
+      </button>
+    </form>
+  </div>
+</ng-template>
+<ng-template #content2 role="document">
+  <div>
+    <ng-template #noData>
+      <tr>
+        <td colspan="12" class="text-center">Chưa có dữ liệu</td>
+        <div>hihi</div>
+      </tr>
+    </ng-template>
+    <ng-container *ngIf="employeeGetData; else noData">
+      <div class="row" style="text-align: center;">
+        <h1> Nhân viên </h1>
+        <div class="col-md-3">
+          <img src="{{employeeGetData.photo}}" style="width: 200px;height: 200px;margin-top: 30px; margin-left: 30px;"
+            id="expandedImg" alt="" />
+        </div>
+
+        <div class="col-md-4">
+          <div class="card-body">
+            <div>
+              <h5 style="margin-top: 30px; margin-bottom: 30px;" class="card-title">Tên nhân viên:<input
+                  style="margin-left:20px ;" type="text" placeholder="{{ employeeGetData.fullname }}" disabled="true">
+              </h5>
+            </div>
+            <div>
+              <h5 style="margin-top: 30px; margin-bottom: 30px;" class="card-title">Email nhân viên:<input
+                  style="margin-left:20px ;" type="text" placeholder="{{ employeeGetData.email }}" disabled="true"></h5>
+            </div>
+            <div>
+              <h5 style="margin-top: 30px; margin-bottom: 30px;" class="card-title">Ngày sinh nhân viên:<input
+                  style="margin-left:20px ;" type="text" placeholder="{{ employeeGetData.birthDate}}" disabled="true">
+              </h5>
+            </div>
+            <div>
+              <h5 style="margin-top: 30px; margin-bottom: 30px;" class="card-title">Chức vụ:<input
+                  style="margin-left:20px ;" type="text" placeholder="{{ employeeGetData.role?.name   }}"
+                  disabled="true"></h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card-body">
+            <div>
+              <h5 style="margin-top: 30px; margin-bottom: 30px;" class="card-title">Số điện thoại:<input
+                  style="margin-left:20px ;" type="text" placeholder="{{ employeeGetData.phone }}" disabled="true"></h5>
+            </div>
+            <div>
+              <h5 style="margin-top: 30px; margin-bottom: 30px;" class="card-title">Địa chỉ nhân viên:
+                {{employeeGetData.address}}</h5>
+            </div>
+            <div>
+              <h5 style="margin-top: 30px; margin-bottom: 30px;" class="card-title">Ghi chú: {{ employeeGetData.note }}
+              </h5>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <td *ngIf="employeeGetData.status == 0">
+        <span class="badge bg-success">Trạng thái : Đang hoạt động</span>
+      </td>
+    </ng-container>
+  </div>
+</ng-template>

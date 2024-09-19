@@ -1,0 +1,126 @@
+<ng-template class="theme-modal" #quickView let-modal>
+  <div class="modal-content quick-view-modal">
+    <div class="modal-body p-3">
+      <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="row">
+        <div class="col-lg-6 col-xs-12">
+          <div class="quick-view-img">
+            <img [src]="ImageSrc ? ImageSrc : filterImagesMainByColor(selectedColor, product)[0]?.urlImage"
+              class="img-fluid" />
+          </div>
+        </div>
+        <div class="col-lg-6 rtl-text">
+          <div class="product-right">
+            <h2>{{ product?.name }}</h2>
+            <div class="product-top d-flex align-items-center mb-1">
+              <div class="sku-product">
+                <span class="variant-sku" itemprop="sku" content="">{{
+                  product?.code
+                  }}</span>
+              </div>
+              <div class="divider"></div>
+              <div class="product-sold">
+                Đã bán <span class="number-product-sold">{{
+                  product?.soluongdaban
+                  }}</span>
+              </div>
+              <div class="divider"></div>
+              <ngb-rating [rate]="product?.rating" [readonly]="true" [max]="5" style="font-size: 15px;">
+                <ng-template let-fill="fill" let-index="index">
+                  <span [class]="fill ? 'fa fa-star checked' : 'fa fa-star nochecked'" style="margin-left: 2px;"></span>
+                </ng-template></ngb-rating>
+              <span>({{ product?.rating }})</span>
+            </div>
+            <div class="group-power">
+              <div class="price-box clearfix d-flex align-items-center">
+                <span class="special-price">
+                  <span class="price product-price" style="color: rgb(23, 25, 28)">{{
+                    (product?.price | discount : product)?.toLocaleString(
+                    "vi-VN"
+                    )
+                    }}đ</span>
+                </span>
+                <span class="old-price" style="display: block">
+                  <del *ngIf="product?.discount" class="price product-price-old" style="display: inline">
+                    {{ (product?.price).toLocaleString("vi-VN") + "đ" }}</del>
+                </span>
+                <span *ngIf="product?.discount" class="reduce-price">- {{ product?.discount }}%</span>
+              </div>
+            </div>
+            <div class="options-title">
+              Màu sắc: <span class="var">{{ selectedColor?.name }}</span>
+            </div>
+            <ul class="color-variant" *ngIf="getAllColors(product).length">
+              <li *ngFor="let color of getAllColors(product)" [ngClass]="{
+                  selected:
+                    selectedColor.id === color.id ||
+                    (!selectedColor && color === getAllColors(product)[0])
+                }" (click)="ChangeVariants(color, product); changeColor(color)">
+                <img class="img-fluid" [src]="filterImagesMainByColor(color, product)[0]?.urlImage" alt="" />
+              </li>
+            </ul>
+            <div class="product-description border-product">
+              <h6 class="product-title size-text" *ngIf="getAllSizes(product).length">
+                Kích thước
+              </h6>
+              <div class="size-box" *ngIf="getAllSizes(product).length">
+                <ul>
+                  <li [class.active]="selectedSize == size" *ngFor="let size of getAllSizes(product)"
+                    [ngClass]="checkSize(selectedColor,size) ? 'disabled' : '' ">
+                    <a (click)="selectSize(size)">{{
+                      size.code | titlecase
+                      }}</a>
+                  </li>
+                </ul>
+              </div>
+              <h6 class="product-title">Số lượng</h6>
+              <div class="row m-0 d-flex">
+                <div class="qty-box">
+                  <div class="input-group">
+                    <span class="input-group-prepend">
+                      <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrement()">
+                        <i class="fa fa-minus"></i>
+                      </button>
+                    </span>
+                    <input type="text" name="quantity" class="form-control input-number" [value]="counter" disabled />
+                    <span class="input-group-prepend">
+                      <button type="button" class="btn quantity-right-plus" data-type="plus" (click)="increment()">
+                        <i class="fa fa-plus"></i>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+                <div class="buy">
+                  <button (click)="
+                      addToCart(
+                        getProductDetail(
+                          product.productDetail,
+                          selectedColor,
+                          selectedSize
+                        )
+                      )
+                    " type=" button" class="btn-buy">
+                    Thêm vào giỏ hàng
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="product-buttons">
+                        <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">add to cart</a>
+                        <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="buyNow(product)">buy now</a>
+                    </div> -->
+            <!-- <div class="border-product">
+              <h6 class="product-title">product details</h6>
+              <p>{{ product.description.substring(0, 200) + "..." }}</p>
+            </div> -->
+            <!-- <div class="border-product">
+              <app-countdown [date]="'Sep 21 2023'"></app-countdown>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

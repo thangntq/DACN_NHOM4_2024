@@ -1,0 +1,395 @@
+<!-- <app-breadcrumb [title]="'Login'" [breadcrumb]="'Login'"></app-breadcrumb> -->
+<!-- section start -->
+<section class="login-page section-b-space">
+  <div class="container">
+    <div class="row">
+      <div class="login-card">
+        <h1><span>ĐĂNG</span> NHẬP</h1>
+        <div class="theme-card">
+          <form class="theme-form" [formGroup]="loginForm">
+            <div class="form-group" style="position: relative">
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                placeholder="Email hoặc số điện thoại"
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+              />
+              <span *ngIf="submitted && f.email.errors">
+                <span
+                  class="errorPassText"
+                  *ngIf="submitted && f.email.errors.required"
+                  >Vui lòng nhập email</span
+                >
+                <span
+                  class="errorPassText"
+                  *ngIf="submitted && f.email.errors.email"
+                >
+                  Email không đúng định dạng
+                </span>
+              </span>
+            </div>
+            <div class="form-group" style="position: relative">
+              <input
+                [type]="isShowPassword ? 'text' : 'password'"
+                #password
+                class="form-control"
+                id="review"
+                placeholder="Mật khẩu"
+                formControlName="password"
+                [ngClass]="{
+                  'is-invalid': submitted && f.password.errors
+                }"
+                aria-label="Password"
+                aria-describedby="password-addon"
+              />
+              <span (click)="isShowPassword = !isShowPassword" class="showpass"
+                ><i
+                  *ngIf="!isShowPassword"
+                  class="fa fa-eye"
+                  aria-hidden="true"
+                ></i
+                ><i
+                  *ngIf="isShowPassword"
+                  class="fa fa-eye-slash"
+                  aria-hidden="true"
+                ></i
+              ></span>
+              <span *ngIf="submitted && f.password.errors">
+                <span class="errorPassText" *ngIf="f.password.errors.required"
+                  >Vui lòng nhập mật khẩu</span
+                >
+              </span>
+            </div>
+            <div class="step__btn-group">
+              <button
+                (click)="onSubmit()"
+                type="button"
+                class="btn btn-checkout spinner"
+                [ngClass]="{ 'spinner--active': submitted }"
+                [disabled]="submitted"
+              >
+                <span class="spinner-label">ĐĂNG NHẬP</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="spinner-loader">
+                  <use href="#spinner"></use>
+                </svg>
+              </button>
+            </div>
+            <p class="forgot">
+              <a
+                (click)="openModal()"
+                style="cursor: pointer"
+                class="d-none d-md-block"
+                >Quên mật khẩu</a
+              >
+            </p>
+          </form>
+          <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+            <symbol id="spinner">
+              <svg viewBox="0 0 30 30">
+                <circle
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-dasharray="85%"
+                  cx="50%"
+                  cy="50%"
+                  r="40%"
+                >
+                  <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    from="0 15 15"
+                    to="360 15 15"
+                    dur="0.7s"
+                    repeatCount="indefinite"
+                  ></animateTransform>
+                </circle>
+              </svg>
+            </symbol>
+          </svg>
+          <div class="register">
+            Bạn chưa có tài khoản? <a routerLink="/register">Đăng ký ngay!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<ng-template class="theme-modal" #forget let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Nhập email</h5>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body p-3">
+      <div class="form-group" style="position: relative">
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          [(ngModel)]="email"
+          required
+          email
+          placeholder="Email đăng ký tài khoản"
+        />
+      </div>
+      <button
+        (click)="sendCode()"
+        type="button"
+        class="btn btn-checkout spinner"
+        [ngClass]="{ 'spinner--active': isSendCode }"
+        [disabled]="isSendCode"
+      >
+        <span class="spinner-label">Gửi mã xác minh</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="spinner-loader">
+          <use href="#spinner1"></use>
+        </svg>
+      </button>
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+        <symbol id="spinner1">
+          <svg viewBox="0 0 30 30">
+            <circle
+              stroke="currentColor"
+              stroke-width="2"
+              fill="none"
+              stroke-linecap="round"
+              stroke-dasharray="85%"
+              cx="50%"
+              cy="50%"
+              r="40%"
+            >
+              <animateTransform
+                attributeName="transform"
+                type="rotate"
+                from="0 15 15"
+                to="360 15 15"
+                dur="0.7s"
+                repeatCount="indefinite"
+              ></animateTransform>
+            </circle>
+          </svg>
+        </symbol>
+      </svg>
+    </div>
+  </div>
+</ng-template>
+<ng-template class="theme-modal" #SendCode let-modal>
+  <div class="modal-content">
+    <div class="modal-body p-3">
+      <form>
+        <div class="J1i6cp">
+          <div class="gZNAGg">
+            <div class="ZqWCFj">
+              <div class="v2Lbca Efn4Xp">
+                <div class="GpqIkE">Nhập mã xác nhận</div>
+              </div>
+            </div>
+          </div>
+          <div class="yXry6s B-fiUo">
+            <div></div>
+            <div class="_66LxYw">Mã xác minh của bạn sẽ được gửi đến</div>
+            <div class="QB3Rcf">
+              <div class="REgXqn">
+                {{ maskEmail(email) }}
+              </div>
+            </div>
+            <div class="BZOjMA">
+              <div class="hBZjRj">
+                <input
+                  class="WZp32T"
+                  type="tel"
+                  autocomplete="one-time-code"
+                  maxlength="6"
+                  name="verificationCode"
+                  [(ngModel)]="verificationCode"
+                />
+                <div class="_29bVQs">
+                  <div class="EwAdvD"></div>
+                  <div class="EwAdvD"></div>
+                  <div class="EwAdvD"></div>
+                  <div class="EwAdvD"></div>
+                  <div class="EwAdvD"></div>
+                  <div class="EwAdvD"></div>
+                </div>
+              </div>
+            </div>
+            <div class="jjZYAs">
+              <div *ngIf="formattedCountdown && !countdownEnded">
+                {{ formattedCountdown }}
+              </div>
+              <div *ngIf="countdownEnded" class="-8CgIK">
+                Bạn vẫn chưa nhận được?
+              </div>
+              <div *ngIf="countdownEnded">
+                <span
+                  style="cursor: pointer"
+                  (click)="sendAgain()"
+                  class="_1vRGRJ DTS0VZ"
+                  >Gửi lại</span
+                >
+              </div>
+            </div>
+            <button
+              class="btn btn-checkout spinner"
+              [ngClass]="{ 'spinner--active': isLoadingForgotPassword }"
+              (click)="confirmForgot()"
+              [disabled]="isLoadingForgotPassword"
+            >
+              <span class="spinner-label">XÁC NHẬN</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="spinner-loader">
+                <use href="#spinner1"></use>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </form>
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+        <symbol id="spinner1">
+          <svg viewBox="0 0 30 30">
+            <circle
+              stroke="currentColor"
+              stroke-width="2"
+              fill="none"
+              stroke-linecap="round"
+              stroke-dasharray="85%"
+              cx="50%"
+              cy="50%"
+              r="40%"
+            >
+              <animateTransform
+                attributeName="transform"
+                type="rotate"
+                from="0 15 15"
+                to="360 15 15"
+                dur="0.7s"
+                repeatCount="indefinite"
+              ></animateTransform>
+            </circle>
+          </svg>
+        </symbol>
+      </svg>
+    </div>
+  </div>
+</ng-template>
+<ng-template class="theme-modal" #forgetPass let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Đổi mật khẩu</h5>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body p-3">
+      <form
+        [formGroup]="forgotForm"
+        (submit)="submitForgetPass()"
+        class="theme-form"
+      >
+        <div class="form-group" style="position: relative">
+          <input
+            type="password"
+            class="form-control mb-1"
+            placeholder="Mật khẩu"
+            formControlName="password"
+          />
+          <div
+            *ngIf="forgotForm.controls.password.errors?.required && isSubmit"
+            class="page-signup-error px-1"
+          >
+            <div>Vui lòng nhập mật khẩu</div>
+          </div>
+          <div
+            *ngIf="
+              (forgotForm.controls.password.errors?.minlength ||
+                forgotForm.controls.password.errors?.maxlength) &&
+              isSubmit
+            "
+            class="page-signup-error px-1"
+          >
+            <div>Mật khẩu dài từ 6 đến 50 ký tự</div>
+          </div>
+        </div>
+        <div class="form-group" style="position: relative">
+          <input
+            type="password"
+            class="form-control mb-1"
+            placeholder="Xác nhận mật khẩu"
+            formControlName="confirmPassword"
+          />
+          <div
+            *ngIf="
+              isSubmit && forgotForm.controls.confirmPassword.errors?.required
+            "
+            class="page-signup-error px-1"
+          >
+            <div>Mật khẩu xác nhận không khớp</div>
+          </div>
+          <div
+            *ngIf="
+              !passwordMatchValidator() &&
+              isSubmit &&
+              !forgotForm.controls.confirmPassword.errors?.required &&
+              !forgotForm.controls.password.invalid
+            "
+            class="page-signup-error px-1"
+          >
+            <div>Mật khẩu xác nhận không khớp</div>
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-checkout spinner"
+          [ngClass]="{ 'spinner--active': isSendCode }"
+          [disabled]="isSendCode"
+        >
+          <span class="spinner-label">Đổi mật khẩu</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="spinner-loader">
+            <use href="#spinner2"></use>
+          </svg>
+        </button>
+      </form>
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+        <symbol id="spinner2">
+          <svg viewBox="0 0 30 30">
+            <circle
+              stroke="currentColor"
+              stroke-width="2"
+              fill="none"
+              stroke-linecap="round"
+              stroke-dasharray="85%"
+              cx="50%"
+              cy="50%"
+              r="40%"
+            >
+              <animateTransform
+                attributeName="transform"
+                type="rotate"
+                from="0 15 15"
+                to="360 15 15"
+                dur="0.7s"
+                repeatCount="indefinite"
+              ></animateTransform>
+            </circle>
+          </svg>
+        </symbol>
+      </svg>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,157 @@
+.collection-banner {
+  height: 400px;
+}
+@media (max-width: 1200px) {
+  .collection-banner {
+    height: 250px;
+  }
+}
+.contain-banner h4 {
+  color: #b7deff;
+}
+.contain-banner h2 {
+  color: #b7deff;
+  font-size: 25px;
+}
+
+.collection-banner img {
+  filter: brightness(0.8);
+}
+.collection-banner.p-right .contain-banner {
+  justify-content: center;
+  align-items: end;
+}
+.header-preview {
+  height: 74px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-preview .title {
+  height: 26px;
+  display: flex;
+  align-items: center;
+  font-family: "SVN-Gilroy";
+  font-weight: 600;
+  font-size: 16px;
+  color: #11006f;
+}
+.header-preview .show-more {
+  background: url(https://bizweb.dktcdn.net/100/438/408/themes/916476/assets/arrow-show-more.svg?1691755792882)
+    right center no-repeat;
+  padding-right: 16px;
+  background-size: 12px 12px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  font-family: "SVN-Gilroy";
+  font-weight: 600;
+  font-size: 16px;
+  color: #7a7a9d;
+}
+.banner {
+  width: 190px;
+  height: 416px;
+  // margin-right: 42px;
+}
+.wrap-list-product {
+  position: relative;
+  width: calc(100% - 232px);
+}
+.title-promotion {
+  background: url(https://bizweb.dktcdn.net/100/438/408/themes/916476/assets/fire-icon-new.png?1692075012882)
+    left center no-repeat;
+  padding-left: 30px;
+  background-size: 23px 23px;
+}
+.title-promotion .title-flash-sale {
+  background: linear-gradient(180deg, #fdb700 0%, #f02900 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+  font-size: 20px;
+  font-weight: 700;
+}
+.menu_silebar_item {
+  width: 150px !important;
+  height: 150px;
+  margin-top: 5px;
+  margin-right: 20px;
+}
+.menu_silebar_item .group_item {
+  width: 150px;
+}
+.menu_silebar_item .group_item .category_item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.menu_silebar_item .group_item .category_item .image img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  display: initial;
+}
+.category-desktop-lazyload {
+  min-width: 90px;
+  max-width: 90px;
+  min-height: 90px;
+  max-height: 90px;
+  overflow: hidden;
+}
+.menu_silebar_item .group_item .category_item .title {
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "SVN-Gilroy";
+  color: #11006f;
+  text-transform: uppercase;
+}
+@media (max-width: 992px) {
+  .menu_silebar_item .group_item .category_item .image img {
+    height: 56px;
+    min-width: 56px;
+    max-width: 56px;
+    min-height: 56px;
+    max-height: 56px;
+    overflow: hidden;
+  }
+  .menu_silebar_item .group_item .category_item .image {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .menu_silebar_item .group_item .category_item .title {
+    font-size: 10px;
+  }
+  .menu_silebar_item .group_item .category_item {
+    text-align: center;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .menu_silebar_item .group_item {
+    width: 19vw;
+  }
+  .menu_silebar_item {
+    width: 19vw !important;
+    margin-right: 0px;
+  }
+  .banner-custom {
+    padding: 0 !important;
+  }
+}
+.big-campaign {
+  margin-top: -140px;
+  padding-left: 60px;
+  padding-right: 60px;
+}

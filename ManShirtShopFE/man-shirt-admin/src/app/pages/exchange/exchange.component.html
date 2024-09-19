@@ -1,0 +1,198 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+<div class="container-fluid">
+  <app-page-title title="ĐỔI TRẢ" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term" />
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-sm-8">
+              <div class="text-sm-end">
+                <button (click)="openModal()" type="button" class="btn btn-success btn-rounded mb-2 me-2">
+                  <i class="mdi mdi-plus mr-1"></i> Tạo đơn đổi trả
+                </button>
+              </div>
+            </div> -->
+          </div>
+          <ul ngbNav #customNav="ngbNav" [activeId]="navActive" class="nav nav-tabs nav-tabs-custom nav-success mb-3">
+            <!-- <li [ngbNavItem]="10" class="nav-item">
+              <a class="nav-link py-3 font-size-14" data-bs-toggle="tab" role="tab" aria-selected="true" ngbNavLink>
+                <i class="mdi mdi-shopping me-1 align-bottom"></i> Tất cả các
+                đơn đặt hàng
+              </a>
+            </li> -->
+            <li [ngbNavItem]="0" class="nav-item" (click)="getOrder(0)">
+              <a ngbNavLink class="nav-link py-3 font-size-14" data-bs-toggle="tab" role="tab" aria-selected="false">
+                <i class="mdi mdi-book-alert-outline me-1 align-bottom"></i> Chờ
+                duyệt
+                <span *ngIf="count" class="badge bg-danger align-middle ms-1">{{
+                  count
+                  }}</span>
+              </a>
+            </li>
+            <li [ngbNavItem]="1" class="nav-item" (click)="getOrder(1)">
+              <a ngbNavLink class="nav-link py-3 font-size-14" data-bs-toggle="tab" role="tab" aria-selected="false">
+                <i class="mdi mdi-truck me-1 align-bottom"></i> Đang giao
+                <!-- <span class="badge bg-danger align-middle ms-1">1</span> -->
+              </a>
+            </li>
+            <li [ngbNavItem]="2" class="nav-item" (click)="getOrder(2)">
+              <a ngbNavLink class="nav-link py-3 font-size-14" data-bs-toggle="tab" role="tab" aria-selected="false">
+                <i class="mdi mdi-clipboard-arrow-left me-1 align-bottom"></i>
+                Thành công
+              </a>
+            </li>
+            <li [ngbNavItem]="3" class="nav-item" (click)="getOrder(3)">
+              <a ngbNavLink class="nav-link py-3 font-size-14" data-bs-toggle="tab" role="tab" aria-selected="false">
+                <i class="mdi mdi-close-circle-outline me-1 align-bottom"></i>
+                Đã hủy
+              </a>
+            </li>
+          </ul>
+          <!-- Table data -->
+          <ng-container *ngIf="returns">
+            <app-tranexchange [onLoadingChanged]="onLoadingChanged"
+              [returns]="returns | filter : term"></app-tranexchange>
+          </ng-container>
+          <ul class="pagination pagination-rounded justify-content-end mb-2">
+            <li class="page-item disabled">
+              <a class="page-link" href="javascript: void(0);" aria-label="Previous">
+                <i class="mdi mdi-chevron-left"></i>
+              </a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="javascript: void(0);">1</a>
+            </li>
+            <!-- <li class="page-item">
+              <a class="page-link" href="javascript: void(0);">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript: void(0);">3</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript: void(0);">4</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript: void(0);">5</a>
+            </li> -->
+            <li class="page-item">
+              <a class="page-link" href="javascript: void(0);" aria-label="Next">
+                <i class="mdi mdi-chevron-right"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #exchangeModal role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0" *ngIf="order">
+      Tạo đơn đổi trả cho hóa đơn {{ order.code }}
+    </h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="table-order mt-0">
+      <div class="table-responsive-block table_mobile">
+        <table id="order_details" class="table table-cart">
+          <thead class="thead-default theborder">
+            <tr>
+              <th>Sản phẩm</th>
+              <th>Số lượng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let productDetail of billreturn.orderDetail">
+              <td class="link" [style]="
+                  productDetail.quantity === 0 ? 'filter: grayscale(1)' : ''
+                ">
+                <div class="image_order" style="width: auto">
+                  <!-- <a style="height: 80px"><img [src]="
+                        getImageProductDetail(
+                          productDetail?.productDetailId?.product,
+                          productDetail?.productDetailId
+                        )[0].urlImage
+                      " alt="" /></a> -->
+                </div>
+                <div class="content_right">
+                  <a class="title_order">
+                    {{ productDetail?.productDetailId?.product?.name }}</a>
+                  <p style="color: #828282; font-size: 12px">
+                    {{ productDetail?.productDetailId?.color?.name }}
+                    /
+                    {{ productDetail?.productDetailId?.size?.code }}
+                  </p>
+                  <p class="sku_order">
+                    Số lượng:
+                    {{ getQuantity(productDetail) }}
+                  </p>
+                  <div class="grid grid-qty set-quatity-return">
+                    <div class="grid__item one-half cart_select">
+                      <div class="ajaxcart__qty input-group-btn">
+                        <button (click)="increaseQuantity(productDetail)" type="button"
+                          class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count">
+                          +
+                        </button>
+                        <input type="text" [name]="productDetail.id" class="ajaxcart__qty-num number-sidebar" disabled
+                          [(ngModel)]="productDetail.quantity" />
+                        <button (click)="decreaseQuantity(productDetail)" type="button"
+                          class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count">
+                          -
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="grid grid-qty">
+                  <div class="grid__item one-half cart_select">
+                    <div class="ajaxcart__qty input-group-btn">
+                      <button (click)="increaseQuantity(productDetail)" type="button"
+                        class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count">
+                        +
+                      </button>
+                      <input type="text" [name]="productDetail.id" class="ajaxcart__qty-num number-sidebar" disabled
+                        [(ngModel)]="productDetail.quantity" />
+                      <button (click)="decreaseQuantity(productDetail)" type="button"
+                        class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count">
+                        -
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="form-group__textarea">
+        <div class="form-group mb-0">
+          <div class="bpr-form-review-body">
+            <textarea maxlength="1000" id="review_body" name="body" rows="5" placeholder="Nhập lí do"
+              [(ngModel)]="content"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button (click)="sendReturn()" class="btn btn-success">
+        Lưu
+      </button>
+      <button class="btn btn-secondary" (click)="closeModal()">
+        Close
+      </button>
+    </div>
+  </div>
+
+</ng-template>

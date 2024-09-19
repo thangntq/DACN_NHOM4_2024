@@ -1,0 +1,184 @@
+<div *ngIf="!loader">
+  <div class="img-wrapper" style="border-radius: 5px">
+    <div class="lable-block">
+      <div class="wrap-product-sold-info">
+        <div class="product-review">
+          <i class="fa fa-star"></i>
+          <span class="number-star-23371857">{{
+            product.rating ? product.rating : 5
+          }}</span>
+        </div>
+        <div class="product-sold">
+          <div class="line"></div>
+          Đã bán
+          <span class="number-product-sold number-product-sold-23371857">{{
+            product.soluongdaban ? product.soluongdaban : 0
+          }}</span>
+        </div>
+      </div>
+      <!-- <span class="lable3" *ngIf="product.new">new</span>
+      <span class="lable4" *ngIf="product.sale">hot</span> -->
+      <div *ngIf="product.discount && product.discount !== 0" class="sale">
+        {{ product.discount }}%
+      </div>
+    </div>
+    <div class="front">
+      <a>
+        <img
+          [defaultImage]="
+            ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'
+          "
+          [lazyLoad]="ImageSrc ? ImageSrc : getMainImage(product)"
+          class="img-fluid lazy-loading"
+        />
+      </a>
+    </div>
+    <div class="back" *ngIf="onHowerChangeImage">
+      <a>
+        <img
+          [src]="ImageSrc1 ? ImageSrc1 : getSubImage(product)"
+          class="img-fluid lazy-loading"
+        />
+      </a>
+    </div>
+    <ul class="product-thumb-list" *ngIf="thumbnail">
+      <li
+        class="grid_thumb_img"
+        *ngFor="
+          let image of filterImagesByColor(
+            selectedColor ? selectedColor : product?.productImage[0]?.color,
+            product
+          )
+        "
+        [class.active]="ImageSrc == image.urlImage"
+      >
+        <a (mouseover)="ChangeVariantsImage(image.urlImage)">
+          <img [lazyLoad]="image.urlImage" />
+        </a>
+      </li>
+    </ul>
+
+    <div class="cart-info cart-wrap">
+      <!-- <a href="javascript:void(0)" title="Add to cart" (click)="CartModal.openModal(product)" *ngIf="cartModal">
+        <i class="ti-shopping-cart"></i>
+      </a> -->
+      <a
+        href="javascript:void(0)"
+        title="Add to cart"
+        (click)="QuickView.openModal(ImageSrc, ImageSrc1, selectedColor)"
+      >
+        <i class="ti-shopping-cart"></i>
+      </a>
+      <a
+        href="javascript:void(0)"
+        title="Add to Wishlist"
+        (click)="addToWishlist(product)"
+      >
+        <i class="ti-heart" aria-hidden="true"></i>
+      </a>
+      <a
+        href="javascript:void(0)"
+        title="Quick View"
+        (click)="QuickView.openModal(ImageSrc, ImageSrc1, selectedColor)"
+      >
+        <i class="ti-search" aria-hidden="true"></i>
+      </a>
+      <a
+        href="javascript:void(0)"
+        title="Compare"
+        (click)="addToCompare(product)"
+      >
+        <i class="ti-reload" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+  <div class="product-detail">
+    <div>
+      <ngb-rating
+        [rate]="product?.rating"
+        [readonly]="true"
+        [max]="5"
+        style="font-size: 15px"
+      >
+        <ng-template let-fill="fill" let-index="index">
+          <span
+            [class]="fill ? 'fa fa-star checked' : 'fa fa-star nochecked'"
+            style="margin-left: 2px"
+          ></span> </ng-template
+      ></ngb-rating>
+      <h3 class="product-name">
+        <a
+          [routerLink]="['/shop/product/', product?.name.replace(' ', '-')]"
+          title=""
+          >{{ product?.name }}</a
+        >
+      </h3>
+      <h4>
+        {{
+          (
+            product?.price * currency?.price | discount : product
+          ).toLocaleString("vi-VN")
+        }}đ
+        <del *ngIf="product?.discount"
+          ><span class="money">
+            {{
+              (product?.price * currency?.price).toLocaleString("vi-VN")
+            }}đ</span
+          ></del
+        >
+      </h4>
+      <ul
+        class="color-variant"
+        style="padding-right: 10px; margin-bottom: 15px"
+        *ngIf="getAllColors(product).length"
+      >
+        <owl-carousel-o [options]="ProductSliderConfig">
+          <ng-container
+            *ngFor="let color of getAllColors(product) | slice : 0 : 16"
+          >
+            <ng-template carouselSlide>
+              <li
+                style="padding-left: 0; padding-right: 0"
+                [ngClass]="{
+                  selected:
+                    selectedColor === color ||
+                    (!selectedColor && color === getAllColors(product)[0])
+                }"
+                (click)="ChangeVariants(color, product); selectedColor = color"
+              >
+                <img
+                  class="img-fluid"
+                  [src]="filterImagesMainByColor(color, product)[0]?.urlImage"
+                  alt=""
+                />
+              </li>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+      </ul>
+      <div class="Nq-pih QpXvtd" *ngIf="flashSale">
+        <div class="rZzxlM" style="height: 20px">
+          <div class="RX2Jch RJ6Vpu"></div>
+          <div class="eNmE7o RJ6Vpu">CHỈ CÒN 2</div>
+          <div
+            class="d3m1Az"
+            style="height: 20px; width: 85%; border-radius: 8px 0px 0px 8px"
+          ></div>
+          <div class="SqDxib" style="border-radius: 8px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-skeleton-product-box *ngIf="loader"></app-skeleton-product-box>
+<app-quick-view
+  #quickView
+  [product]="product"
+  [currency]="currency"
+></app-quick-view>
+<app-cart-modal
+  #cartModal
+  [product]="product"
+  [currency]="currency"
+  *ngIf="cartModal"
+></app-cart-modal>
